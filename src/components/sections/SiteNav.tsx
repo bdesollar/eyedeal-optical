@@ -32,7 +32,6 @@ export default function SiteNav() {
           </div>
 
           <div className="nav-right">
-            <span className="nav-phone">Call <strong>563.557.0995</strong></span>
             <a href="#contact" className="btn btn-primary">
               Book Appointment
               <ArrowRight />

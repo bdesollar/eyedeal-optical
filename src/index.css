@@ -91,8 +91,6 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .navlinks a:hover{color:var(--brass-deep)}
 .navlinks a:hover::after{width:100%;left:0}
 .nav-right{justify-self:end;display:flex;align-items:center;gap:18px}
-.nav-phone{font-size:13px;color:var(--muted);letter-spacing:.04em}
-.nav-phone strong{color:var(--navy);font-weight:600}
 .btn{
   display:inline-flex;align-items:center;gap:10px;
   padding:13px 22px;font-size:12px;font-weight:600;
@@ -595,7 +593,6 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .reveal.delay-3{transition-delay:.3s}
 
 @media (max-width:1180px){
-  .nav-phone{display:none}
   .navlinks{gap:24px}
   .navlinks a{font-size:12px}
 }
