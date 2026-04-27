@@ -13,14 +13,14 @@ const categories: { value: Product['category'] | 'all'; label: string }[] = [
 
 export default function Eyewear() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const activeCategory = (searchParams.get('category') as Product['category']) || 'all'
+  const activeCategory = (searchParams.get('category') as Product['category'] | null) ?? 'all'
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setLoading(true)
-    getProducts(activeCategory === 'all' ? undefined : activeCategory)
+    getProducts(activeCategory === null || activeCategory === 'all' ? undefined : activeCategory)
       .then(setProducts)
       .catch(() => setError('Failed to load products. Please try again.'))
       .finally(() => setLoading(false))
@@ -36,7 +36,7 @@ export default function Eyewear() {
             key={value}
             onClick={() => setSearchParams(value === 'all' ? {} : { category: value })}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeCategory === value
+              (activeCategory ?? 'all') === value
                 ? 'bg-blue-700 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
