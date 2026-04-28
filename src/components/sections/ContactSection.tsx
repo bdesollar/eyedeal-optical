@@ -40,15 +40,14 @@ export default function ContactSection() {
     setSubmitting(true)
     setError(null)
     try {
-      const { error: sbError } = await supabase.from('appointments').insert({
-        patient_name: `${form.firstName} ${form.lastName}`.trim(),
+      const name = `${form.firstName} ${form.lastName}`.trim()
+      const message = [`Reason: ${form.reason}`, form.notes ? `Notes: ${form.notes}` : ''].filter(Boolean).join('\n\n')
+      const { error: sbError } = await supabase.from('contact_submissions').insert({
+        name,
         email: form.email,
-        phone: form.phone,
-        appointment_type: 'eye_exam',
-        preferred_date: new Date().toISOString().split('T')[0],
-        preferred_time: '',
-        notes: `${form.reason}${form.notes ? ' — ' + form.notes : ''}`,
-        status: 'pending',
+        phone: form.phone || null,
+        message,
+        source: 'homepage',
       })
       if (sbError) throw sbError
       setSubmitted(true)

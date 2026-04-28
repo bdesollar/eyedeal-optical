@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom'
+
 export default function SiteFooter() {
   return (
     <footer className="footer">
       <div className="wrap">
         <div className="foot-top">
           <div className="foot-brand">
-            <a href="#" className="logo">
+            <Link to="/" className="logo">
               <span className="logo-mark">
-                <svg viewBox="0 0 84 32" fill="none" strokeWidth="1.4">
+                <svg viewBox="0 0 84 32" fill="none" strokeWidth="1.4" aria-hidden>
                   <circle cx="20" cy="16" r="13" stroke="#F5EDE0" />
                   <circle cx="64" cy="16" r="13" stroke="#F5EDE0" />
                   <path d="M33 16h18" stroke="#C9A961" strokeWidth="1.6" />
@@ -15,7 +17,7 @@ export default function SiteFooter() {
                 </svg>
               </span>
               <span className="logo-text">Eyedeal <em>Optical</em></span>
-            </a>
+            </Link>
             <p>Dubuque's locally owned, hand-curated boutique optical studio. Fitting friends and neighbors with exceptional eyewear since 1997.</p>
             <div className="socials">
               <a href="#" aria-label="Facebook">
@@ -62,7 +64,12 @@ export default function SiteFooter() {
 
         <div className="foot-bot">
           <span>© {new Date().getFullYear()} Eyedeal Optical · Owned &amp; operated by Bob Pierce</span>
-          <span className="since"><em>Crafting Dubuque's eyewear since 1997.</em></span>
+          <span className="since">
+            <em>Crafting Dubuque's eyewear since 1997.</em>
+            <Link to="/admin/login" className="admin-foot-link" aria-label="Staff sign in">
+              Staff
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

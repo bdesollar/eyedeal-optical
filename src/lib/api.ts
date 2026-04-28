@@ -20,16 +20,32 @@ export async function getProduct(id: string) {
 }
 
 export async function submitAppointment(appointment: Omit<Appointment, 'id' | 'status' | 'created_at'>) {
-  const { data, error } = await supabase
-    .from('appointments')
-    .insert({ ...appointment, status: 'pending' })
-    .select()
-    .single()
+  const { error } = await supabase.from('appointments').insert({ ...appointment, status: 'pending' })
   if (error) throw error
-  return data as Appointment
 }
 
-export async function submitContactForm(form: ContactForm) {
-  const { error } = await supabase.from('contact_submissions').insert(form)
+export async function submitContactForm(form: ContactForm, source: 'homepage' | 'contact_page' = 'contact_page') {
+  const { error } = await supabase.from('contact_submissions').insert({
+    name: form.name,
+    email: form.email,
+    phone: form.phone?.trim() || null,
+    message: form.message,
+    source,
+  })
   if (error) throw error
+}
+
+export async function logPageVisit(payload: {
+  path: string
+  referrer: string | null
+  userAgent: string | null
+  visitorKey: string | null
+}) {
+  const { error } = await supabase.from('page_visits').insert({
+    path: payload.path,
+    referrer: payload.referrer,
+    user_agent: payload.userAgent,
+    visitor_key: payload.visitorKey,
+  })
+  if (error) console.warn('logPageVisit', error.message)
 }

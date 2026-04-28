@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none">
     <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" strokeWidth="1.4" />
@@ -9,9 +11,9 @@ export default function SiteNav() {
     <nav className="nav">
       <div className="wrap">
         <div className="row">
-          <a href="#" className="logo">
+          <Link to="/" className="logo">
             <span className="logo-mark">
-              <svg viewBox="0 0 84 32" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <svg viewBox="0 0 84 32" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden>
                 <circle cx="20" cy="16" r="13" stroke="#0F1A2E" />
                 <circle cx="64" cy="16" r="13" stroke="#0F1A2E" />
                 <path d="M33 16h18" stroke="#C9A961" strokeWidth="1.6" />
@@ -20,7 +22,7 @@ export default function SiteNav() {
               </svg>
             </span>
             <span className="logo-text">Eyedeal <em>Optical</em></span>
-          </a>
+          </Link>
 
           <div className="navlinks">
             <a href="#story">Our Story</a>

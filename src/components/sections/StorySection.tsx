@@ -17,17 +17,25 @@ export default function StorySection() {
           {/* Content */}
           <div className="story-content reveal delay-1">
             <span className="eyebrow">Our Story</span>
-            <h2>A career with the<br />chains taught Bob<br />what mattered <em>most</em>.</h2>
+            <h2>
+              Locally owned &amp; <br />
+              <em>crafted</em> in Dubuque
+            </h2>
             <p>
-              After years with a national eyewear chain, <strong>Bob Pierce</strong> saw something the corporate manuals had missed — that Dubuque deserved better quality, kinder service, and a fairer price.
+              Eyedeal Optical is locally owned and operated by Bob Pierce. After beginning his career with a
+              national eyewear chain, Bob discovered the importance of local business to his community and saw an
+              opportunity to bring superior quality, better service and lower cost to his friends and neighbors.
+              His vision was realized in 1997 with the opening of Eyedeal Optical. He hand-picks his incredible
+              selection of frames and cuts all lenses on the premises so each pair of glasses is truly locally
+              crafted. Bob is a member of the Lions Club International and works with the local school district
+              to provide free exams and glasses to children in need.
             </p>
             <p>
-              So in 1997, he opened Eyedeal Optical on Pennsylvania Avenue. Nearly three decades later, Bob still hand-picks every frame in the studio and personally cuts every lens on the premises. Each pair of glasses that leaves the door is, in the truest sense, locally made.
+              As a company, we strive to give every patient the most comprehensive eye care available, exceptional
+              customer service, the latest in lens technology and an incredible selection of frames. We not only
+              want our clients to look great and have superior vision, we want them to leave with the confidence
+              and knowledge of an informed consumer.
             </p>
-            <div className="story-quote">
-              <p>"My patients aren't customers. They're friends and neighbors — and I want them looking great, seeing clearly, and walking out feeling like an informed consumer."</p>
-              <div className="attr">— Bob Pierce, Owner</div>
-            </div>
             <div className="story-pillars">
               <div className="pillar">
                 <svg className="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="1.2">

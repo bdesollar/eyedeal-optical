@@ -53,3 +53,41 @@ create policy "appointments_public_insert" on appointments
 
 create policy "contact_public_insert" on contact_submissions
   for insert with check (true);
+
+-- === Run migrations/20260427120000_admin_visits_rls.sql on your project, or paste below ===
+
+create table if not exists admin_allowlist (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+alter table admin_allowlist enable row level security;
+create policy "admin_self_read" on admin_allowlist
+  for select to authenticated using (auth.uid() = user_id);
+
+create table if not exists page_visits (
+  id uuid primary key default gen_random_uuid(),
+  path text not null default '/',
+  referrer text,
+  user_agent text,
+  visitor_key text,
+  created_at timestamptz not null default now()
+);
+alter table page_visits enable row level security;
+create policy "page_visits_anon_insert" on page_visits
+  for insert to anon, authenticated with check (true);
+create policy "page_visits_admin_select" on page_visits
+  for select to authenticated using (
+    exists (select 1 from admin_allowlist a where a.user_id = auth.uid())
+  );
+
+alter table contact_submissions add column if not exists source text not null default 'contact';
+create policy "contact_submissions_admin_select" on contact_submissions
+  for select to authenticated using (
+    exists (select 1 from admin_allowlist a where a.user_id = auth.uid())
+  );
+create policy "appointments_admin_select" on appointments
+  for select to authenticated using (
+    exists (select 1 from admin_allowlist a where a.user_id = auth.uid())
+  );
+grant select on admin_allowlist to authenticated;
+grant select, insert on page_visits to anon, authenticated;
