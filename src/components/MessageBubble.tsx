@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { saveSiteChatLog, type SiteChatCategory } from '../lib/api'
 
 type ChatRole = 'user' | 'assistant'
 
@@ -125,44 +126,54 @@ function isHelpQuery(t: string) {
   )
 }
 
-function getReplyForMessage(raw: string): string {
+function getReplyWithCategory(raw: string): { text: string; category: SiteChatCategory } {
   const t = raw.toLowerCase().trim()
-  if (!t) return toPlain(REPLIES.fallback)
+  if (!t) return { text: toPlain(REPLIES.fallback), category: 'fallback' }
 
   if (/^(hi|hello|hey|hiya|good (morning|afternoon|evening))\W*(!|\?|.)?$/.test(t)) {
-    return toPlain(REPLIES.greeting)
+    return { text: toPlain(REPLIES.greeting), category: 'greeting' }
   }
   if (/^(thanks?|thank you|thx|appreciate it|much appreciated)\W*$/i.test(raw.trim())) {
-    return toPlain(REPLIES.thanks)
+    return { text: toPlain(REPLIES.thanks), category: 'thanks' }
   }
   if (/^(bye|goodbye|see you|later|farewell|have a good one)\W*$/i.test(t)) {
-    return toPlain(REPLIES.goodbye)
+    return { text: toPlain(REPLIES.goodbye), category: 'goodbye' }
   }
 
   if (/\b(insur|vsp|eyemed|sisco|avesis|benefits|vision plan|coverage|medicaid|medicare|plan)\b/i.test(t)) {
-    return toPlain(REPLIES.insurance)
+    return { text: toPlain(REPLIES.insurance), category: 'insurance' }
   }
 
   if (isAppointmentQuery(t)) {
-    return toPlain(REPLIES.appointment)
+    return { text: toPlain(REPLIES.appointment), category: 'appointment' }
   }
   if (isHoursQuery(t)) {
-    return toPlain(REPLIES.hours)
+    return { text: toPlain(REPLIES.hours), category: 'hours' }
   }
   if (isContactQuery(t)) {
-    return toPlain(REPLIES.contact)
+    return { text: toPlain(REPLIES.contact), category: 'contact' }
   }
   if (isAboutQuery(t)) {
-    return toPlain(REPLIES.about)
+    return { text: toPlain(REPLIES.about), category: 'about' }
   }
   if (isServicesQuery(t)) {
-    return toPlain(REPLIES.services)
+    return { text: toPlain(REPLIES.services), category: 'services' }
   }
   if (isHelpQuery(t)) {
-    return toPlain(REPLIES.help)
+    return { text: toPlain(REPLIES.help), category: 'help' }
   }
 
-  return toPlain(REPLIES.fallback)
+  return { text: toPlain(REPLIES.fallback), category: 'fallback' }
+}
+
+const VISITOR_STORAGE = 'eyedeal_visitor_id'
+
+function readVisitorKeyForChat(): string | null {
+  try {
+    return localStorage.getItem(VISITOR_STORAGE)
+  } catch {
+    return null
+  }
 }
 
 export default function MessageBubble() {
@@ -214,7 +225,8 @@ export default function MessageBubble() {
     ])
     setInput('')
     setSending(true)
-    const text = getReplyForMessage(t)
+    const { text, category } = getReplyWithCategory(t)
+    const path = `${loc.pathname}${loc.search || ''}`
     window.setTimeout(() => {
       setMessages((m) => [
         ...m,
@@ -226,6 +238,13 @@ export default function MessageBubble() {
         },
       ])
       setSending(false)
+      void saveSiteChatLog({
+        userMessage: t,
+        assistantReply: text,
+        category,
+        path,
+        visitorKey: readVisitorKeyForChat(),
+      })
     }, 400)
   }
 

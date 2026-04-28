@@ -49,3 +49,33 @@ export async function logPageVisit(payload: {
   })
   if (error) console.warn('logPageVisit', error.message)
 }
+
+export type SiteChatCategory =
+  | 'greeting'
+  | 'thanks'
+  | 'goodbye'
+  | 'insurance'
+  | 'appointment'
+  | 'hours'
+  | 'contact'
+  | 'about'
+  | 'services'
+  | 'help'
+  | 'fallback'
+
+export async function saveSiteChatLog(row: {
+  userMessage: string
+  assistantReply: string
+  category: SiteChatCategory
+  path: string
+  visitorKey: string | null
+}) {
+  const { error } = await supabase.from('site_chat_log').insert({
+    user_message: row.userMessage,
+    assistant_reply: row.assistantReply,
+    category: row.category,
+    path: row.path,
+    visitor_key: row.visitorKey,
+  })
+  if (error) console.warn('saveSiteChatLog', error.message)
+}
