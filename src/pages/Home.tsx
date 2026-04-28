@@ -1,3 +1,5 @@
+import { useLayoutEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
 import TopStrip from '../components/sections/TopStrip'
 import SiteNav from '../components/sections/SiteNav'
@@ -12,7 +14,19 @@ import ContactSection from '../components/sections/ContactSection'
 import SiteFooter from '../components/sections/SiteFooter'
 
 export default function Home() {
+  const location = useLocation()
   useReveal()
+
+  useLayoutEffect(() => {
+    if (location.pathname !== '/') return
+    const h = location.hash
+    if (!h || h.length < 2) return
+    const id = h.slice(1)
+    if (!/^[A-Za-z][\w:-]*$/.test(id)) return
+    const el = document.getElementById(id)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [location.pathname, location.hash])
+
   return (
     <>
       <TopStrip />

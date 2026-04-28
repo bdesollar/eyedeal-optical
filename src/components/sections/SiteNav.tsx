@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
@@ -17,27 +17,31 @@ const navAnchors: { href: string; label: string }[] = [
   { href: '#contact', label: 'Visit Us' },
 ]
 
-function scrollToTarget(hash: string) {
-  if (!hash || hash === '#') return
-  const id = hash.slice(1)
-  const el = document.getElementById(id)
-  if (el) {
-    const offset = 80
-    const top = el.getBoundingClientRect().top + window.scrollY - offset
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
-}
+const SAME_PAGE_HASH_DELAY_MS = 220
 
 export default function SiteNav() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
   const [portalReady, setPortalReady] = useState(false)
   const panelId = useId()
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
   const burgerRef = useRef<HTMLButtonElement>(null)
+  const samePageHashNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setPortalReady(true)
   }, [])
+
+  useEffect(
+    () => () => {
+      if (samePageHashNavTimerRef.current) {
+        clearTimeout(samePageHashNavTimerRef.current)
+        samePageHashNavTimerRef.current = null
+      }
+    },
+    [],
+  )
 
   const close = useCallback(() => setMenuOpen(false), [])
 
@@ -78,11 +82,29 @@ export default function SiteNav() {
 
   function onNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
     e.preventDefault()
-    if (href.startsWith('#')) {
-      window.history.pushState(null, '', href)
-    }
+    if (!href.startsWith('#') || href === '#') return
+    const id = href.slice(1)
+    if (!id) return
+
     close()
-    requestAnimationFrame(() => scrollToTarget(href))
+
+    if (location.pathname !== '/') {
+      navigate({ pathname: '/', hash: id }, { preventScrollReset: true })
+      return
+    }
+
+    if (samePageHashNavTimerRef.current) {
+      clearTimeout(samePageHashNavTimerRef.current)
+    }
+    samePageHashNavTimerRef.current = window.setTimeout(() => {
+      samePageHashNavTimerRef.current = null
+      const hashBefore = window.location.hash
+      navigate({ hash: id }, { preventScrollReset: true })
+      // Re-tapping the same #section does not change `location` — Home will not re-scroll; handle here.
+      if (hashBefore === `#${id}`) {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, SAME_PAGE_HASH_DELAY_MS)
   }
 
   return (
