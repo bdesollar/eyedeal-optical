@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 
 interface FormState {
@@ -67,7 +68,13 @@ export default function ContactSection() {
           <div className="contact-info reveal">
             <span className="eyebrow">Visit the Studio</span>
             <h2>2644 Pennsylvania Ave.<br />Dubuque, <em>Iowa</em>.</h2>
-            <p>Stop by during studio hours, or send a note below and we'll find a time that works. New patients always welcome.</p>
+            <p>Stop by during studio hours, or send a note below and we’ll find a time that works. New patients always welcome.</p>
+            <p style={{ marginTop: 12, fontSize: 14 }}>
+              <Link to="/book" style={{ color: 'var(--brass-deep)', fontWeight: 600, textDecoration: 'underline' }}>
+                Book a specific time online
+              </Link>
+              <span style={{ color: 'var(--muted)' }}> — or message us here.</span>
+            </p>
 
             <div className="contact-block">
               <div className="cinfo">

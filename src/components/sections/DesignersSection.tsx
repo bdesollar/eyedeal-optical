@@ -99,18 +99,18 @@ export default function DesignersSection() {
 
         <div className="designer-list reveal">
           {designers.map((d) => (
-            <div key={d.idx} className="designer-row">
+            <a key={d.idx} href="#contact" className="designer-row">
               <span className="idx">{d.idx}</span>
               <span className="name">{d.name}</span>
               <span className="tag">{d.tag}</span>
               {d.preview}
-            </div>
+            </a>
           ))}
         </div>
 
         <div className="designers-cta">
-          <a href="#contact" className="btn btn-gold">
-            Visit the Studio
+          <a href="/book" className="btn btn-gold">
+            Book a frame visit
             <ArrowRight />
           </a>
         </div>

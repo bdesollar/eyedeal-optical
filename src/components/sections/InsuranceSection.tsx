@@ -2,7 +2,7 @@ const plans = ['Eyemed', 'VSP', 'SISCO', 'Avesis', 'Health Choices', 'Care Credi
 
 export default function InsuranceSection() {
   return (
-    <section className="insurance">
+    <section className="insurance" id="insurance">
       <div className="wrap">
         <div className="row">
           <h4>Insurance plans we <em>accept</em>.</h4>

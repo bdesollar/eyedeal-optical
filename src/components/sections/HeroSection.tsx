@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 const brands = ['Ray-Ban','Oakley','Maui Jim','Tom Ford','Persol','Costa','Silhouette','Kate Spade','Coach','Nike Vision']
 
@@ -59,10 +60,10 @@ export default function HeroSection() {
               A locally owned, hand-curated eyewear studio in the heart of Dubuque. Every frame personally selected by Bob Pierce. Every lens cut on the premises.
             </p>
             <div className="hero-ctas reveal delay-3">
-              <a href="#contact" className="btn btn-primary">
+              <Link to="/book" className="btn btn-primary">
                 Book an Appointment
                 <ArrowRight />
-              </a>
+              </Link>
               <a href="#designers" className="btn btn-ghost">Browse the Collection</a>
             </div>
             <div className="hero-meta reveal delay-3">

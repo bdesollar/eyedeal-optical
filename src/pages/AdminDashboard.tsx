@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { isCurrentUserAdmin } from '../lib/adminAuth'
 import { siteChatLabel } from '../lib/siteChatLabels'
+import AdminAppointmentsView from '../components/appointments/admin/AdminAppointmentsView'
 import type { Appointment } from '../types'
 
 type ContactRow = {
@@ -92,6 +93,15 @@ export default function AdminDashboard() {
     }
   }, [navigate])
 
+  const refetchAppointments = useCallback(async () => {
+    const { data, error } = await supabase.from('appointments').select('*').order('created_at', { ascending: false }).limit(300)
+    if (error) {
+      setLoadError(error.message)
+      return
+    }
+    setAppointments((data ?? []) as Appointment[])
+  }, [])
+
   const siteChatSorted = useMemo(() => {
     const rows = [...siteChat]
     rows.sort((a, b) => {
@@ -149,46 +159,7 @@ export default function AdminDashboard() {
           </button>
         </nav>
 
-        {tab === 'appointments' && (
-          <div className="admin-table-wrap">
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>When</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Type</th>
-                  <th>Date / time</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {appointments.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="admin-empty">
-                      No appointment requests yet.
-                    </td>
-                  </tr>
-                ) : (
-                  appointments.map((a) => (
-                    <tr key={a.id}>
-                      <td>{formatDt(a.created_at)}</td>
-                      <td>{a.patient_name}</td>
-                      <td>{a.email}</td>
-                      <td>{a.phone || '—'}</td>
-                      <td>{a.appointment_type}</td>
-                      <td>
-                        {a.preferred_date} {a.preferred_time}
-                      </td>
-                      <td className="admin-cell-notes">{a.notes || '—'}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {tab === 'appointments' && <AdminAppointmentsView appointments={appointments} onRefresh={refetchAppointments} />}
 
         {tab === 'siteChat' && (
           <div>

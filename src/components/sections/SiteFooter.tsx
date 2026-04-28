@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
 export default function SiteFooter() {
   return (
@@ -20,19 +21,21 @@ export default function SiteFooter() {
             </Link>
             <p>Dubuque's locally owned, hand-curated boutique optical studio. Fitting friends and neighbors with exceptional eyewear since 1997.</p>
             <div className="socials">
-              <a href="#" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9z" /></svg>
+              <a href={SITE_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook (search)">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9z" />
+                </svg>
               </a>
-              <a href="#" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <a href={SITE_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram (search)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
                 </svg>
               </a>
-              <a href="#" aria-label="Google">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 11v3h5c-.4 2-2.4 3.5-5 3.5-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5c1.4 0 2.6.5 3.5 1.3l2.5-2.5C16.5 4 14.4 3 12 3 7 3 3 7 3 12s4 9 9 9c5.2 0 8.7-3.7 8.7-8.8 0-.6-.1-1.2-.2-1.7H12z" />
+              <a href={SITE_LINKS.maps} target="_blank" rel="noreferrer" aria-label="Open in Google Maps">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
                 </svg>
               </a>
             </div>
@@ -52,6 +55,9 @@ export default function SiteFooter() {
             <p>2644 Pennsylvania Ave.<br />Dubuque, IA 52001</p>
             <a href="tel:15635570995">563.557.0995</a>
             <a href="mailto:eyedealoptical1997@yahoo.com">eyedealoptical1997@yahoo.com</a>
+            <Link to="/book" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
+              Book online
+            </Link>
           </div>
 
           <div className="foot-col">

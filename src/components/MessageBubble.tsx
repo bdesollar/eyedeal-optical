@@ -25,7 +25,7 @@ You can also use **Visit Us** on this page to request an appointment or send a m
 We’re a **locally owned** boutique run by **Bob Pierce**, here since **1997**. Bob chooses the frame lines, and we cut a lot of lenses on-site, so your glasses are **locally fit and crafted**—not a one-size-fits-all chain. We work with the community (including the schools and the Lions) and treat patients like **friends and neighbors**.`,
 
   appointment: `**Appointments & requests**
-To book a visit, ask about an exam, or get help with **frames, lenses, or adjustments**: use the **Book Appointment** control on this page, or call **(563) 557-0995** and we’ll get you on the right track. We’ll follow up the way you prefer.`,
+To book a visit, ask about an exam, or get help with **frames, lenses, or adjustments**: use the **Book an appointment** page (eyedealoptical.com/book) or call **(563) 557-0995**. We’ll follow up the way you prefer.`,
 
   insurance: `**Insurance & plans**
 We work with many vision plans and insurers (VSP, Eyemed, and others, depending on your plan). **Coverage and eligibility vary**, so the fastest way to know what works for *you* is a short call: **(563) 557-0995**—or bring your card when you come in.`,

@@ -25,7 +25,11 @@ create table if not exists appointments (
   preferred_time   text not null,
   notes            text,
   status           text not null default 'pending' check (status in ('pending','confirmed','cancelled')),
-  created_at       timestamptz not null default now()
+  created_at       timestamptz not null default now(),
+  scheduled_start  timestamptz,
+  duration_minutes int not null default 30,
+  source           text not null default 'public_form' check (source in ('public_form','admin_manual')),
+  admin_notes      text
 );
 
 -- Contact form submissions

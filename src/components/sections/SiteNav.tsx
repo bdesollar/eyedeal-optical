@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 
 const ArrowRight = () => (
@@ -29,9 +30,14 @@ function scrollToTarget(hash: string) {
 
 export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [portalReady, setPortalReady] = useState(false)
   const panelId = useId()
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
   const burgerRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    setPortalReady(true)
+  }, [])
 
   const close = useCallback(() => setMenuOpen(false), [])
 
@@ -105,13 +111,13 @@ export default function SiteNav() {
           </div>
 
           <div className="nav-right">
-            <a href="#contact" className="btn btn-primary" onClick={(e) => onNavClick(e, '#contact')}>
-              <span className="nav-cta-text">Book Appointment</span>
+            <Link to="/book" className="btn btn-primary" onClick={close}>
+              <span className="nav-cta-text">Book appointment</span>
               <span className="nav-cta-text-short" aria-hidden>
                 Book
               </span>
               <ArrowRight />
-            </a>
+            </Link>
             <button
               ref={burgerRef}
               type="button"
@@ -132,53 +138,56 @@ export default function SiteNav() {
         </div>
       </div>
 
-      <div
-        className="nav-overlay"
-        data-open={menuOpen}
-        onClick={close}
-        onKeyDown={(e) => e.key === 'Escape' && close()}
-        aria-hidden
-      />
-
-      <div
-        className="nav-panel"
-        id={panelId}
-        data-open={menuOpen}
-        role="dialog"
-        aria-label="Site sections"
-        aria-modal="true"
-        hidden={!menuOpen}
-      >
-        <div className="nav-panel-head">
-          <span className="nav-panel-title">On this page</span>
-          <button type="button" className="nav-panel-close" onClick={close} aria-label="Close menu">
-            ×
-          </button>
-        </div>
-        <ul className="nav-panel-list">
-          {navAnchors.map(({ href, label }, i) => (
-            <li key={href}>
-              <a
-                ref={i === 0 ? firstLinkRef : undefined}
-                href={href}
-                onClick={(e) => onNavClick(e, href)}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="nav-panel-cta">
-          <a
-            href="#contact"
-            className="btn btn-primary nav-panel-cta-btn"
-            onClick={(e) => onNavClick(e, '#contact')}
-          >
-            Book Appointment
-            <ArrowRight />
-          </a>
-        </div>
-      </div>
+      {portalReady &&
+        createPortal(
+          <>
+            <div
+              className="nav-overlay"
+              data-open={menuOpen}
+              onClick={close}
+              onKeyDown={(e) => e.key === 'Escape' && close()}
+              aria-hidden
+            />
+            <div
+              className={`nav-panel${menuOpen ? ' is-open' : ''}`}
+              id={panelId}
+              role="dialog"
+              aria-label="Site sections"
+              aria-modal="true"
+              aria-hidden={!menuOpen}
+            >
+              <div className="nav-panel-head">
+                <span className="nav-panel-title">On this page</span>
+                <button type="button" className="nav-panel-close" onClick={close} aria-label="Close menu">
+                  ×
+                </button>
+              </div>
+              <ul className="nav-panel-list">
+                {navAnchors.map(({ href, label }, i) => (
+                  <li key={href}>
+                    <a
+                      ref={i === 0 ? firstLinkRef : undefined}
+                      href={href}
+                      onClick={(e) => onNavClick(e, href)}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div className="nav-panel-cta">
+                <Link to="/book" className="btn btn-primary nav-panel-cta-btn" onClick={close}>
+                  Book appointment
+                  <ArrowRight />
+                </Link>
+                <a href="#contact" className="nav-panel-secondary" onClick={(e) => onNavClick(e, '#contact')}>
+                  Or send a message
+                </a>
+              </div>
+            </div>
+          </>,
+          document.body,
+        )}
     </nav>
   )
 }
