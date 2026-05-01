@@ -58,6 +58,13 @@ I match your message to the answers we already publish—**no off-site tools.**`
 
 const OPEN_LABEL = 'Open quick answers chat'
 
+/** Short labels shown as chips; `query` is sent as if the user typed it (matches routing in getReplyWithCategory). */
+const SUGGESTED_PROMPTS = [
+  { label: 'Hours', query: 'What are your hours?' },
+  { label: 'Phone & address', query: 'What is your phone number and address?' },
+  { label: 'Book a visit', query: 'How do I schedule a visit?' },
+] as const
+
 /** Collapse multiline to single string for message bubble—strip ** markdown for plain text */
 function toPlain(s: string) {
   return s
@@ -183,6 +190,7 @@ export default function MessageBubble() {
   const hidden = loc.pathname.startsWith('/admin')
   const panelId = useId()
   const listRef = useRef<HTMLDivElement>(null)
+  const msgIdSeq = useRef(0)
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -217,13 +225,13 @@ export default function MessageBubble() {
 
   if (hidden) return null
 
-  function send() {
-    const t = input.trim()
+  function sendMessage(raw: string) {
+    const t = raw.trim()
     if (!t || sending) return
-    const userId = `u-${Date.now()}`
+    const userId = `u-${msgIdSeq.current++}`
     setMessages((m) => [
       ...m,
-      { id: userId, role: 'user', text: t, createdAt: Date.now() },
+      { id: userId, role: 'user', text: t, createdAt: 0 },
     ])
     setInput('')
     setSending(true)
@@ -233,10 +241,10 @@ export default function MessageBubble() {
       setMessages((m) => [
         ...m,
         {
-          id: `a-${Date.now()}`,
+          id: `a-${msgIdSeq.current++}`,
           role: 'assistant',
           text,
-          createdAt: Date.now(),
+          createdAt: 0,
         },
       ])
       setSending(false)
@@ -289,11 +297,28 @@ export default function MessageBubble() {
               </div>
             )}
           </div>
+          <div className="msg-bubble-suggestions" role="group" aria-label="Suggested questions">
+            <p className="msg-bubble-suggestions-label">Tap to ask</p>
+            <div className="msg-bubble-suggestions-chips">
+              {SUGGESTED_PROMPTS.map(({ label, query }) => (
+                <button
+                  key={query}
+                  type="button"
+                  className="msg-bubble-chip"
+                  disabled={sending}
+                  onClick={() => sendMessage(query)}
+                  aria-label={`Ask: ${query}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
           <form
             className="msg-bubble-form"
             onSubmit={(e) => {
               e.preventDefault()
-              send()
+              sendMessage(input.trim())
             }}
           >
             <input

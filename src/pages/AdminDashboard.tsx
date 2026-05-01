@@ -232,7 +232,11 @@ export default function AdminDashboard() {
           <Metric label="Identified visitors" value={knownVisitors} note="Submitted name/email in contact form" />
           <Metric label="Chat messages" value={siteChat.length} note={`${chatVisitors} unique chat visitors`} />
           <Metric label="Clicks tracked" value={totalClicks} note="Buttons, links, fields, and CTAs" />
-          <Metric label="Avg page time" value={formatDuration(avgPageTime)} note={`${pageTime.length} measured page sessions`} />
+          <Metric
+            label="Avg page time"
+            value={pageTime.length ? formatDuration(avgPageTime) : '—'}
+            note={`${pageTime.length} measured page sessions`}
+          />
           <Metric label="Contact conversion" value={pct(knownVisitors, Math.max(uniqueVisitors, 1))} note={`${contacts.length} contact messages`} />
         </section>
 
@@ -451,11 +455,18 @@ function InsightCard({
       {rows.length === 0 ? <p className="admin-empty-note">{empty}</p> : null}
       {rows.map((row) => (
         <div key={row.label} className="insight-row">
-          <div>
-            <span>{row.label}</span>
-            <strong>{formatter ? formatter(row.value) : row.value}</strong>
+          <div className="insight-row__meta">
+            <span className="insight-row__label" title={row.label}>
+              {row.label}
+            </span>
+            <strong className="insight-row__count">{formatter ? formatter(row.value) : row.value}</strong>
           </div>
-          <i style={{ transform: `scaleX(${Math.max(row.value / max, 0.04)})` }} />
+          <div className="insight-row__track" aria-hidden>
+            <span
+              className="insight-row__bar"
+              style={{ transform: `scaleX(${Math.max(row.value / max, 0.04)})` }}
+            />
+          </div>
         </div>
       ))}
     </article>
@@ -559,11 +570,11 @@ function formatDt(iso: string) {
 }
 
 function formatDuration(ms: number) {
-  if (!ms) return '0s'
+  if (ms <= 0 || Number.isNaN(ms)) return '0 sec'
   const sec = Math.round(ms / 1000)
-  if (sec < 60) return `${sec}s`
+  if (sec < 60) return `${sec} sec`
   const min = Math.floor(sec / 60)
-  return `${min}m ${sec % 60}s`
+  return `${min} min ${sec % 60}s`
 }
 
 function pct(value: number, total: number) {
