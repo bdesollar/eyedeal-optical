@@ -1,0 +1,479 @@
+- generic [ref=e2]:
+  - button "Open quick answers chat" [ref=e3] [cursor=pointer]:
+    - img [ref=e4]
+  - generic [ref=e8]: Locally crafted in Dubuque, Iowa — since 1997
+  - navigation "Main" [ref=e9]:
+    - generic [ref=e11]:
+      - link "Eyedeal Optical" [ref=e12] [cursor=pointer]:
+        - /url: /
+        - img "Eyedeal Optical" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - link "Call Eyedeal Optical at (563) 557-0995" [ref=e16] [cursor=pointer]:
+            - /url: tel:+15635570995
+            - generic [ref=e17]: Call
+          - link [ref=e18] [cursor=pointer]:
+            - /url: /book
+            - generic [ref=e19]: Info
+        - button "Menu" [ref=e20] [cursor=pointer]:
+          - generic [ref=e21]: Menu
+  - generic [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e28]: Boutique Optical Studio · Est. 1997
+        - heading "Fitting friends and neighbors with exceptional eyewear." [level=1] [ref=e29]:
+          - text: Fitting
+          - emphasis [ref=e30]: friends
+          - text: and neighbors with exceptional eyewear.
+        - paragraph [ref=e31]: A locally owned, hand-curated eyewear studio in the heart of Dubuque. Many prescriptions are finished and fitted right here, with the rest handled through our trusted lab partners.
+        - generic [ref=e32]:
+          - link "Call us" [ref=e33] [cursor=pointer]:
+            - /url: tel:+15635570995
+            - text: Call us
+            - img [ref=e34]
+          - link "Hours & visit info" [ref=e36] [cursor=pointer]:
+            - /url: /book
+        - paragraph [ref=e37]:
+          - link "Browse the collection" [ref=e38] [cursor=pointer]:
+            - /url: "#designers"
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - emphasis [ref=e42]: "29"
+              - text: yrs
+            - generic [ref=e43]: Serving Dubuque
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - text: On-
+              - emphasis [ref=e46]: site
+            - generic [ref=e47]: Lab & finishing
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - text: 1yr
+              - emphasis [ref=e50]: +
+            - generic [ref=e51]: Frame & lens warranty
+      - generic [ref=e53]:
+        - img [ref=e54]
+        - img [ref=e62]
+        - img [ref=e68]
+    - generic [ref=e75]:
+      - generic [ref=e76]: Scott Harris ✦
+      - generic [ref=e77]: Cinzia ✦
+      - generic [ref=e78]: State ✦
+      - generic [ref=e79]: Michael Ryen ✦
+      - generic [ref=e80]: Dolabany ✦
+      - generic [ref=e81]: David Spencer ✦
+      - generic [ref=e82]: Oakley ✦
+      - generic [ref=e83]: Ray-Ban ✦
+      - generic [ref=e84]: Ray-Ban Meta ✦
+      - generic [ref=e85]: Maui Jim ✦
+      - generic [ref=e86]: Minamoto ✦
+      - generic [ref=e87]: Fysh ✦
+      - generic [ref=e88]: Kliik ✦
+      - generic [ref=e89]: Revolution ✦
+      - generic [ref=e90]: Scott Harris ✦
+      - generic [ref=e91]: Cinzia ✦
+      - generic [ref=e92]: State ✦
+      - generic [ref=e93]: Michael Ryen ✦
+      - generic [ref=e94]: Dolabany ✦
+      - generic [ref=e95]: David Spencer ✦
+      - generic [ref=e96]: Oakley ✦
+      - generic [ref=e97]: Ray-Ban ✦
+      - generic [ref=e98]: Ray-Ban Meta ✦
+      - generic [ref=e99]: Maui Jim ✦
+      - generic [ref=e100]: Minamoto ✦
+      - generic [ref=e101]: Fysh ✦
+      - generic [ref=e102]: Kliik ✦
+      - generic [ref=e103]: Revolution ✦
+  - generic [ref=e106]:
+    - generic [ref=e107]:
+      - img "Bob Pierce, owner of Eyedeal Optical" [ref=e110]
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - text: Bob
+          - emphasis [ref=e113]: Pierce
+        - generic [ref=e114]: Owner · Optician
+    - generic [ref=e115]:
+      - text: Our Story
+      - heading "Locally owned & crafted in Dubuque" [level=2] [ref=e116]:
+        - text: Locally owned &
+        - emphasis [ref=e117]: crafted
+        - text: in Dubuque
+      - paragraph [ref=e118]: Eyedeal Optical is locally owned and operated by Bob Pierce. After beginning his career with a national eyewear chain, Bob discovered the importance of local business to his community and saw an opportunity to bring superior quality, better service and lower cost to his friends and neighbors. His vision was realized in 1997 with the opening of Eyedeal Optical. He hand-picks his incredible selection of frames, and much of our lens work is finished on-site — so many pairs are truly locally crafted, with specialty work completed through partners when needed. Bob is a member of the Lions Club International and works with the local school district to provide free exams and glasses to children in need.
+      - paragraph [ref=e119]: As a company, we strive to give every patient the most comprehensive eye care available, exceptional customer service, the latest in lens technology and an incredible selection of frames. We not only want our clients to look great and have superior vision, we want them to leave with the confidence and knowledge of an informed consumer.
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - img [ref=e122]
+          - heading "Lions Club International" [level=4] [ref=e124]
+          - paragraph [ref=e125]: Active member supporting vision causes worldwide.
+        - generic [ref=e126]:
+          - img [ref=e127]
+          - heading "Schools Partnership" [level=4] [ref=e130]
+          - paragraph [ref=e131]: Free eye exams and glasses for local children in need.
+        - generic [ref=e132]:
+          - img [ref=e133]
+          - heading "Neighborhood First" [level=4] [ref=e135]
+          - paragraph [ref=e136]: A boutique studio that treats every visit like a house call.
+  - generic [ref=e138]:
+    - generic [ref=e139]:
+      - generic [ref=e140]: What We Do
+      - heading "Comprehensive vision care, crafted with care." [level=2] [ref=e141]:
+        - text: Comprehensive vision care,
+        - text: crafted with
+        - emphasis [ref=e142]: care
+        - text: .
+      - paragraph [ref=e143]: From the eye exam to the final frame adjustment, every step is handled in-house by people who know your name.
+    - generic [ref=e144]:
+      - link "01 Comprehensive Eye Exams Full-spectrum vision and ocular health evaluations using the latest digital diagnostic equipment. Call to schedule →" [ref=e145] [cursor=pointer]:
+        - /url: tel:+15635570995
+        - generic [ref=e146]: "01"
+        - img [ref=e147]
+        - heading "Comprehensive Eye Exams" [level=3] [ref=e151]
+        - paragraph [ref=e152]: Full-spectrum vision and ocular health evaluations using the latest digital diagnostic equipment.
+        - generic [ref=e153]:
+          - text: Call to schedule
+          - generic [ref=e154]: →
+      - link "02 Designer Frames Hand-picked by Bob from the world's most respected houses — each chosen for craft, fit, and character. See the collection →" [ref=e155] [cursor=pointer]:
+        - /url: /#designers
+        - generic [ref=e156]: "02"
+        - img [ref=e157]
+        - heading "Designer Frames" [level=3] [ref=e163]
+        - paragraph [ref=e164]: Hand-picked by Bob from the world's most respected houses — each chosen for craft, fit, and character.
+        - generic [ref=e165]:
+          - text: See the collection
+          - generic [ref=e166]: →
+      - link "03 Contact Lenses Acuvue and other premium lines, fitted with precision so your contacts feel like they aren't there at all. Call about fittings →" [ref=e167] [cursor=pointer]:
+        - /url: tel:+15635570995
+        - generic [ref=e168]: "03"
+        - img [ref=e169]
+        - heading "Contact Lenses" [level=3] [ref=e174]
+        - paragraph [ref=e175]: Acuvue and other premium lines, fitted with precision so your contacts feel like they aren't there at all.
+        - generic [ref=e176]:
+          - text: Call about fittings
+          - generic [ref=e177]: →
+      - link "04 On-Site Lens Lab Single vision, progressive, and many specialty jobs are cut and finished here through our on-site lab and GSRx partnership — so your lenses are fit to your frame with care. How we craft them →" [ref=e178] [cursor=pointer]:
+        - /url: /#lens
+        - generic [ref=e179]: "04"
+        - img [ref=e180]
+        - heading "On-Site Lens Lab" [level=3] [ref=e185]
+        - paragraph [ref=e186]: Single vision, progressive, and many specialty jobs are cut and finished here through our on-site lab and GSRx partnership — so your lenses are fit to your frame with care.
+        - generic [ref=e187]:
+          - text: How we craft them
+          - generic [ref=e188]: →
+      - link "05 Sport & Safety Eyewear Sport-specific frames and OSHA-rated safety lenses through our Safevision partnership for local businesses. Insurance & plans →" [ref=e189] [cursor=pointer]:
+        - /url: /#insurance
+        - generic [ref=e190]: "05"
+        - img [ref=e191]
+        - heading "Sport & Safety Eyewear" [level=3] [ref=e196]
+        - paragraph [ref=e197]: Sport-specific frames and OSHA-rated safety lenses through our Safevision partnership for local businesses.
+        - generic [ref=e198]:
+          - text: Insurance & plans
+          - generic [ref=e199]: →
+      - link "06 Adjustments for Life Free frame adjustments, maintenance, and minor repairs — for as long as you wear them. That's the promise. Visit the studio →" [ref=e200] [cursor=pointer]:
+        - /url: /#contact
+        - generic [ref=e201]: "06"
+        - img [ref=e202]
+        - heading "Adjustments for Life" [level=3] [ref=e204]
+        - paragraph [ref=e205]: Free frame adjustments, maintenance, and minor repairs — for as long as you wear them. That's the promise.
+        - generic [ref=e206]:
+          - text: Visit the studio
+          - generic [ref=e207]: →
+  - generic [ref=e209]:
+    - generic [ref=e210]:
+      - generic [ref=e211]: The Collection
+      - heading "Frames hand-picked, house by house." [level=2] [ref=e212]:
+        - text: Frames hand-picked,
+        - text: house by
+        - emphasis [ref=e213]: house
+        - text: .
+      - paragraph [ref=e214]: Bob personally curates each line on the wall — chosen for craftsmanship, materials, and how they'll wear for years to come.
+    - generic [ref=e215]:
+      - generic [ref=e216]: Featured
+      - heading "Ray-Ban Meta — smart eyewear" [level=3] [ref=e217]:
+        - text: Ray-Ban
+        - emphasis [ref=e218]: Meta
+        - text: — smart eyewear
+      - paragraph [ref=e219]: We carry Ray-Ban Meta frames — the line that pairs iconic style with built-in technology. Stop in to see what's in stock and how they can fit your prescription and lifestyle.
+    - generic [ref=e220]:
+      - generic [ref=e221]:
+        - generic [ref=e222]:
+          - text: Scott
+          - emphasis [ref=e223]: Harris
+        - generic [ref=e224]: Contemporary American
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - text: Cin
+          - emphasis [ref=e227]: zia
+        - generic [ref=e228]: Bold · artistic
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - text: S
+          - emphasis [ref=e231]: tate
+        - generic [ref=e232]: Optical + sun
+      - generic [ref=e233]:
+        - generic [ref=e234]:
+          - text: Michael
+          - emphasis [ref=e235]: Ryen
+        - generic [ref=e236]: Refined · wearable
+      - generic [ref=e237]:
+        - generic [ref=e238]:
+          - text: Dola
+          - emphasis [ref=e239]: bany
+        - generic [ref=e240]: Heritage quality
+      - generic [ref=e241]:
+        - generic [ref=e242]:
+          - text: David
+          - emphasis [ref=e243]: Spencer
+        - generic [ref=e244]: Classic lines
+      - generic [ref=e245]:
+        - generic [ref=e246]:
+          - text: Oak
+          - emphasis [ref=e247]: ley
+        - generic [ref=e248]: Performance · Prizm
+      - generic [ref=e249]:
+        - generic [ref=e250]:
+          - text: Ray-
+          - emphasis [ref=e251]: Ban
+        - generic [ref=e252]: Icons · wayfarer & aviator
+      - generic [ref=e253]:
+        - generic [ref=e254]:
+          - text: Maui
+          - emphasis [ref=e255]: Jim
+        - generic [ref=e256]: PolarizedPlus2
+      - generic [ref=e257]:
+        - generic [ref=e258]:
+          - text: Mina
+          - emphasis [ref=e259]: moto
+        - generic [ref=e260]: Japanese craft
+      - generic [ref=e261]:
+        - generic [ref=e262]:
+          - text: F
+          - emphasis [ref=e263]: ysh
+        - generic [ref=e264]: Color · detail
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - text: K
+          - emphasis [ref=e267]: liik
+        - generic [ref=e268]: Minimal · modern
+      - generic [ref=e269]:
+        - generic [ref=e270]:
+          - text: Revol
+          - emphasis [ref=e271]: ution
+        - generic [ref=e272]: Everyday style
+    - link "Plan your visit" [ref=e274] [cursor=pointer]:
+      - /url: /#contact
+      - text: Plan your visit
+      - img [ref=e275]
+  - generic [ref=e279]:
+    - generic [ref=e280]:
+      - img [ref=e281]
+      - generic [ref=e297]:
+        - generic [ref=e298]: iv.
+        - text: German-engineered
+    - generic [ref=e299]:
+      - text: Lens Technology
+      - heading "German-engineered lenses, cut here." [level=2] [ref=e300]:
+        - text: German-engineered
+        - text: lenses, cut
+        - emphasis [ref=e301]: here
+        - text: .
+      - paragraph [ref=e302]:
+        - text: Through our partnership with
+        - strong [ref=e303]: GSRx
+        - text: — an independent US lab specializing in German-designed optics — we pair precision lens designs (including HD progressive geometry) with premium coatings. Much of your prescription is finished on-site; specialized work may route through the lab when that delivers the best result.
+      - generic [ref=e304]:
+        - button "Single Vision" [ref=e305] [cursor=pointer]
+        - button "Progressives" [ref=e306] [cursor=pointer]
+        - button "Premium coatings" [ref=e307] [cursor=pointer]
+        - button "Specialty" [ref=e308] [cursor=pointer]
+        - button "Add-ons" [ref=e309] [cursor=pointer]
+      - generic [ref=e310]:
+        - heading "Single Vision — perfectly clear, edge to edge." [level=3] [ref=e311]
+        - paragraph [ref=e312]: For one focal distance — driving, reading, or all-day wear. Digital measurements and on-site finishing help keep optical centers exact for your frame.
+        - list [ref=e313]:
+          - listitem [ref=e314]: Digital free-form surfacing
+          - listitem [ref=e315]: Aspheric thinning available
+          - listitem [ref=e316]: Optional polarization for sun
+  - generic [ref=e318]:
+    - generic [ref=e319]:
+      - generic [ref=e320]: The Studio Journal
+      - heading "Eye health, explained." [level=2] [ref=e321]:
+        - text: Eye health,
+        - emphasis [ref=e322]: explained
+        - text: .
+      - paragraph [ref=e323]: A small library of plain-language guides — written so you leave the chair feeling like an informed consumer.
+    - generic [ref=e324]:
+      - article [ref=e325] [cursor=pointer]:
+        - img [ref=e327]
+        - generic [ref=e331]:
+          - generic [ref=e332]: Vision Care · 4 min read
+          - heading "How often should you really get an eye exam?" [level=3] [ref=e333]
+          - paragraph [ref=e334]: The answer depends less on your age than on your habits — and we'll walk you through the signs that mean it's time.
+      - article [ref=e335] [cursor=pointer]:
+        - img [ref=e337]
+        - generic [ref=e341]:
+          - generic [ref=e342]: Digital Strain · 5 min read
+          - heading "Screen fatigue is real. Here's what helps." [level=3] [ref=e343]
+          - paragraph [ref=e344]: From the 20-20-20 rule to specialized blue-light coatings, what actually works against modern screen exhaustion.
+      - article [ref=e345] [cursor=pointer]:
+        - img [ref=e347]
+        - generic [ref=e350]:
+          - generic [ref=e351]: Children's Vision · 6 min read
+          - heading "What to watch for in your child's vision." [level=3] [ref=e352]
+          - paragraph [ref=e353]: Squinting, head tilts, and dropped grades — the early signals every parent should know about.
+  - generic [ref=e356]:
+    - heading "Insurance plans we accept." [level=4] [ref=e357]:
+      - text: Insurance plans we
+      - emphasis [ref=e358]: accept
+      - text: .
+    - generic [ref=e359]:
+      - generic [ref=e360]: Eyemed
+      - generic [ref=e361]: VSP
+      - generic [ref=e362]: SISCO
+      - generic [ref=e363]: Avesis
+      - generic [ref=e364]: Health Choices
+      - generic [ref=e365]: Care Credit
+      - generic [ref=e366]: + many more
+  - generic [ref=e369]:
+    - generic [ref=e370]:
+      - text: Visit the Studio
+      - heading "2644 Pennsylvania Ave. Dubuque, Iowa." [level=2] [ref=e371]:
+        - text: 2644 Pennsylvania Ave.
+        - text: Dubuque,
+        - emphasis [ref=e372]: Iowa
+        - text: .
+      - paragraph [ref=e373]: Stop by during studio hours, call ahead, or send a note below. New patients always welcome.
+      - paragraph [ref=e374]:
+        - text: We don't offer online booking —
+        - link "hours & visit info" [ref=e375] [cursor=pointer]:
+          - /url: /book
+        - text: .
+      - generic [ref=e376]:
+        - generic [ref=e377]:
+          - generic [ref=e378]: Telephone
+          - link "1-563-557-0995" [ref=e380] [cursor=pointer]:
+            - /url: tel:+15635570995
+        - generic [ref=e381]:
+          - generic [ref=e382]: Email
+          - link "eyedealoptical1997 @yahoo.com" [ref=e384] [cursor=pointer]:
+            - /url: mailto:eyedealoptical1997@yahoo.com
+            - text: eyedealoptical1997
+            - text: "@yahoo.com"
+        - generic [ref=e385]:
+          - generic [ref=e386]: Address
+          - generic [ref=e387]:
+            - text: 2644 Pennsylvania Ave.
+            - text: Dubuque, IA 52001
+        - generic [ref=e388]:
+          - generic [ref=e389]: Owner
+          - generic [ref=e390]:
+            - text: Bob Pierce
+            - text: Optician · since 1997
+        - generic [ref=e391]:
+          - generic [ref=e392]: Office
+          - generic [ref=e393]:
+            - text: Adah
+            - text: Office manager
+      - generic [ref=e394]:
+        - heading "Studio Hours" [level=5] [ref=e395]
+        - generic [ref=e396]:
+          - generic [ref=e397]: Monday – Friday
+          - generic [ref=e398]: 9:00 AM — 5:00 PM
+        - generic [ref=e399]:
+          - generic [ref=e400]: Saturday
+          - generic [ref=e401]: 9:00 AM — 12:00 PM
+        - generic [ref=e402]:
+          - generic [ref=e403]: Sunday
+          - generic [ref=e404]: Closed
+    - generic [ref=e405]:
+      - generic [ref=e406]: Send a message
+      - heading "Tell us how we can help." [level=3] [ref=e407]:
+        - text: Tell us how we can
+        - emphasis [ref=e408]: help
+        - text: .
+      - generic [ref=e409]:
+        - generic [ref=e410]:
+          - generic [ref=e411]: First name
+          - textbox "First name" [ref=e412]:
+            - /placeholder: Jane
+        - generic [ref=e413]:
+          - generic [ref=e414]: Last name
+          - textbox "Last name" [ref=e415]:
+            - /placeholder: Doe
+      - generic [ref=e416]:
+        - generic [ref=e417]:
+          - generic [ref=e418]: Phone
+          - textbox "Phone" [ref=e419]:
+            - /placeholder: (563) 555-0123
+        - generic [ref=e420]:
+          - generic [ref=e421]: Email
+          - textbox "Email" [ref=e422]:
+            - /placeholder: you@email.com
+      - generic [ref=e423]:
+        - generic [ref=e424]: Reason for visit
+        - combobox "Reason for visit" [ref=e425]:
+          - option "Comprehensive eye exam" [selected]
+          - option "Frame fitting & selection"
+          - option "Contact lens fitting"
+          - option "Adjustment or repair"
+          - option "Something else"
+      - generic [ref=e426]:
+        - generic [ref=e427]: Notes (optional)
+        - textbox "Notes (optional)" [ref=e428]:
+          - /placeholder: Anything we should know before you arrive...
+      - button "Send Request" [ref=e429] [cursor=pointer]:
+        - text: Send Request
+        - img [ref=e430]
+  - contentinfo [ref=e432]:
+    - generic [ref=e433]:
+      - generic [ref=e434]:
+        - generic [ref=e435]:
+          - link "Eyedeal Optical" [ref=e436] [cursor=pointer]:
+            - /url: /
+            - img "Eyedeal Optical" [ref=e437]
+          - paragraph [ref=e438]: Dubuque's locally owned, hand-curated boutique optical studio. Fitting friends and neighbors with exceptional eyewear since 1997.
+          - generic [ref=e439]:
+            - link "Facebook (search)" [ref=e440] [cursor=pointer]:
+              - /url: https://www.facebook.com
+              - img [ref=e441]
+            - link "Instagram (search)" [ref=e443] [cursor=pointer]:
+              - /url: https://www.instagram.com
+              - img [ref=e444]
+            - link "Open in Google Maps" [ref=e448] [cursor=pointer]:
+              - /url: https://www.google.com/maps/search/?api=1&query=Eyedeal+Optical+2644+Pennsylvania+Ave+Dubuque+IA+52001
+              - img [ref=e449]
+        - generic [ref=e451]:
+          - heading "Studio" [level=6] [ref=e452]
+          - link "Our Story" [ref=e453] [cursor=pointer]:
+            - /url: "#story"
+          - link "Services" [ref=e454] [cursor=pointer]:
+            - /url: "#services"
+          - link "Designers" [ref=e455] [cursor=pointer]:
+            - /url: "#designers"
+          - link "Lens Technology" [ref=e456] [cursor=pointer]:
+            - /url: "#lens"
+          - link "Eye Health" [ref=e457] [cursor=pointer]:
+            - /url: "#health"
+        - generic [ref=e458]:
+          - heading "Contact" [level=6] [ref=e459]
+          - paragraph [ref=e460]:
+            - text: 2644 Pennsylvania Ave.
+            - text: Dubuque, IA 52001
+          - link "563.557.0995" [ref=e461] [cursor=pointer]:
+            - /url: tel:+15635570995
+          - link "eyedealoptical1997@yahoo.com" [ref=e462] [cursor=pointer]:
+            - /url: mailto:eyedealoptical1997@yahoo.com
+          - link "Hours & how to visit" [ref=e463] [cursor=pointer]:
+            - /url: /book
+        - generic [ref=e464]:
+          - heading "Hours" [level=6] [ref=e465]
+          - paragraph [ref=e466]: Mon–Fri 9:00 — 5:00
+          - paragraph [ref=e467]: Saturday 9:00 — 12:00
+          - paragraph [ref=e468]: Sunday Closed
+      - generic [ref=e469]:
+        - generic [ref=e470]: © 2026 Eyedeal Optical · Owned & operated by Bob Pierce
+        - generic [ref=e471]:
+          - emphasis [ref=e472]: Crafting Dubuque's eyewear since 1997.
+          - link "Staff sign in" [ref=e473] [cursor=pointer]:
+            - /url: /admin/login
+            - text: Staff
