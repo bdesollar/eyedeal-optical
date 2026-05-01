@@ -1098,8 +1098,15 @@ a.designer-row{color:inherit;text-decoration:none}
   border-radius:6px;overflow:hidden;
   transition:transform .5s cubic-bezier(.4,0,.2,1),box-shadow .5s ease;
   cursor:pointer;
+  display:block;
+  text-decoration:none;
+  color:inherit;
 }
 .health-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px -20px rgba(15,26,46,.18)}
+.health-card:focus-visible{
+  outline:2px solid rgba(201,169,97,.85);
+  outline-offset:2px;
+}
 .health-card .top{
   height:200px;background:var(--navy);position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;

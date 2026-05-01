@@ -3,6 +3,7 @@ const articles = [
     meta: 'Vision Care · 4 min read',
     title: 'How often should you really get an eye exam?',
     desc: "The answer depends less on your age than on your habits — and we'll walk you through the signs that mean it's time.",
+    href: 'https://www.warbyparker.com/learn/how-often-should-you-get-an-eye-exam',
     icon: (
       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M5 30 Q30 8 55 30 Q30 52 5 30Z" />
@@ -14,6 +15,7 @@ const articles = [
     meta: 'Digital Strain · 5 min read',
     title: "Screen fatigue is real. Here's what helps.",
     desc: "From the 20-20-20 rule to specialized blue-light coatings, what actually works against modern screen exhaustion.",
+    href: 'https://www.aoa.org/healthy-eyes/eye-and-vision-conditions/computer-vision-syndrome',
     icon: (
       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <rect x="14" y="18" width="32" height="22" rx="3" />
@@ -26,6 +28,7 @@ const articles = [
     meta: "Children's Vision · 6 min read",
     title: "What to watch for in your child's vision.",
     desc: "Squinting, head tilts, and dropped grades — the early signals every parent should know about.",
+    href: 'https://www.aao.org/eye-health/tips-prevention/child-eye-problems-parents-should-never-ignore',
     icon: (
       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M30 8 L42 22 L48 38 L42 50 L18 50 L12 38 L18 22 Z" />
@@ -46,14 +49,21 @@ export default function EyeHealthSection() {
         </div>
         <div className="health-grid">
           {articles.map((a, i) => (
-            <article key={a.title} className={`health-card reveal${i > 0 ? ` delay-${i}` : ''}`}>
+            <a
+              key={a.title}
+              href={a.href}
+              target="_blank"
+              rel="noreferrer"
+              className={`health-card reveal${i > 0 ? ` delay-${i}` : ''}`}
+              aria-label={`Read article: ${a.title}`}
+            >
               <div className="top">{a.icon}</div>
               <div className="body">
                 <div className="meta">{a.meta}</div>
                 <h3>{a.title}</h3>
                 <p>{a.desc}</p>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
