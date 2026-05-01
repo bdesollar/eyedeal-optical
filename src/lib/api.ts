@@ -1,5 +1,6 @@
 import { supabase } from './supabase'
 import type { Product, Appointment, ContactForm } from '../types'
+import { getVisitorContext, type VisitorContext } from './visitorContext'
 
 const DEFAULT_APPT_DURATION = 30
 export const MAX_BOOKINGS_PER_SLOT = 1
@@ -102,15 +103,49 @@ export async function insertManualAppointment(row: {
   if (error) throw error
 }
 
+async function insertWithLegacyFallback(table: string, row: Record<string, unknown>, legacyRow: Record<string, unknown>) {
+  const { error } = await supabase.from(table).insert(row)
+  if (!error) return
+  if (!/column .* does not exist|schema cache|Could not find/i.test(error.message)) throw error
+  const fallback = await supabase.from(table).insert(legacyRow)
+  if (fallback.error) throw fallback.error
+}
+
+function contextColumns(ctx: VisitorContext) {
+  return {
+    visitor_key: ctx.visitor_key,
+    session_id: ctx.session_id,
+    user_agent: ctx.user_agent,
+    screen_width: ctx.screen_width,
+    screen_height: ctx.screen_height,
+    language: ctx.language,
+    timezone: ctx.timezone,
+    ip_address: ctx.ip_address,
+    ip_city: ctx.ip_city,
+    ip_region: ctx.ip_region,
+    ip_country: ctx.ip_country,
+    ip_org: ctx.ip_org,
+  }
+}
+
 export async function submitContactForm(form: ContactForm, source: 'homepage' | 'contact_page' = 'contact_page') {
-  const { error } = await supabase.from('contact_submissions').insert({
+  const ctx = await getVisitorContext({ withGeo: true })
+  const base = {
     name: form.name,
     email: form.email,
     phone: form.phone?.trim() || null,
     message: form.message,
     source,
-  })
-  if (error) throw error
+  }
+  await insertWithLegacyFallback(
+    'contact_submissions',
+    {
+      ...base,
+      ...contextColumns(ctx),
+      page_path: typeof location !== 'undefined' ? `${location.pathname}${location.search}` : null,
+    },
+    base,
+  )
 }
 
 export async function logPageVisit(payload: {
@@ -119,12 +154,22 @@ export async function logPageVisit(payload: {
   userAgent: string | null
   visitorKey: string | null
 }) {
-  const { error } = await supabase.from('page_visits').insert({
+  const ctx = await getVisitorContext({ withGeo: true })
+  const base = {
     path: payload.path,
     referrer: payload.referrer,
     user_agent: payload.userAgent,
     visitor_key: payload.visitorKey,
+  }
+  const { error } = await supabase.from('page_visits').insert({
+    ...base,
+    ...contextColumns(ctx),
   })
+  if (error && /column .* does not exist|schema cache|Could not find/i.test(error.message)) {
+    const fallback = await supabase.from('page_visits').insert(base)
+    if (fallback.error) console.warn('logPageVisit', fallback.error.message)
+    return
+  }
   if (error) console.warn('logPageVisit', error.message)
 }
 
@@ -148,12 +193,45 @@ export async function saveSiteChatLog(row: {
   path: string
   visitorKey: string | null
 }) {
-  const { error } = await supabase.from('site_chat_log').insert({
+  const ctx = await getVisitorContext({ withGeo: true })
+  const base = {
     user_message: row.userMessage,
     assistant_reply: row.assistantReply,
     category: row.category,
     path: row.path,
     visitor_key: row.visitorKey,
+  }
+  const { error } = await supabase.from('site_chat_log').insert({
+    ...base,
+    ...contextColumns(ctx),
   })
+  if (error && /column .* does not exist|schema cache|Could not find/i.test(error.message)) {
+    const fallback = await supabase.from('site_chat_log').insert(base)
+    if (fallback.error) console.warn('saveSiteChatLog', fallback.error.message)
+    return
+  }
   if (error) console.warn('saveSiteChatLog', error.message)
+}
+
+export async function logAnalyticsEvent(row: {
+  eventType: 'click' | 'section_time' | 'page_time' | 'section_view'
+  path: string
+  targetLabel?: string | null
+  targetHref?: string | null
+  sectionId?: string | null
+  durationMs?: number | null
+  metadata?: Record<string, unknown>
+}) {
+  const ctx = await getVisitorContext({ withGeo: false })
+  const { error } = await supabase.from('analytics_events').insert({
+    event_type: row.eventType,
+    path: row.path,
+    target_label: row.targetLabel || null,
+    target_href: row.targetHref || null,
+    section_id: row.sectionId || null,
+    duration_ms: row.durationMs == null ? null : Math.max(0, Math.round(row.durationMs)),
+    metadata: row.metadata ?? {},
+    ...contextColumns(ctx),
+  })
+  if (error) console.warn('logAnalyticsEvent', error.message)
 }

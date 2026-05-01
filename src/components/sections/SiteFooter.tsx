@@ -12,12 +12,12 @@ export default function SiteFooter() {
             <BrandLogoLink variant="footer" />
             <p>Dubuque's locally owned, hand-curated boutique optical studio. Fitting friends and neighbors with exceptional eyewear since 1997.</p>
             <div className="socials">
-              <a href={SITE_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook (search)">
+              <a href={SITE_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Eyedeal Optical on Facebook">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                   <path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9z" />
                 </svg>
               </a>
-              <a href={SITE_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram (search)">
+              <a href={SITE_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Eyedeal Optical on Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />

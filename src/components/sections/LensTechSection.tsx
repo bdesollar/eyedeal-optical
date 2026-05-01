@@ -28,7 +28,8 @@ const lensData = [
       'Transitions — light-adaptive tint indoors / out',
       'Chemistrie Clips — magnetic snap-on sun clips',
       'Mirror finishes — performance and style for sun wear',
-      'ND4 — neutral density for specific visual comfort needs',
+      'ND4 (Night+Day) — Enhanced contrast & clarity; Pupil‑Optimized Correction Technology helps provide clearer vision across lighting.',
+      'Polycarbonate & Trivex — impact-resistant materials, ideal when durability matters.',
     ],
   },
 ]

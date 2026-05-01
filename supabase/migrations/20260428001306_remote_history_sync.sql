@@ -1,0 +1,3 @@
+-- Placeholder: migration version already recorded on the linked Supabase project.
+-- Keeps local `supabase/migrations` in sync with remote `schema_migrations` history.
+-- No DDL — avoids re-running or conflicting if this file were ever reapplied elsewhere.

@@ -10,15 +10,15 @@ const brands: { id: string; name: React.ReactNode; tag: string; href?: string }[
   { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun', href: 'https://stateopticalco.com' },
   { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable', href: 'https://michaelryen.com' },
   { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
-  { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines', href: 'https://www.davidspencer.com' },
+  { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines', href: 'https://davidspencereyewear.com/' },
   { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm' },
   { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator' },
   { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear' },
   { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2' },
   { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft', href: 'https://minamoto-eyewear.com/en/' },
   { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail', href: 'https://fyshuk.com' },
-  { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Minimal · modern', href: 'https://www.kliik.com/' },
-  { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style', href: 'https://www.revolutioneyewear.com' },
+  { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Petite fits · minimal modern', href: 'https://www.kliik.com/' },
+  { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style' },
 ]
 
 const rayBanMetaImage = {
@@ -69,11 +69,9 @@ export default function DesignersSection() {
               We carry Ray-Ban Meta frames — iconic Ray-Ban style with built-in technology. Stop in to see what&apos;s in stock and how they can fit your prescription and lifestyle.
             </p>
           </div>
-            <img
-              src={rayBanMetaImage.src}
-              alt={rayBanMetaImage.alt}
-              loading="lazy"
-            />
+          <figure className="designer-featured-media">
+            <img src={rayBanMetaImage.src} alt={rayBanMetaImage.alt} loading="lazy" />
+          </figure>
         </div>
 
         <div className="collection-visual-grid reveal delay-1" aria-label="Featured eyewear styles">

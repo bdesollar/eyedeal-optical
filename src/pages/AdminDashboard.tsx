@@ -11,6 +11,14 @@ type ContactRow = {
   phone: string | null
   message: string
   source: string
+  visitor_key?: string | null
+  session_id?: string | null
+  page_path?: string | null
+  user_agent?: string | null
+  ip_address?: string | null
+  ip_city?: string | null
+  ip_region?: string | null
+  ip_country?: string | null
   created_at: string
 }
 
@@ -20,6 +28,16 @@ type VisitRow = {
   referrer: string | null
   user_agent: string | null
   visitor_key: string | null
+  session_id?: string | null
+  screen_width?: number | null
+  screen_height?: number | null
+  language?: string | null
+  timezone?: string | null
+  ip_address?: string | null
+  ip_city?: string | null
+  ip_region?: string | null
+  ip_country?: string | null
+  ip_org?: string | null
   created_at: string
 }
 
@@ -30,7 +48,48 @@ type SiteChatRow = {
   category: string
   path: string | null
   visitor_key: string | null
+  session_id?: string | null
+  user_agent?: string | null
+  ip_address?: string | null
+  ip_city?: string | null
+  ip_region?: string | null
+  ip_country?: string | null
   created_at: string
+}
+
+type AnalyticsEventRow = {
+  id: string
+  event_type: 'click' | 'section_time' | 'page_time' | 'section_view' | string
+  path: string
+  target_label: string | null
+  target_href: string | null
+  section_id: string | null
+  duration_ms: number | null
+  visitor_key: string | null
+  session_id?: string | null
+  user_agent?: string | null
+  ip_city?: string | null
+  ip_region?: string | null
+  ip_country?: string | null
+  created_at: string
+}
+
+type AdminTab = 'overview' | 'visitors' | 'siteChat' | 'contact' | 'visits' | 'events'
+
+type VisitorProfile = {
+  key: string
+  name: string | null
+  email: string | null
+  phone: string | null
+  city: string | null
+  region: string | null
+  country: string | null
+  firstSeen: string
+  lastSeen: string
+  visits: VisitRow[]
+  contacts: ContactRow[]
+  chats: SiteChatRow[]
+  events: AnalyticsEventRow[]
 }
 
 export default function AdminDashboard() {
@@ -40,8 +99,9 @@ export default function AdminDashboard() {
   const [contacts, setContacts] = useState<ContactRow[]>([])
   const [visits, setVisits] = useState<VisitRow[]>([])
   const [siteChat, setSiteChat] = useState<SiteChatRow[]>([])
+  const [events, setEvents] = useState<AnalyticsEventRow[]>([])
   const [loadError, setLoadError] = useState<string | null>(null)
-  const [tab, setTab] = useState<'contact' | 'siteChat' | 'visits'>('contact')
+  const [tab, setTab] = useState<AdminTab>('overview')
   const [chatSort, setChatSort] = useState<'newest' | 'oldest'>('newest')
 
   useEffect(() => {
@@ -65,28 +125,47 @@ export default function AdminDashboard() {
       setAllowed(true)
       setReady(true)
 
-      const [ctRes, vRes, chRes] = await Promise.all([
-        supabase.from('contact_submissions').select('*').order('created_at', { ascending: false }).limit(200),
-        supabase.from('page_visits').select('*').order('created_at', { ascending: false }).limit(500),
-        supabase.from('site_chat_log').select('*').order('created_at', { ascending: false }).limit(500),
+      const [ctRes, vRes, chRes, evRes] = await Promise.all([
+        supabase.from('contact_submissions').select('*').order('created_at', { ascending: false }).limit(500),
+        supabase.from('page_visits').select('*').order('created_at', { ascending: false }).limit(1200),
+        supabase.from('site_chat_log').select('*').order('created_at', { ascending: false }).limit(800),
+        supabase.from('analytics_events').select('*').order('created_at', { ascending: false }).limit(2000),
       ])
       if (cancelled) return
-      if (ctRes.error || vRes.error || chRes.error) {
-        setLoadError(
-          [ctRes.error?.message, vRes.error?.message, chRes.error?.message]
-            .filter(Boolean)
-            .join(' · '),
-        )
+
+      const blockingErrors = [ctRes.error?.message, vRes.error?.message, chRes.error?.message].filter(Boolean)
+      if (blockingErrors.length) {
+        setLoadError(blockingErrors.join(' · '))
         return
       }
+      if (evRes.error) setLoadError(`Analytics events unavailable: ${evRes.error.message}. Run the latest Supabase migration.`)
       setContacts((ctRes.data ?? []) as ContactRow[])
       setVisits((vRes.data ?? []) as VisitRow[])
       setSiteChat((chRes.data ?? []) as SiteChatRow[])
+      setEvents((evRes.data ?? []) as AnalyticsEventRow[])
     })()
     return () => {
       cancelled = true
     }
   }, [navigate])
+
+  const visitorProfiles = useMemo(() => buildVisitorProfiles(visits, contacts, siteChat, events), [visits, contacts, siteChat, events])
+  const uniqueVisitors = visitorProfiles.length
+  const knownVisitors = visitorProfiles.filter((v) => v.contacts.length > 0).length
+  const chatVisitors = new Set(siteChat.map((c) => c.visitor_key).filter(Boolean)).size
+  const totalClicks = events.filter((e) => e.event_type === 'click').length
+  const pageTime = events.filter((e) => e.event_type === 'page_time' && e.duration_ms)
+  const avgPageTime = pageTime.length ? pageTime.reduce((sum, e) => sum + (e.duration_ms ?? 0), 0) / pageTime.length : 0
+  const topPages = useMemo(() => topCounts(visits.map((v) => v.path), 5), [visits])
+  const topClicks = useMemo(() => topCounts(events.filter((e) => e.event_type === 'click').map((e) => e.target_label || e.target_href || 'Unknown'), 5), [events])
+  const topSections = useMemo(
+    () => topDurations(events.filter((e) => e.event_type === 'section_time' && e.section_id)),
+    [events],
+  )
+  const topLocations = useMemo(
+    () => topCounts(visits.map((v) => locationLabel(v)).filter((v): v is string => Boolean(v)), 5),
+    [visits],
+  )
 
   const siteChatSorted = useMemo(() => {
     const rows = [...siteChat]
@@ -112,10 +191,13 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="admin-app">
-      <header className="admin-header">
+    <div className="admin-app admin-app--redesign">
+      <header className="admin-header admin-header--dashboard">
         <div className="admin-header-inner">
-          <h1 className="admin-header-title">Admin</h1>
+          <div>
+            <p className="admin-kicker">Eyedeal intelligence</p>
+            <h1 className="admin-header-title">Admin dashboard</h1>
+          </div>
           <div className="admin-header-actions">
             <Link to="/" className="admin-link-btn">
               View site
@@ -127,209 +209,383 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="admin-main">
+      <main className="admin-main admin-main--dashboard">
         {loadError && <p className="admin-banner">{loadError}</p>}
 
-        <section className="admin-overview" aria-label="Dashboard summary">
-          <article className="admin-stat-card">
-            <span className="admin-stat-label">Contact messages</span>
-            <strong className="admin-stat-value">{contacts.length}</strong>
-            <p>Messages sent from the public contact form.</p>
-          </article>
-          <article className="admin-stat-card">
-            <span className="admin-stat-label">Site chat messages</span>
-            <strong className="admin-stat-value">{siteChat.length}</strong>
-            <p>Questions asked in the floating website chat.</p>
-          </article>
-          <article className="admin-stat-card">
-            <span className="admin-stat-label">Tracked visits</span>
-            <strong className="admin-stat-value">{visits.length}</strong>
-            <p>Latest page visits across public site routes.</p>
-          </article>
+        <section className="admin-hero-panel" aria-label="Dashboard summary">
+          <div>
+            <span className="admin-eyebrow">Live site activity</span>
+            <h2>Know who visited, what they clicked, and which visitors reached out.</h2>
+            <p>
+              Contacts, chat questions, visits, click behavior, section dwell time, and approximate location are stitched together by visitor ID when available.
+            </p>
+          </div>
+          <div className="admin-signal-list" aria-label="Top signals">
+            <span>{uniqueVisitors} unique visitors</span>
+            <span>{knownVisitors} identified by contact form</span>
+            <span>{chatVisitors} used chat</span>
+          </div>
         </section>
 
-        <nav className="admin-tabs" aria-label="Data sections">
-          <button type="button" className={tab === 'contact' ? 'active' : ''} onClick={() => setTab('contact')}>
-            Contact inbox ({contacts.length})
-          </button>
-          <button type="button" className={tab === 'siteChat' ? 'active' : ''} onClick={() => setTab('siteChat')}>
-            Site chat log ({siteChat.length})
-          </button>
-          <button type="button" className={tab === 'visits' ? 'active' : ''} onClick={() => setTab('visits')}>
-            Visits log ({visits.length})
-          </button>
+        <section className="admin-overview admin-overview--rich" aria-label="Key metrics">
+          <Metric label="Unique visitors" value={uniqueVisitors} note={`${visits.length} tracked page visits`} />
+          <Metric label="Identified visitors" value={knownVisitors} note="Submitted name/email in contact form" />
+          <Metric label="Chat messages" value={siteChat.length} note={`${chatVisitors} unique chat visitors`} />
+          <Metric label="Clicks tracked" value={totalClicks} note="Buttons, links, fields, and CTAs" />
+          <Metric label="Avg page time" value={formatDuration(avgPageTime)} note={`${pageTime.length} measured page sessions`} />
+          <Metric label="Contact conversion" value={pct(knownVisitors, Math.max(uniqueVisitors, 1))} note={`${contacts.length} contact messages`} />
+        </section>
+
+        <nav className="admin-tabs admin-tabs--dashboard" aria-label="Data sections">
+          {[
+            ['overview', 'Overview'],
+            ['visitors', `Visitors (${uniqueVisitors})`],
+            ['siteChat', `Chat (${siteChat.length})`],
+            ['contact', `Contacts (${contacts.length})`],
+            ['visits', `Visits (${visits.length})`],
+            ['events', `Events (${events.length})`],
+          ].map(([id, label]) => (
+            <button key={id} type="button" className={tab === id ? 'active' : ''} onClick={() => setTab(id as AdminTab)}>
+              {label}
+            </button>
+          ))}
         </nav>
 
-        {tab === 'siteChat' && (
-          <div>
-            <div className="admin-section-copy">
-              <h2>Site chat log</h2>
-              <p>Review what visitors asked and the automated response they received.</p>
+        {tab === 'overview' && (
+          <div className="admin-dashboard-grid">
+            <InsightCard title="Top pages" rows={topPages} empty="No pages tracked yet." />
+            <InsightCard title="Most clicked" rows={topClicks} empty="No clicks tracked yet." />
+            <InsightCard title="Most time spent" rows={topSections} empty="Section time appears after visitors scroll." formatter={formatDuration} />
+            <InsightCard title="Approx. locations" rows={topLocations} empty="Location appears after IP lookup succeeds." />
+          </div>
+        )}
+
+        {tab === 'visitors' && (
+          <section className="admin-panel">
+            <SectionTitle title="Visitor profiles" text="Each profile links visits, clicks, chats, and contact submissions using the browser visitor ID." />
+            <div className="visitor-grid">
+              {visitorProfiles.length === 0 ? <EmptyState text="No visitor profiles yet." /> : null}
+              {visitorProfiles.map((v) => (
+                <article key={v.key} className="visitor-card">
+                  <div className="visitor-card__top">
+                    <div>
+                      <span className="admin-pill">{v.name ? 'Identified' : 'Anonymous'}</span>
+                      <h3>{v.name || shortId(v.key)}</h3>
+                    </div>
+                    <span className="visitor-card__id" title={v.key}>
+                      {shortId(v.key)}
+                    </span>
+                  </div>
+                  <p className="visitor-card__meta">{[v.email, v.phone, [v.city, v.region].filter(Boolean).join(', ')].filter(Boolean).join(' · ') || 'No contact or city yet'}</p>
+                  <div className="visitor-card__stats">
+                    <span><strong>{v.visits.length}</strong> visits</span>
+                    <span><strong>{v.events.filter((e) => e.event_type === 'click').length}</strong> clicks</span>
+                    <span><strong>{v.chats.length}</strong> chats</span>
+                    <span><strong>{v.contacts.length}</strong> forms</span>
+                  </div>
+                  <p className="visitor-card__trail">Last seen {formatDt(v.lastSeen)} on {v.visits[0]?.path || v.events[0]?.path || 'site'}</p>
+                </article>
+              ))}
             </div>
-            <div className="admin-chat-toolbar">
+          </section>
+        )}
+
+        {tab === 'siteChat' && (
+          <section className="admin-panel">
+            <div className="admin-panel-head">
+              <SectionTitle title="Site chat log" text="Readable conversations with visitor, page, topic, and approximate location attached when available." />
               <label className="admin-chat-sort">
-                <span>Sort by time</span>
-                <select
-                  value={chatSort}
-                  onChange={(e) => setChatSort(e.target.value as 'newest' | 'oldest')}
-                  className="admin-select"
-                  aria-label="Sort site chat by time"
-                >
+                <span>Sort</span>
+                <select value={chatSort} onChange={(e) => setChatSort(e.target.value as 'newest' | 'oldest')} className="admin-select">
                   <option value="newest">Newest first</option>
                   <option value="oldest">Oldest first</option>
                 </select>
               </label>
-              <p className="admin-chat-hint">Each row is a visitor’s question and the auto-reply sent from the chat widget (quick answers, not a live person).</p>
             </div>
-            <div className="admin-table-wrap admin-table-wrap--chat">
-              <table className="admin-table admin-table--chat">
-                <thead>
-                  <tr>
-                    <th>Time</th>
-                    <th>Topic</th>
-                    <th>User asked</th>
-                    <th>Auto-reply</th>
-                    <th>Page</th>
-                    <th>Visitor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {siteChatSorted.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} className="admin-empty">
-                        No site chat yet. Exchanges are logged when people use the floating chat on the public site.
-                      </td>
-                    </tr>
-                  ) : (
-                    siteChatSorted.map((c) => (
-                      <tr key={c.id}>
-                        <td className="admin-cell-now">{formatDt(c.created_at)}</td>
-                        <td>
-                          <span className="admin-pill">{siteChatLabel(c.category)}</span>
-                        </td>
-                        <td className="admin-cell-clamp" title={c.user_message}>
-                          {c.user_message}
-                        </td>
-                        <td className="admin-cell-notes admin-cell-clamp" title={c.assistant_reply}>
-                          {c.assistant_reply}
-                        </td>
-                        <td className="admin-cell-tiny">{c.path || '—'}</td>
-                        <td className="admin-cell-tiny" title={c.visitor_key ?? ''}>
-                          {c.visitor_key ? shortId(c.visitor_key) : '—'}
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+            <div className="chat-log-list">
+              {siteChatSorted.length === 0 ? <EmptyState text="No site chat yet." /> : null}
+              {siteChatSorted.map((c) => (
+                <article key={c.id} className="chat-log-card">
+                  <div className="chat-log-card__rail">
+                    <span className="admin-pill">{siteChatLabel(c.category)}</span>
+                    <time>{formatDt(c.created_at)}</time>
+                  </div>
+                  <div className="chat-log-card__body">
+                    <div className="chat-message-pair">
+                      <div>
+                        <span>Visitor asked</span>
+                        <p>{c.user_message}</p>
+                      </div>
+                      <div>
+                        <span>Auto reply</span>
+                        <p>{c.assistant_reply}</p>
+                      </div>
+                    </div>
+                    <div className="admin-log-meta">
+                      <span>Page {c.path || '—'}</span>
+                      <span>Visitor {c.visitor_key ? shortId(c.visitor_key) : '—'}</span>
+                      <span>{locationLabel(c) || 'Location pending'}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
-          </div>
+          </section>
         )}
 
         {tab === 'contact' && (
-          <div>
-            <div className="admin-section-copy">
-              <h2>Contact inbox</h2>
-              <p>Newest requests appear first. Use this list to follow up by email or phone.</p>
+          <section className="admin-panel">
+            <SectionTitle title="Contact inbox" text="People who submitted a name are tied back to their visitor activity, chat logs, and visit source when available." />
+            <div className="contact-inbox-list">
+              {contacts.length === 0 ? <EmptyState text="No messages yet." /> : null}
+              {contacts.map((c) => (
+                <article key={c.id} className="contact-inbox-card">
+                  <div>
+                    <span className="admin-pill">{c.source || 'contact'}</span>
+                    <h3>{c.name}</h3>
+                    <p>{[c.email, c.phone].filter(Boolean).join(' · ')}</p>
+                  </div>
+                  <div className="contact-inbox-card__message">{c.message}</div>
+                  <div className="admin-log-meta">
+                    <span>{formatDt(c.created_at)}</span>
+                    <span>{c.page_path || 'Unknown page'}</span>
+                    <span>{c.visitor_key ? `Visitor ${shortId(c.visitor_key)}` : 'No visitor ID'}</span>
+                    <span>{locationLabel(c) || 'Location pending'}</span>
+                  </div>
+                </article>
+              ))}
             </div>
-            <div className="admin-table-wrap">
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>When</th>
-                  <th>Source</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Message</th>
-                </tr>
-              </thead>
-              <tbody>
-                {contacts.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="admin-empty">
-                      No messages yet.
-                    </td>
-                  </tr>
-                ) : (
-                  contacts.map((c) => (
-                    <tr key={c.id}>
-                      <td>{formatDt(c.created_at)}</td>
-                      <td>{c.source}</td>
-                      <td>{c.name}</td>
-                      <td>{c.email}</td>
-                      <td>{c.phone || '—'}</td>
-                      <td className="admin-cell-notes">{c.message}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          </div>
+          </section>
         )}
 
         {tab === 'visits' && (
-          <div>
-            <div className="admin-section-copy">
-              <h2>Visits log</h2>
-              <p>Recent traffic details including entry path, referrer, and device information.</p>
-            </div>
+          <section className="admin-panel">
+            <SectionTitle title="Visits log" text="Recent page loads with referrer, device, and approximate IP location when the lookup succeeds." />
             <div className="admin-table-wrap">
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>When</th>
-                  <th>Path</th>
-                  <th>Visitor</th>
-                  <th>Referrer</th>
-                  <th>Device</th>
-                </tr>
-              </thead>
-              <tbody>
-                {visits.length === 0 ? (
+              <table className="admin-table">
+                <thead>
                   <tr>
-                    <td colSpan={5} className="admin-empty">
-                      No visits logged yet.
-                    </td>
+                    <th>When</th>
+                    <th>Path</th>
+                    <th>Visitor</th>
+                    <th>Location</th>
+                    <th>Referrer</th>
+                    <th>Device</th>
                   </tr>
-                ) : (
-                  visits.map((v) => (
+                </thead>
+                <tbody>
+                  {visits.length === 0 ? (
+                    <tr><td colSpan={6} className="admin-empty">No visits logged yet.</td></tr>
+                  ) : visits.map((v) => (
                     <tr key={v.id}>
                       <td>{formatDt(v.created_at)}</td>
                       <td>{v.path}</td>
                       <td title={v.visitor_key ?? ''}>{v.visitor_key ? shortId(v.visitor_key) : '—'}</td>
-                      <td className="admin-cell-notes">{v.referrer || '—'}</td>
+                      <td>{locationLabel(v) || '—'}</td>
+                      <td className="admin-cell-notes">{v.referrer || 'Direct / unknown'}</td>
                       <td className="admin-cell-notes">{shortUa(v.user_agent)}</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {tab === 'events' && (
+          <section className="admin-panel">
+            <SectionTitle title="Interaction events" text="Raw clicks, section views, page time, and section dwell events used by the summary metrics." />
+            <div className="event-stream">
+              {events.length === 0 ? <EmptyState text="No interaction events yet. Run the migration and browse the public site." /> : null}
+              {events.slice(0, 180).map((e) => (
+                <article key={e.id} className="event-row">
+                  <span className="event-type">{eventLabel(e)}</span>
+                  <strong>{e.target_label || e.section_id || e.path}</strong>
+                  <span>{formatDt(e.created_at)}</span>
+                  <span>{e.duration_ms ? formatDuration(e.duration_ms) : e.path}</span>
+                  <span>{e.visitor_key ? shortId(e.visitor_key) : '—'}</span>
+                </article>
+              ))}
+            </div>
+          </section>
         )}
       </main>
     </div>
   )
 }
 
+function Metric({ label, value, note }: { label: string; value: string | number; note: string }) {
+  return (
+    <article className="admin-stat-card">
+      <span className="admin-stat-label">{label}</span>
+      <strong className="admin-stat-value">{value}</strong>
+      <p>{note}</p>
+    </article>
+  )
+}
+
+function SectionTitle({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="admin-section-copy admin-section-copy--large">
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+  )
+}
+
+function InsightCard({
+  title,
+  rows,
+  empty,
+  formatter,
+}: {
+  title: string
+  rows: { label: string; value: number }[]
+  empty: string
+  formatter?: (n: number) => string
+}) {
+  const max = Math.max(...rows.map((r) => r.value), 1)
+  return (
+    <article className="admin-insight-card">
+      <h3>{title}</h3>
+      {rows.length === 0 ? <p className="admin-empty-note">{empty}</p> : null}
+      {rows.map((row) => (
+        <div key={row.label} className="insight-row">
+          <div>
+            <span>{row.label}</span>
+            <strong>{formatter ? formatter(row.value) : row.value}</strong>
+          </div>
+          <i style={{ transform: `scaleX(${Math.max(row.value / max, 0.04)})` }} />
+        </div>
+      ))}
+    </article>
+  )
+}
+
+function EmptyState({ text }: { text: string }) {
+  return <p className="admin-empty-state">{text}</p>
+}
+
+function buildVisitorProfiles(visits: VisitRow[], contacts: ContactRow[], chats: SiteChatRow[], events: AnalyticsEventRow[]) {
+  const profiles = new Map<string, VisitorProfile>()
+  const ensure = (key: string) => {
+    if (!profiles.has(key)) {
+      profiles.set(key, {
+        key,
+        name: null,
+        email: null,
+        phone: null,
+        city: null,
+        region: null,
+        country: null,
+        firstSeen: new Date().toISOString(),
+        lastSeen: '1970-01-01T00:00:00.000Z',
+        visits: [],
+        contacts: [],
+        chats: [],
+        events: [],
+      })
+    }
+    return profiles.get(key)!
+  }
+
+  const touch = (
+    profile: VisitorProfile,
+    createdAt: string,
+    row: { ip_city?: string | null; ip_region?: string | null; ip_country?: string | null },
+  ) => {
+    if (new Date(createdAt) < new Date(profile.firstSeen)) profile.firstSeen = createdAt
+    if (new Date(createdAt) > new Date(profile.lastSeen)) profile.lastSeen = createdAt
+    profile.city ||= row.ip_city || null
+    profile.region ||= row.ip_region || null
+    profile.country ||= row.ip_country || null
+  }
+
+  for (const v of visits) {
+    if (!v.visitor_key) continue
+    const profile = ensure(v.visitor_key)
+    profile.visits.push(v)
+    touch(profile, v.created_at, v)
+  }
+  for (const c of contacts) {
+    const key = c.visitor_key || `contact:${c.id}`
+    const profile = ensure(key)
+    profile.contacts.push(c)
+    profile.name ||= c.name
+    profile.email ||= c.email
+    profile.phone ||= c.phone
+    touch(profile, c.created_at, c)
+  }
+  for (const c of chats) {
+    if (!c.visitor_key) continue
+    const profile = ensure(c.visitor_key)
+    profile.chats.push(c)
+    touch(profile, c.created_at, c)
+  }
+  for (const e of events) {
+    if (!e.visitor_key) continue
+    const profile = ensure(e.visitor_key)
+    profile.events.push(e)
+    touch(profile, e.created_at, e)
+  }
+
+  return [...profiles.values()].sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime())
+}
+
+function topCounts(values: string[], limit: number) {
+  const counts = new Map<string, number>()
+  for (const value of values) counts.set(value, (counts.get(value) ?? 0) + 1)
+  return [...counts.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, limit)
+}
+
+function topDurations(rows: AnalyticsEventRow[]) {
+  const counts = new Map<string, number>()
+  for (const row of rows) counts.set(row.section_id || 'Unknown', (counts.get(row.section_id || 'Unknown') ?? 0) + (row.duration_ms ?? 0))
+  return [...counts.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5)
+}
+
 function formatDt(iso: string) {
   try {
-    return new Date(iso).toLocaleString(undefined, {
-      dateStyle: 'short',
-      timeStyle: 'short',
-    })
+    return new Date(iso).toLocaleString(undefined, { dateStyle: 'short', timeStyle: 'short' })
   } catch {
     return iso
   }
 }
 
-function shortId(s: string) {
-  return s.length > 10 ? `${s.slice(0, 6)}…` : s
+function formatDuration(ms: number) {
+  if (!ms) return '0s'
+  const sec = Math.round(ms / 1000)
+  if (sec < 60) return `${sec}s`
+  const min = Math.floor(sec / 60)
+  return `${min}m ${sec % 60}s`
 }
 
-function shortUa(ua: string | null) {
+function pct(value: number, total: number) {
+  return `${Math.round((value / total) * 100)}%`
+}
+
+function shortId(s: string) {
+  return s.length > 10 ? `${s.slice(0, 6)}…${s.slice(-3)}` : s
+}
+
+function shortUa(ua: string | null | undefined) {
   if (!ua) return '—'
-  return ua.length > 72 ? `${ua.slice(0, 72)}…` : ua
+  return ua.length > 86 ? `${ua.slice(0, 86)}…` : ua
+}
+
+function locationLabel(row: { ip_city?: string | null; ip_region?: string | null; ip_country?: string | null }) {
+  return [row.ip_city, row.ip_region || row.ip_country].filter(Boolean).join(', ')
+}
+
+function eventLabel(e: AnalyticsEventRow) {
+  if (e.event_type === 'page_time') return 'Page time'
+  if (e.event_type === 'section_time') return 'Section time'
+  if (e.event_type === 'section_view') return 'Section view'
+  return 'Click'
 }

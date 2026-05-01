@@ -62,6 +62,7 @@ export default function EyeHealthSection() {
                 <div className="meta">{a.meta}</div>
                 <h3>{a.title}</h3>
                 <p>{a.desc}</p>
+                <span className="health-card-action">Open article →</span>
               </div>
             </a>
           ))}

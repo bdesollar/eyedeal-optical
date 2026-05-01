@@ -5,7 +5,8 @@ export const SITE_LINKS = {
   studioPhoneDisplay: '(563) 557-0995',
   maps:
     'https://www.google.com/maps/search/?api=1&query=Eyedeal+Optical+2644+Pennsylvania+Ave+Dubuque+IA+52001',
-  facebook: 'https://www.facebook.com',
+  /** Public Eyedeal Optical Dubuque page (not facebook.com homepage). */
+  facebook: 'https://www.facebook.com/EyeDeal1997',
   instagram: 'https://www.instagram.com',
   /** Set when the virtual tour link is available (e.g. Matterport). Empty = hide tour button. */
   virtualTourUrl: '',

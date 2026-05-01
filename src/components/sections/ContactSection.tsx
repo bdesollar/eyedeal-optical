@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { supabase } from '../../lib/supabase'
 import { SITE_LINKS } from '../../lib/siteLinks'
 import CallOrContactLink from '../CallOrContactLink'
+import { submitContactForm } from '../../lib/api'
 
 interface FormState {
   firstName: string
@@ -44,14 +44,12 @@ export default function ContactSection() {
     try {
       const name = `${form.firstName} ${form.lastName}`.trim()
       const message = [`Reason: ${form.reason}`, form.notes ? `Notes: ${form.notes}` : ''].filter(Boolean).join('\n\n')
-      const { error: sbError } = await supabase.from('contact_submissions').insert({
+      await submitContactForm({
         name,
         email: form.email,
-        phone: form.phone || null,
+        phone: form.phone,
         message,
-        source: 'homepage',
-      })
-      if (sbError) throw sbError
+      }, 'homepage')
       setSubmitted(true)
       setForm(defaultForm)
     } catch {
@@ -129,7 +127,7 @@ export default function ContactSection() {
               <div className="cinfo">
                 <div className="lbl">Office</div>
                 <div className="val">
-                  Adah<br />
+                  Adah Tomkins<br />
                   <span style={{ fontSize: '13px', color: 'var(--muted)', fontFamily: "'Inter',sans-serif" }}>Office manager</span>
                 </div>
               </div>
