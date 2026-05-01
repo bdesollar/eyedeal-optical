@@ -4,42 +4,45 @@ const ArrowRight = () => (
   </svg>
 )
 
-const brands: { id: string; name: React.ReactNode; tag: string }[] = [
-  { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American' },
-  { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic' },
-  { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun' },
-  { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable' },
-  { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality' },
-  { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines' },
-  { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm' },
-  { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator' },
-  { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear' },
-  { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2' },
-  { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft' },
-  { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail' },
-  { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Minimal · modern' },
-  { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style' },
+const brands: { id: string; name: React.ReactNode; tag: string; href: string }[] = [
+  { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American', href: 'https://scottharrisglasses.com/' },
+  { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic', href: 'https://www.cinzia.com' },
+  { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun', href: 'https://stateopticalco.com' },
+  { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable', href: 'https://michaelryen.com' },
+  { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
+  { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines', href: 'https://www.davidspencer.com' },
+  { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm', href: 'https://www.oakley.com/en-us' },
+  { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator', href: 'https://www.ray-ban.com/usa' },
+  { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear', href: 'https://www.ray-ban.com/usa/ray-ban-meta-ai-glasses' },
+  { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2', href: 'https://www.mauijim.com' },
+  { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft', href: 'https://minamoto-eyewear.com/en/' },
+  { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail', href: 'https://fyshuk.com' },
+  { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Minimal · modern', href: 'https://www.kliik.com/' },
+  { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style', href: 'https://www.revolutioneyewear.com' },
 ]
 
 const rayBanMetaImage = {
   src: '/ray-ban-meta.jpg',
   alt: 'Ray-Ban Meta smart glasses in black',
+  href: 'https://www.ray-ban.com/usa/ray-ban-meta-ai-glasses',
 }
 
 const collectionImages = [
   {
-    label: 'Minimal lines',
-    title: 'Round metal frames',
-    body: 'Lightweight silhouettes for a quieter, architectural fit.',
+    label: 'Oakley',
+    title: 'Performance optical',
+    body: 'Sport-forward frame design with modern fit and engineered comfort.',
     src: 'https://images.unsplash.com/photo-1755719402885-b7baa634c755?q=80&w=1200&auto=format&fit=crop',
     alt: 'Round eyeglasses with metal frames on a clean surface',
+    href: 'https://www.oakley.com/en-us/category/eyeglasses',
   },
   {
-    label: 'Everyday acetate',
-    title: 'Black frame edit',
-    body: 'Modern optical staples with a refined boutique feel.',
+    label: 'Ray-Ban',
+    title: 'Black frame icons',
+    body: 'Classic acetate styling with timeless shapes that stay in rotation.',
     src: 'https://images.unsplash.com/photo-1556540241-5e1be298dd70?q=80&w=1200&auto=format&fit=crop',
     alt: 'Black framed eyeglasses near a window',
+    href: 'https://www.ray-ban.com/usa/eyeglasses',
   },
 ]
 
@@ -67,19 +70,32 @@ export default function DesignersSection() {
               We carry Ray-Ban Meta frames — iconic Ray-Ban style with built-in technology. Stop in to see what&apos;s in stock and how they can fit your prescription and lifestyle.
             </p>
           </div>
-          <figure className="designer-featured-media">
+          <a
+            className="designer-featured-media"
+            href={rayBanMetaImage.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit Ray-Ban Meta product page"
+          >
             <img
               src={rayBanMetaImage.src}
               alt={rayBanMetaImage.alt}
               loading="lazy"
             />
             <figcaption>Ray-Ban Meta available in select styles</figcaption>
-          </figure>
+          </a>
         </div>
 
         <div className="collection-visual-grid reveal delay-1" aria-label="Featured eyewear styles">
           {collectionImages.map((item) => (
-            <article key={item.title} className="collection-visual-card">
+            <a
+              key={item.title}
+              className="collection-visual-card"
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Visit ${item.label} website`}
+            >
               <div className="collection-visual-card__media">
                 <img src={item.src} alt={item.alt} loading="lazy" />
               </div>
@@ -88,7 +104,7 @@ export default function DesignersSection() {
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 
@@ -99,10 +115,17 @@ export default function DesignersSection() {
 
         <div className="designer-grid reveal delay-2">
           {brands.map((b) => (
-            <div key={b.id} className="designer-chip">
+            <a
+              key={b.id}
+              className="designer-chip"
+              href={b.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Visit ${b.id.replaceAll('-', ' ')} website`}
+            >
               <span className="nm">{b.name}</span>
               <span className="tg">{b.tag}</span>
-            </div>
+            </a>
           ))}
         </div>
 
