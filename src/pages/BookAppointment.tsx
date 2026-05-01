@@ -2,61 +2,89 @@ import { Link } from 'react-router-dom'
 import PublicPageShell from '../components/PublicPageShell'
 import { SITE_LINKS } from '../lib/siteLinks'
 
+const ArrowRight = () => (
+  <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
+    <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" strokeWidth="1.4" />
+  </svg>
+)
+
 export default function BookAppointment() {
   return (
     <PublicPageShell>
-      <div className="book-page">
-        <header className="book-header">
-          <span className="eyebrow">Visit the studio</span>
-          <h1 className="book-title">Plan your visit</h1>
-          <p className="book-lead">
-            We&apos;re a small, locally owned boutique — we don&apos;t offer online scheduling or reserved one-on-one styling appointments.
-            It&apos;s common to have just one of us in the shop, so we can&apos;t always guarantee individual attention for walk-ins. The best
-            way to reach us is a quick call or a message through the form on the home page.
-          </p>
-        </header>
+      <main className="visit-page" id="visit-main">
+        <div className="wrap visit-page__inner">
+          <nav className="visit-breadcrumb" aria-label="Breadcrumb">
+            <ol className="visit-breadcrumb__list">
+              <li>
+                <Link to="/" className="visit-breadcrumb__link">
+                  Home
+                </Link>
+              </li>
+              <li className="visit-breadcrumb__sep" aria-hidden>
+                /
+              </li>
+              <li className="visit-breadcrumb__current" aria-current="page">
+                Plan your visit
+              </li>
+            </ol>
+          </nav>
 
-        <div className="book-static-grid">
-          <div className="book-static-card">
-            <h2 className="book-h2">Call</h2>
-            <p className="book-lead" style={{ marginBottom: 0 }}>
-              <a href={SITE_LINKS.studioTelHref} style={{ color: 'var(--navy)', fontWeight: 600 }}>
+          <header className="visit-hero">
+            <span className="eyebrow">Visit the studio</span>
+            <h1 className="visit-title">
+              Plan your <em>visit</em>
+            </h1>
+            <p className="visit-intro">
+              We&apos;re a small, locally owned boutique — we don&apos;t offer online scheduling or reserved one-on-one styling appointments.
+              It&apos;s common to have just one of us in the shop, so we can&apos;t always guarantee individual attention for walk-ins. The best
+              way to reach us is a quick call or a message through the form on the home page.
+            </p>
+          </header>
+
+          <ul className="visit-cards">
+            <li className="visit-card">
+              <h2 className="visit-card__label">Call</h2>
+              <a href={SITE_LINKS.studioTelHref} className="visit-card__tel">
                 {SITE_LINKS.studioPhoneDisplay}
               </a>
-            </p>
-            <p className="book-hint" style={{ marginTop: 12 }}>
-              Monday–Friday 9–5 · Saturday 9–12 · Sunday closed
-            </p>
-          </div>
-
-          <div className="book-static-card">
-            <h2 className="book-h2">Visit</h2>
-            <p className="book-lead" style={{ marginBottom: 0 }}>
-              2644 Pennsylvania Ave.
-              <br />
-              Dubuque, IA 52001
-            </p>
-            <p className="book-hint" style={{ marginTop: 12 }}>
-              <a href="https://www.google.com/maps/search/?api=1&query=Eyedeal+Optical+2644+Pennsylvania+Ave+Dubuque+IA+52001" target="_blank" rel="noreferrer">
+              <p className="visit-card__meta">Monday–Friday 9–5 · Saturday 9–12 · Sunday closed</p>
+            </li>
+            <li className="visit-card">
+              <h2 className="visit-card__label">Visit</h2>
+              <p className="visit-card__address">
+                2644 Pennsylvania Ave.
+                <br />
+                Dubuque, IA 52001
+              </p>
+              <a href={SITE_LINKS.maps} className="visit-card__link" target="_blank" rel="noreferrer">
                 Open in Google Maps
+                <ArrowRight />
               </a>
-            </p>
-          </div>
-
-          <div className="book-static-card book-static-card--wide">
-            <h2 className="book-h2">Message us</h2>
-            <p className="book-lead" style={{ marginBottom: 0 }}>
-              Use <strong>Visit Us</strong> on the home page to send a note — exams, contacts, adjustments, or general questions. We&apos;ll
-              follow up by phone or email.
-            </p>
-            <p className="book-hint" style={{ marginTop: 16 }}>
-              <Link to="/#contact" style={{ color: 'var(--brass-deep)', fontWeight: 600 }}>
-                Go to contact form →
+            </li>
+            <li className="visit-card visit-card--wide">
+              <h2 className="visit-card__label">Message us</h2>
+              <p className="visit-card__body">
+                Use <strong>Visit Us</strong> on the home page to send a note — exams, contacts, adjustments, or general questions. We&apos;ll
+                follow up by phone or email.
+              </p>
+              <Link to="/#contact" className="btn btn-gold visit-card__cta">
+                Go to contact form
+                <ArrowRight />
               </Link>
-            </p>
+            </li>
+          </ul>
+
+          <div className="visit-actions">
+            <a href={SITE_LINKS.studioTelHref} className="btn btn-primary">
+              Call the studio
+              <ArrowRight />
+            </a>
+            <Link to="/#contact" className="btn btn-ghost visit-actions__secondary">
+              Send a message
+            </Link>
           </div>
         </div>
-      </div>
+      </main>
     </PublicPageShell>
   )
 }

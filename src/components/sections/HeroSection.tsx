@@ -73,7 +73,7 @@ export default function HeroSection() {
               eyewear.
             </h1>
             <p className="hero-sub reveal delay-2">
-              A locally owned, hand-curated eyewear studio in the heart of Dubuque. Every frame personally selected by Bob Pierce. Many
+              A locally owned, hand-curated eyewear studio in the heart of Dubuque. Many
               prescriptions are finished and fitted right here, with the rest handled through our trusted lab partners.
             </p>
             <div className="hero-ctas reveal delay-3">
