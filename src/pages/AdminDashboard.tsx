@@ -130,20 +130,42 @@ export default function AdminDashboard() {
       <main className="admin-main">
         {loadError && <p className="admin-banner">{loadError}</p>}
 
+        <section className="admin-overview" aria-label="Dashboard summary">
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Contact messages</span>
+            <strong className="admin-stat-value">{contacts.length}</strong>
+            <p>Messages sent from the public contact form.</p>
+          </article>
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Site chat messages</span>
+            <strong className="admin-stat-value">{siteChat.length}</strong>
+            <p>Questions asked in the floating website chat.</p>
+          </article>
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Tracked visits</span>
+            <strong className="admin-stat-value">{visits.length}</strong>
+            <p>Latest page visits across public site routes.</p>
+          </article>
+        </section>
+
         <nav className="admin-tabs" aria-label="Data sections">
           <button type="button" className={tab === 'contact' ? 'active' : ''} onClick={() => setTab('contact')}>
-            Contact forms ({contacts.length})
+            Contact inbox ({contacts.length})
           </button>
           <button type="button" className={tab === 'siteChat' ? 'active' : ''} onClick={() => setTab('siteChat')}>
-            Site chat ({siteChat.length})
+            Site chat log ({siteChat.length})
           </button>
           <button type="button" className={tab === 'visits' ? 'active' : ''} onClick={() => setTab('visits')}>
-            Visits ({visits.length})
+            Visits log ({visits.length})
           </button>
         </nav>
 
         {tab === 'siteChat' && (
           <div>
+            <div className="admin-section-copy">
+              <h2>Site chat log</h2>
+              <p>Review what visitors asked and the automated response they received.</p>
+            </div>
             <div className="admin-chat-toolbar">
               <label className="admin-chat-sort">
                 <span>Sort by time</span>
@@ -205,7 +227,12 @@ export default function AdminDashboard() {
         )}
 
         {tab === 'contact' && (
-          <div className="admin-table-wrap">
+          <div>
+            <div className="admin-section-copy">
+              <h2>Contact inbox</h2>
+              <p>Newest requests appear first. Use this list to follow up by email or phone.</p>
+            </div>
+            <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -239,10 +266,16 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           </div>
+          </div>
         )}
 
         {tab === 'visits' && (
-          <div className="admin-table-wrap">
+          <div>
+            <div className="admin-section-copy">
+              <h2>Visits log</h2>
+              <p>Recent traffic details including entry path, referrer, and device information.</p>
+            </div>
+            <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -273,6 +306,7 @@ export default function AdminDashboard() {
                 )}
               </tbody>
             </table>
+          </div>
           </div>
         )}
       </main>

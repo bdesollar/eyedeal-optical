@@ -4,17 +4,17 @@ const ArrowRight = () => (
   </svg>
 )
 
-const brands: { id: string; name: React.ReactNode; tag: string; href: string }[] = [
+const brands: { id: string; name: React.ReactNode; tag: string; href?: string }[] = [
   { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American', href: 'https://scottharrisglasses.com/' },
   { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic', href: 'https://www.cinzia.com' },
   { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun', href: 'https://stateopticalco.com' },
   { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable', href: 'https://michaelryen.com' },
   { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
   { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines', href: 'https://www.davidspencer.com' },
-  { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm', href: 'https://www.oakley.com/en-us' },
-  { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator', href: 'https://www.ray-ban.com/usa' },
-  { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear', href: 'https://www.ray-ban.com/usa/ray-ban-meta-ai-glasses' },
-  { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2', href: 'https://www.mauijim.com' },
+  { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm' },
+  { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator' },
+  { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear' },
+  { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2' },
   { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft', href: 'https://minamoto-eyewear.com/en/' },
   { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail', href: 'https://fyshuk.com' },
   { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Minimal · modern', href: 'https://www.kliik.com/' },
@@ -22,9 +22,8 @@ const brands: { id: string; name: React.ReactNode; tag: string; href: string }[]
 ]
 
 const rayBanMetaImage = {
-  src: '/ray-ban-meta.jpg',
+  src: '/ray-ban-meta-blended.jpg',
   alt: 'Ray-Ban Meta smart glasses in black',
-  href: 'https://www.ray-ban.com/usa/ray-ban-meta-ai-glasses',
 }
 
 const collectionImages = [
@@ -34,7 +33,7 @@ const collectionImages = [
     body: 'Sport-forward frame design with modern fit and engineered comfort.',
     src: 'https://images.unsplash.com/photo-1755719402885-b7baa634c755?q=80&w=1200&auto=format&fit=crop',
     alt: 'Round eyeglasses with metal frames on a clean surface',
-    href: 'https://www.oakley.com/en-us/category/eyeglasses',
+    inStoreOnly: true,
   },
   {
     label: 'Ray-Ban',
@@ -42,7 +41,7 @@ const collectionImages = [
     body: 'Classic acetate styling with timeless shapes that stay in rotation.',
     src: 'https://images.unsplash.com/photo-1556540241-5e1be298dd70?q=80&w=1200&auto=format&fit=crop',
     alt: 'Black framed eyeglasses near a window',
-    href: 'https://www.ray-ban.com/usa/eyeglasses',
+    inStoreOnly: true,
   },
 ]
 
@@ -70,32 +69,16 @@ export default function DesignersSection() {
               We carry Ray-Ban Meta frames — iconic Ray-Ban style with built-in technology. Stop in to see what&apos;s in stock and how they can fit your prescription and lifestyle.
             </p>
           </div>
-          <a
-            className="designer-featured-media"
-            href={rayBanMetaImage.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Visit Ray-Ban Meta product page"
-          >
             <img
               src={rayBanMetaImage.src}
               alt={rayBanMetaImage.alt}
               loading="lazy"
             />
-            <figcaption>Ray-Ban Meta available in select styles</figcaption>
-          </a>
         </div>
 
         <div className="collection-visual-grid reveal delay-1" aria-label="Featured eyewear styles">
           {collectionImages.map((item) => (
-            <a
-              key={item.title}
-              className="collection-visual-card"
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Visit ${item.label} website`}
-            >
+            <article key={item.title} className="collection-visual-card">
               <div className="collection-visual-card__media">
                 <img src={item.src} alt={item.alt} loading="lazy" />
               </div>
@@ -103,8 +86,9 @@ export default function DesignersSection() {
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
+                {item.inStoreOnly ? <small className="in-store-badge">In store only</small> : null}
               </div>
-            </a>
+            </article>
           ))}
         </div>
 
@@ -114,19 +98,27 @@ export default function DesignersSection() {
         </div>
 
         <div className="designer-grid reveal delay-2">
-          {brands.map((b) => (
-            <a
-              key={b.id}
-              className="designer-chip"
-              href={b.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Visit ${b.id.replaceAll('-', ' ')} website`}
-            >
-              <span className="nm">{b.name}</span>
-              <span className="tg">{b.tag}</span>
-            </a>
-          ))}
+          {brands.map((b) =>
+            b.href ? (
+              <a
+                key={b.id}
+                className="designer-chip"
+                href={b.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${b.id.replaceAll('-', ' ')} website`}
+              >
+                <span className="nm">{b.name}</span>
+                <span className="tg">{b.tag}</span>
+              </a>
+            ) : (
+              <div key={b.id} className="designer-chip designer-chip--static" aria-label={`${b.id.replaceAll('-', ' ')} brand`}>
+                <span className="nm">{b.name}</span>
+                <span className="tg">{b.tag}</span>
+                <span className="in-store-badge">In store only</span>
+              </div>
+            ),
+          )}
         </div>
 
         <div className="designers-cta">
