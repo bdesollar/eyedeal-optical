@@ -1,7 +1,23 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
-const brands = ['Ray-Ban','Oakley','Maui Jim','Tom Ford','Persol','Costa','Silhouette','Kate Spade','Coach','Nike Vision']
+const brands = [
+  'Scott Harris',
+  'Cinzia',
+  'State',
+  'Michael Ryen',
+  'Dolabany',
+  'David Spencer',
+  'Oakley',
+  'Ray-Ban',
+  'Ray-Ban Meta',
+  'Maui Jim',
+  'Minamoto',
+  'Fysh',
+  'Kliik',
+  'Revolution',
+]
 
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -57,23 +73,35 @@ export default function HeroSection() {
               eyewear.
             </h1>
             <p className="hero-sub reveal delay-2">
-              A locally owned, hand-curated eyewear studio in the heart of Dubuque. Every frame personally selected by Bob Pierce. Every lens cut on the premises.
+              A locally owned, hand-curated eyewear studio in the heart of Dubuque. Every frame personally selected by Bob Pierce. Many
+              prescriptions are finished and fitted right here, with the rest handled through our trusted lab partners.
             </p>
             <div className="hero-ctas reveal delay-3">
-              <Link to="/book" className="btn btn-primary">
-                Book an Appointment
+              <a
+                href={SITE_LINKS.studioTelHref}
+                className="btn btn-primary"
+                title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
+              >
+                Call us
                 <ArrowRight />
+              </a>
+              <Link to="/book" className="btn btn-ghost">
+                Hours &amp; visit info
               </Link>
-              <a href="#designers" className="btn btn-ghost">Browse the Collection</a>
             </div>
+            <p className="hero-collection-link reveal delay-3">
+              <a href="#designers">Browse the collection</a>
+            </p>
             <div className="hero-meta reveal delay-3">
               <div className="item">
                 <div className="num"><em>29</em>yrs</div>
                 <div className="lbl">Serving Dubuque</div>
               </div>
               <div className="item">
-                <div className="num">100<em>%</em></div>
-                <div className="lbl">Lenses cut on-site</div>
+                <div className="num">
+                  On-<em>site</em>
+                </div>
+                <div className="lbl">Lab &amp; finishing</div>
               </div>
               <div className="item">
                 <div className="num">1yr<em>+</em></div>

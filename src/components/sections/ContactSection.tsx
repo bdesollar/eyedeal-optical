@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
 interface FormState {
   firstName: string
@@ -68,18 +69,34 @@ export default function ContactSection() {
           <div className="contact-info reveal">
             <span className="eyebrow">Visit the Studio</span>
             <h2>2644 Pennsylvania Ave.<br />Dubuque, <em>Iowa</em>.</h2>
-            <p>Stop by during studio hours, or send a note below and we’ll find a time that works. New patients always welcome.</p>
-            <p style={{ marginTop: 12, fontSize: 14 }}>
+            <p>Stop by during studio hours, call ahead, or send a note below. New patients always welcome.</p>
+            <p style={{ marginTop: 12, fontSize: 14, color: 'var(--muted)' }}>
+              We don&apos;t offer online booking —{' '}
               <Link to="/book" style={{ color: 'var(--brass-deep)', fontWeight: 600, textDecoration: 'underline' }}>
-                Book a specific time online
+                hours &amp; visit info
               </Link>
-              <span style={{ color: 'var(--muted)' }}> — or message us here.</span>
+              .
             </p>
+            {SITE_LINKS.virtualTourUrl ? (
+              <p style={{ marginTop: 14 }}>
+                <a
+                  href={SITE_LINKS.virtualTourUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary"
+                  style={{ display: 'inline-flex', padding: '11px 20px', fontSize: 11 }}
+                >
+                  Virtual tour
+                </a>
+              </p>
+            ) : null}
 
             <div className="contact-block">
               <div className="cinfo">
                 <div className="lbl">Telephone</div>
-                <div className="val"><a href="tel:15635570995">1-563-557-0995</a></div>
+                <div className="val">
+                  <a href={SITE_LINKS.studioTelHref}>1-563-557-0995</a>
+                </div>
               </div>
               <div className="cinfo">
                 <div className="lbl">Email</div>
@@ -98,6 +115,13 @@ export default function ContactSection() {
                   <span style={{ fontSize: '13px', color: 'var(--muted)', fontFamily: "'Inter',sans-serif" }}>Optician · since 1997</span>
                 </div>
               </div>
+              <div className="cinfo">
+                <div className="lbl">Office</div>
+                <div className="val">
+                  Adah<br />
+                  <span style={{ fontSize: '13px', color: 'var(--muted)', fontFamily: "'Inter',sans-serif" }}>Office manager</span>
+                </div>
+              </div>
             </div>
 
             <div className="hours">
@@ -110,8 +134,8 @@ export default function ContactSection() {
 
           {/* Form */}
           <form className="cform reveal delay-1" onSubmit={handleSubmit}>
-            <span className="eyebrow on-dark">Request an Appointment</span>
-            <h3>Tell us about your <em>visit</em>.</h3>
+            <span className="eyebrow on-dark">Send a message</span>
+            <h3>Tell us how we can <em>help</em>.</h3>
 
             <div className="field-row">
               <div className="field">

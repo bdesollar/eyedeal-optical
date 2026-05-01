@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import BrandLogoLink from '../BrandLogoLink'
 import { SITE_LINKS } from '../../lib/siteLinks'
 
 export default function SiteFooter() {
@@ -7,18 +8,7 @@ export default function SiteFooter() {
       <div className="wrap">
         <div className="foot-top">
           <div className="foot-brand">
-            <Link to="/" className="logo">
-              <span className="logo-mark">
-                <svg viewBox="0 0 84 32" fill="none" strokeWidth="1.4" aria-hidden>
-                  <circle cx="20" cy="16" r="13" stroke="#F5EDE0" />
-                  <circle cx="64" cy="16" r="13" stroke="#F5EDE0" />
-                  <path d="M33 16h18" stroke="#C9A961" strokeWidth="1.6" />
-                  <circle cx="20" cy="16" r="3" fill="#C9A961" />
-                  <circle cx="64" cy="16" r="3" fill="#C9A961" />
-                </svg>
-              </span>
-              <span className="logo-text">Eyedeal <em>Optical</em></span>
-            </Link>
+            <BrandLogoLink variant="footer" />
             <p>Dubuque's locally owned, hand-curated boutique optical studio. Fitting friends and neighbors with exceptional eyewear since 1997.</p>
             <div className="socials">
               <a href={SITE_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook (search)">
@@ -53,10 +43,10 @@ export default function SiteFooter() {
           <div className="foot-col">
             <h6>Contact</h6>
             <p>2644 Pennsylvania Ave.<br />Dubuque, IA 52001</p>
-            <a href="tel:15635570995">563.557.0995</a>
+            <a href={SITE_LINKS.studioTelHref}>563.557.0995</a>
             <a href="mailto:eyedealoptical1997@yahoo.com">eyedealoptical1997@yahoo.com</a>
             <Link to="/book" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
-              Book online
+              Hours &amp; how to visit
             </Link>
           </div>
 

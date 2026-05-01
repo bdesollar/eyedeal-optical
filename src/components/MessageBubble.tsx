@@ -19,13 +19,15 @@ We’re a small studio—if you’re unsure (holiday week, etc.), a quick call i
 • **Email:** eyedealoptical1997@yahoo.com
 • **Address:** 2644 Pennsylvania Ave., Dubuque, IA 52001
 
-You can also use **Visit Us** on this page to request an appointment or send a message.`,
+You can also use **Visit Us** on this page to send a message. We don’t offer online scheduling — **call** or **write us** and we’ll follow up.`,
 
   about: `**About Eyedeal**
-We’re a **locally owned** boutique run by **Bob Pierce**, here since **1997**. Bob chooses the frame lines, and we cut a lot of lenses on-site, so your glasses are **locally fit and crafted**—not a one-size-fits-all chain. We work with the community (including the schools and the Lions) and treat patients like **friends and neighbors**.`,
+We’re a **locally owned** boutique run by **Bob Pierce**, here since **1997**. Bob chooses the frame lines, and much of our lens work is **finished on-site**, so many pairs are **locally fit and crafted**—not a one-size-fits-all chain. We work with the community (including the schools and the Lions) and treat patients like **friends and neighbors**.`,
 
-  appointment: `**Appointments & requests**
-To book a visit, ask about an exam, or get help with **frames, lenses, or adjustments**: use the **Book an appointment** page (eyedealoptical.com/book) or call **(563) 557-0995**. We’ll follow up the way you prefer.`,
+  appointment: `**Visits & requests**
+We **don’t book online**—call **(563) 557-0995** or use **Visit Us** to send a message about exams, contacts, frames, or adjustments.
+
+We’re often a **small crew** (sometimes just one person), so we **don’t reserve one-on-one styling appointments**. Walk-ins and messages are welcome **during studio hours**.`,
 
   insurance: `**Insurance & plans**
 We work with many vision plans and insurers (VSP, Eyemed, and others, depending on your plan). **Coverage and eligibility vary**, so the fastest way to know what works for *you* is a short call: **(563) 557-0995**—or bring your card when you come in.`,
@@ -35,7 +37,7 @@ We work with many vision plans and insurers (VSP, Eyemed, and others, depending 
 
 Questions about something specific? Call the studio at **(563) 557-0995**—we’re happy to help.`,
 
-  greeting: `Hi! You can ask about **studio hours,** **phone, email & address,** **what we offer,** or **how to book.** I’ll answer from the same info we share on the site.`,
+  greeting: `Hi! You can ask about **studio hours,** **phone, email & address,** **what we offer,** or **how to reach us.** I’ll answer from the same info we share on the site.`,
 
   thanks: `You’re welcome! If you need more detail, **(563) 557-0995** is the best line, or use **Visit Us** on this page.`,
 
@@ -44,7 +46,7 @@ Questions about something specific? Call the studio at **(563) 557-0995**—we�
   help: `Try one of these ideas:
 • “**What are your hours?**”
 • “**What’s the phone / address?**”
-• “**How do I book an appointment?**”
+• “**How do I schedule a visit?**”
 • “**Do you take insurance?**”
 
 I match your message to the answers we already publish—**no off-site tools.**`,

@@ -26,8 +26,8 @@ export default function StorySection() {
               national eyewear chain, Bob discovered the importance of local business to his community and saw an
               opportunity to bring superior quality, better service and lower cost to his friends and neighbors.
               His vision was realized in 1997 with the opening of Eyedeal Optical. He hand-picks his incredible
-              selection of frames and cuts all lenses on the premises so each pair of glasses is truly locally
-              crafted. Bob is a member of the Lions Club International and works with the local school district
+              selection of frames, and much of our lens work is finished on-site — so many pairs are truly locally
+              crafted, with specialty work completed through partners when needed. Bob is a member of the Lions Club International and works with the local school district
               to provide free exams and glasses to children in need.
             </p>
             <p>

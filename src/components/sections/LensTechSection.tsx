@@ -3,27 +3,37 @@ import { useState } from 'react'
 const lensData = [
   {
     title: 'Single Vision — perfectly clear, edge to edge.',
-    body: 'For one focal distance — driving, reading, or all-day wear. Cut on-site to your exact prescription with optical centers measured digitally.',
+    body: 'For one focal distance — driving, reading, or all-day wear. Digital measurements and on-site finishing help keep optical centers exact for your frame.',
     list: ['Digital free-form surfacing', 'Aspheric thinning available', 'Optional polarization for sun'],
   },
   {
     title: 'Progressives — three prescriptions, no line.',
-    body: 'Seamless transitions from distance to intermediate to near, with German-engineered geometry that feels natural from day one.',
-    list: ['GSRx HD progressive geometry', 'Personalized to your fit & frame', 'Adaptation guarantee included'],
+    body: 'Seamless transitions from distance to intermediate to near, with German-engineered HD lens geometry that feels natural from day one. The “HD” story lives in the precision of the lens design — not a thin coating on the surface.',
+    list: ['GSRx HD progressive lens design', 'Personalized to your fit & frame', 'Adaptation guarantee included'],
   },
   {
-    title: 'HD Coatings — clarity you can feel.',
-    body: 'Anti-reflective, scratch-resistant, hydrophobic, and oleophobic layers stacked for sharper vision and easier cleaning.',
-    list: ['Premium AR coating (multi-layer)', 'Blue-light filtering (optional)', 'Hydrophobic & smudge-resistant'],
+    title: 'Premium coatings — protection you can see.',
+    body: 'Multi-layer anti-reflective, scratch resistance, and hydrophobic / oleophobic treatments make lenses easier to clean and more comfortable in glare. These stacks enhance your lens — they are not the same thing as digital HD lens design.',
+    list: ['Premium AR (multi-layer)', 'Blue-light filtering (optional)', 'Hydrophobic & smudge-resistant hard coat'],
   },
   {
     title: 'Specialty — sport, safety, and beyond.',
     body: 'Sport-specific lens curves, OSHA-rated safety lenses through Safevision, and specialty tints for occupational needs.',
     list: ['Polycarbonate & Trivex impact lenses', 'Sport wraps with optical inserts', 'Safevision industrial program'],
   },
+  {
+    title: 'Popular add-ons — tailored to your day.',
+    body: 'Enhancements we often pair with your prescription — ask what makes sense for your frame, job, and light conditions.',
+    list: [
+      'Transitions — light-adaptive tint indoors / out',
+      'Chemistrie Clips — magnetic snap-on sun clips',
+      'Mirror finishes — performance and style for sun wear',
+      'ND4 — neutral density for specific visual comfort needs',
+    ],
+  },
 ]
 
-const tabLabels = ['Single Vision', 'Progressives', 'HD Coatings', 'Specialty']
+const tabLabels = ['Single Vision', 'Progressives', 'Premium coatings', 'Specialty', 'Add-ons']
 
 export default function LensTechSection() {
   const [activeTab, setActiveTab] = useState(0)
@@ -64,22 +74,39 @@ export default function LensTechSection() {
               <line x1="85" y1="250" x2="70" y2="250" stroke="#0F1A2E" strokeWidth=".6" />
               <line x1="415" y1="250" x2="430" y2="250" stroke="#0F1A2E" strokeWidth=".6" />
             </svg>
-            <div className="label l1"><span className="num">i.</span>HD Coating</div>
-            <div className="label l2"><span className="num">ii.</span>Anti-Reflective</div>
-            <div className="label l3"><span className="num">iii.</span>Optical Center</div>
-            <div className="label l4"><span className="num">iv.</span>German-Designed</div>
+            <div className="label l1">
+              <span className="num">i.</span>HD lens design
+            </div>
+            <div className="label l2">
+              <span className="num">ii.</span>AR stack
+            </div>
+            <div className="label l3">
+              <span className="num">iii.</span>Optical center
+            </div>
+            <div className="label l4">
+              <span className="num">iv.</span>German-engineered
+            </div>
           </div>
 
           {/* Content */}
           <div className="lens-content reveal delay-1">
             <span className="eyebrow">Lens Technology</span>
-            <h2>German-engineered<br />lenses, cut <em>here</em>.</h2>
-            <p>Through our partnership with <strong>GSRx</strong> — an independent US lab specializing in German-designed optics and HD coatings — every prescription is finished on-site to exacting standards.</p>
+            <h2>
+              German-engineered
+              <br />
+              lenses, cut <em>here</em>.
+            </h2>
+            <p>
+              Through our partnership with <strong>GSRx</strong> — an independent US lab specializing in German-designed optics — we pair
+              precision lens designs (including HD progressive geometry) with premium coatings. Much of your prescription is finished
+              on-site; specialized work may route through the lab when that delivers the best result.
+            </p>
 
             <div className="lens-tabs">
               {tabLabels.map((label, i) => (
                 <button
                   key={label}
+                  type="button"
                   className={`lens-tab${activeTab === i ? ' active' : ''}`}
                   onClick={() => setActiveTab(i)}
                 >

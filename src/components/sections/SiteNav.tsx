@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import BrandLogoLink from '../BrandLogoLink'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
@@ -111,18 +113,7 @@ export default function SiteNav() {
     <nav className="nav" aria-label="Main">
       <div className="wrap">
         <div className="row">
-          <Link to="/" className="logo" onClick={close}>
-            <span className="logo-mark">
-              <svg viewBox="0 0 84 32" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden>
-                <circle cx="20" cy="16" r="13" stroke="#0F1A2E" />
-                <circle cx="64" cy="16" r="13" stroke="#0F1A2E" />
-                <path d="M33 16h18" stroke="#C9A961" strokeWidth="1.6" />
-                <circle cx="20" cy="16" r="3" fill="#C9A961" stroke="none" />
-                <circle cx="64" cy="16" r="3" fill="#C9A961" stroke="none" />
-              </svg>
-            </span>
-            <span className="logo-text">Eyedeal <em>Optical</em></span>
-          </Link>
+          <BrandLogoLink variant="nav" onClick={close} />
 
           <div className="navlinks" aria-label="In-page">
             {navAnchors.map(({ href, label }) => (
@@ -133,13 +124,27 @@ export default function SiteNav() {
           </div>
 
           <div className="nav-right">
-            <Link to="/book" className="btn btn-primary" onClick={close}>
-              <span className="nav-cta-text">Book appointment</span>
-              <span className="nav-cta-text-short" aria-hidden>
-                Book
-              </span>
-              <ArrowRight />
-            </Link>
+            <div className="nav-cta-group">
+              <a
+                href={SITE_LINKS.studioTelHref}
+                className="btn btn-primary nav-cta-btn"
+                title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
+                aria-label={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
+                onClick={close}
+              >
+                <span className="nav-cta-text">Call us</span>
+                <span className="nav-cta-text-short" aria-hidden>
+                  Call
+                </span>
+                <ArrowRight />
+              </a>
+              <Link to="/book" className="btn btn-ghost nav-cta-secondary nav-cta-btn" onClick={close}>
+                <span className="nav-cta-text">Hours &amp; visit info</span>
+                <span className="nav-cta-text-short" aria-hidden>
+                  Info
+                </span>
+              </Link>
+            </div>
             <button
               ref={burgerRef}
               type="button"
@@ -198,9 +203,18 @@ export default function SiteNav() {
                 ))}
               </ul>
               <div className="nav-panel-cta">
-                <Link to="/book" className="btn btn-primary nav-panel-cta-btn" onClick={close}>
-                  Book appointment
+                <a
+                  href={SITE_LINKS.studioTelHref}
+                  className="btn btn-primary nav-panel-cta-btn"
+                  title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
+                  aria-label={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
+                  onClick={close}
+                >
+                  Call us
                   <ArrowRight />
+                </a>
+                <Link to="/book" className="btn btn-ghost nav-panel-cta-btn nav-panel-cta-secondary" onClick={close}>
+                  Hours &amp; visit info
                 </Link>
                 <a href="#contact" className="nav-panel-secondary" onClick={(e) => onNavClick(e, '#contact')}>
                   Or send a message

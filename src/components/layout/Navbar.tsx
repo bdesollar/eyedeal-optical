@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Eyewear', to: '/eyewear' },
   { label: 'Services', to: '/services' },
-  { label: 'Book Exam', to: '/book' },
+  { label: 'Visit info', to: '/book' },
   { label: 'Insurance', to: '/insurance' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -40,12 +41,12 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/book"
+            <a
+              href={SITE_LINKS.studioTelHref}
               className="bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
             >
-              Book Appointment
-            </Link>
+              Call us
+            </a>
           </div>
 
           <button
@@ -76,13 +77,13 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <Link
-            to="/book"
+          <a
+            href={SITE_LINKS.studioTelHref}
             className="block w-full text-center bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg mt-2"
             onClick={() => setMenuOpen(false)}
           >
-            Book Appointment
-          </Link>
+            Call us
+          </a>
         </div>
       )}
     </header>

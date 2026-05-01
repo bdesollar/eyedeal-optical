@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { SITE_LINKS } from '../lib/siteLinks'
 
 const services = [
   {
@@ -64,12 +64,12 @@ export default function Services() {
               <div className="lg:text-right flex-shrink-0">
                 <p className="text-sm text-gray-400 mb-1">{s.duration}</p>
                 <p className="text-blue-700 font-bold text-lg mb-4">{s.price}</p>
-                <Link
-                  to="/book"
+                <a
+                  href={SITE_LINKS.studioTelHref}
                   className="bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg hover:bg-blue-800 transition-colors inline-block"
                 >
-                  Book Now
-                </Link>
+                  Call to schedule
+                </a>
               </div>
             </div>
           </div>

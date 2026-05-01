@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { SITE_LINKS } from '../../lib/siteLinks'
 
 const services: {
   num: string
@@ -12,8 +12,8 @@ const services: {
     num: '01',
     title: 'Comprehensive Eye Exams',
     desc: 'Full-spectrum vision and ocular health evaluations using the latest digital diagnostic equipment.',
-    more: 'Schedule an exam',
-    href: '/book?type=eye_exam',
+    more: 'Call to schedule',
+    href: SITE_LINKS.studioTelHref,
     icon: (
       <svg className="ico" viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M5 30c5-12 15-18 25-18s20 6 25 18c-5 12-15 18-25 18S10 42 5 30z" />
@@ -42,8 +42,8 @@ const services: {
     num: '03',
     title: 'Contact Lenses',
     desc: "Acuvue and other premium lines, fitted with precision so your contacts feel like they aren't there at all.",
-    more: 'Fitting & trial',
-    href: '/book?type=contact_fitting',
+    more: 'Call about fittings',
+    href: SITE_LINKS.studioTelHref,
     icon: (
       <svg className="ico" viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <circle cx="30" cy="30" r="20" />
@@ -56,7 +56,7 @@ const services: {
   {
     num: '04',
     title: 'On-Site Lens Lab',
-    desc: 'Every lens — single vision and progressive — cut and finished on the premises. Nothing shipped, nothing rushed.',
+    desc: 'Single vision, progressive, and many specialty jobs are cut and finished here through our on-site lab and GSRx partnership — so your lenses are fit to your frame with care.',
     more: 'How we craft them',
     href: '/#lens',
     icon: (
@@ -112,13 +112,6 @@ function ServiceCard(s: (typeof services)[0], i: number) {
       </span>
     </>
   )
-  if (s.href.startsWith('/book')) {
-    return (
-      <Link key={s.num} to={s.href} className={`svc reveal${delayClass}`}>
-        {inner}
-      </Link>
-    )
-  }
   return (
     <a key={s.num} href={s.href} className={`svc reveal${delayClass}`}>
       {inner}
