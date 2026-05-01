@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PublicPageShell from '../components/PublicPageShell'
 import { SITE_LINKS } from '../lib/siteLinks'
+import CallOrContactLink from '../components/CallOrContactLink'
 
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
@@ -44,9 +45,9 @@ export default function BookAppointment() {
           <ul className="visit-cards">
             <li className="visit-card">
               <h2 className="visit-card__label">Call</h2>
-              <a href={SITE_LINKS.studioTelHref} className="visit-card__tel">
+              <CallOrContactLink className="visit-card__tel">
                 {SITE_LINKS.studioPhoneDisplay}
-              </a>
+              </CallOrContactLink>
               <p className="visit-card__meta">Monday–Friday 9–5 · Saturday 9–12 · Sunday closed</p>
             </li>
             <li className="visit-card">
@@ -75,10 +76,10 @@ export default function BookAppointment() {
           </ul>
 
           <div className="visit-actions">
-            <a href={SITE_LINKS.studioTelHref} className="btn btn-primary">
+            <CallOrContactLink className="btn btn-primary">
               Call the studio
               <ArrowRight />
-            </a>
+            </CallOrContactLink>
             <Link to="/#contact" className="btn btn-ghost visit-actions__secondary">
               Send a message
             </Link>

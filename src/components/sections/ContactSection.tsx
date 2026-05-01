@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 interface FormState {
   firstName: string
@@ -68,15 +68,16 @@ export default function ContactSection() {
           {/* Info */}
           <div className="contact-info reveal">
             <span className="eyebrow">Visit the Studio</span>
-            <h2>2644 Pennsylvania Ave.<br />Dubuque, <em>Iowa</em>.</h2>
-            <p>Stop by during studio hours, call ahead, or send a note below. New patients always welcome.</p>
-            <p style={{ marginTop: 12, fontSize: 14, color: 'var(--muted)' }}>
-              We don&apos;t offer online booking —{' '}
-              <Link to="/book" style={{ color: 'var(--brass-deep)', fontWeight: 600, textDecoration: 'underline' }}>
-                hours &amp; visit info
-              </Link>
-              .
+            <h2>Visit our local Dubuque <em>studio</em>.</h2>
+            <p className="contact-lede">
+              Stop by during studio hours, call ahead, or send a note. New patients always welcome.
             </p>
+            <div className="contact-note">
+              <span>Best for same-day help</span>
+              <p>
+                We don&apos;t offer online booking. Call the studio for the fastest answer, or use the message form for general questions and visit planning.
+              </p>
+            </div>
             {SITE_LINKS.virtualTourUrl ? (
               <p style={{ marginTop: 14 }}>
                 <a
@@ -95,7 +96,7 @@ export default function ContactSection() {
               <div className="cinfo">
                 <div className="lbl">Telephone</div>
                 <div className="val">
-                  <a href={SITE_LINKS.studioTelHref}>1-563-557-0995</a>
+                  <CallOrContactLink>1-563-557-0995</CallOrContactLink>
                 </div>
               </div>
               <div className="cinfo">
@@ -106,7 +107,17 @@ export default function ContactSection() {
               </div>
               <div className="cinfo">
                 <div className="lbl">Address</div>
-                <div className="val">2644 Pennsylvania Ave.<br />Dubuque, IA 52001</div>
+                <div className="val">
+                  <a
+                    href={SITE_LINKS.maps}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact-address-link"
+                    aria-label="Open Eyedeal Optical in maps"
+                  >
+                    2644 Pennsylvania Ave.<br />Dubuque, IA 52001
+                  </a>
+                </div>
               </div>
               <div className="cinfo">
                 <div className="lbl">Owner</div>
@@ -124,11 +135,25 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="hours">
-              <h5>Studio Hours</h5>
-              <div className="hr"><span className="day">Monday – Friday</span><span className="tm">9:00 AM — 5:00 PM</span></div>
-              <div className="hr"><span className="day">Saturday</span><span className="tm">9:00 AM — 12:00 PM</span></div>
-              <div className="hr closed"><span className="day">Sunday</span><span className="tm">Closed</span></div>
+            <div className="contact-logistics">
+              <div className="contact-map-card">
+                <iframe
+                  className="contact-map-frame"
+                  title="Eyedeal Optical on Google Maps"
+                  src="https://www.google.com/maps?q=2644+Pennsylvania+Ave+Dubuque+IA+52001&output=embed"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <a href={SITE_LINKS.maps} target="_blank" rel="noreferrer" className="contact-map-caption">
+                  Open directions in your maps app
+                </a>
+              </div>
+
+              <div className="hours">
+                <h5>Studio Hours</h5>
+                <div className="hr"><span className="day">Monday – Friday</span><span className="tm">9:00 AM — 5:00 PM</span></div>
+                <div className="hr"><span className="day">Saturday</span><span className="tm">9:00 AM — 12:00 PM</span></div>
+                <div className="hr closed"><span className="day">Sunday</span><span className="tm">Closed</span></div>
+              </div>
             </div>
           </div>
 
@@ -136,6 +161,7 @@ export default function ContactSection() {
           <form className="cform reveal delay-1" onSubmit={handleSubmit}>
             <span className="eyebrow on-dark">Send a message</span>
             <h3>Tell us how we can <em>help</em>.</h3>
+            <p className="cform-intro">Questions about exams, frame fittings, adjustments, contacts, or insurance are welcome.</p>
 
             <div className="field-row">
               <div className="field">
@@ -185,6 +211,9 @@ export default function ContactSection() {
             >
               {submitted ? 'Request Sent ✓' : submitting ? 'Sending…' : <>Send Request <ArrowRight /></>}
             </button>
+            <p className="cform-footnote">
+              Need a quicker answer? <CallOrContactLink>Call {SITE_LINKS.studioPhoneDisplay}</CallOrContactLink>.
+            </p>
           </form>
         </div>
       </div>

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Eyewear', to: '/eyewear' },
   { label: 'Services', to: '/services' },
-  { label: 'Visit info', to: '/book' },
+  { label: 'Visit info', to: '/#contact' },
   { label: 'Insurance', to: '/insurance' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -41,12 +41,11 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href={SITE_LINKS.studioTelHref}
+            <CallOrContactLink
               className="bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
             >
               Call us
-            </a>
+            </CallOrContactLink>
           </div>
 
           <button
@@ -77,13 +76,12 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <a
-            href={SITE_LINKS.studioTelHref}
+          <CallOrContactLink
             className="block w-full text-center bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg mt-2"
             onClick={() => setMenuOpen(false)}
           >
             Call us
-          </a>
+          </CallOrContactLink>
         </div>
       )}
     </header>

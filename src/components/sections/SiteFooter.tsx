@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import BrandLogoLink from '../BrandLogoLink'
 import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 export default function SiteFooter() {
   return (
@@ -43,9 +44,9 @@ export default function SiteFooter() {
           <div className="foot-col">
             <h6>Contact</h6>
             <p>2644 Pennsylvania Ave.<br />Dubuque, IA 52001</p>
-            <a href={SITE_LINKS.studioTelHref}>563.557.0995</a>
+            <CallOrContactLink>563.557.0995</CallOrContactLink>
             <a href="mailto:eyedealoptical1997@yahoo.com">eyedealoptical1997@yahoo.com</a>
-            <Link to="/book" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
+            <Link to="/#contact" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
               Hours &amp; how to visit
             </Link>
           </div>

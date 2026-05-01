@@ -1,4 +1,5 @@
 import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 const services: {
   num: string
@@ -112,6 +113,13 @@ function ServiceCard(s: (typeof services)[0], i: number) {
       </span>
     </>
   )
+  if (s.href === SITE_LINKS.studioTelHref) {
+    return (
+      <CallOrContactLink key={s.num} className={`svc reveal${delayClass}`}>
+        {inner}
+      </CallOrContactLink>
+    )
+  }
   return (
     <a key={s.num} href={s.href} className={`svc reveal${delayClass}`}>
       {inner}

@@ -13,11 +13,34 @@ const brands: { id: string; name: React.ReactNode; tag: string }[] = [
   { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines' },
   { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm' },
   { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator' },
+  { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear' },
   { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2' },
   { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft' },
   { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail' },
   { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Minimal · modern' },
   { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style' },
+]
+
+const rayBanMetaImage = {
+  src: '/ray-ban-meta.jpg',
+  alt: 'Ray-Ban Meta smart glasses in black',
+}
+
+const collectionImages = [
+  {
+    label: 'Minimal lines',
+    title: 'Round metal frames',
+    body: 'Lightweight silhouettes for a quieter, architectural fit.',
+    src: 'https://images.unsplash.com/photo-1755719402885-b7baa634c755?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Round eyeglasses with metal frames on a clean surface',
+  },
+  {
+    label: 'Everyday acetate',
+    title: 'Black frame edit',
+    body: 'Modern optical staples with a refined boutique feel.',
+    src: 'https://images.unsplash.com/photo-1556540241-5e1be298dd70?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Black framed eyeglasses near a window',
+  },
 ]
 
 export default function DesignersSection() {
@@ -35,17 +58,46 @@ export default function DesignersSection() {
         </div>
 
         <div className="designer-featured reveal">
-          <span className="eyebrow on-dark">Featured</span>
-          <h3>
-            Ray-Ban <em>Meta</em> — smart eyewear
-          </h3>
-          <p>
-            We carry Ray-Ban Meta frames — the line that pairs iconic style with built-in technology. Stop in to see what&apos;s in stock and
-            how they can fit your prescription and lifestyle.
-          </p>
+          <div className="designer-featured-copy">
+            <span className="eyebrow on-dark">Featured</span>
+            <h3>
+              Ray-Ban <em>Meta</em> — smart eyewear
+            </h3>
+            <p>
+              We carry Ray-Ban Meta frames — iconic Ray-Ban style with built-in technology. Stop in to see what&apos;s in stock and how they can fit your prescription and lifestyle.
+            </p>
+          </div>
+          <figure className="designer-featured-media">
+            <img
+              src={rayBanMetaImage.src}
+              alt={rayBanMetaImage.alt}
+              loading="lazy"
+            />
+            <figcaption>Ray-Ban Meta available in select styles</figcaption>
+          </figure>
         </div>
 
-        <div className="designer-grid reveal">
+        <div className="collection-visual-grid reveal delay-1" aria-label="Featured eyewear styles">
+          {collectionImages.map((item) => (
+            <article key={item.title} className="collection-visual-card">
+              <div className="collection-visual-card__media">
+                <img src={item.src} alt={item.alt} loading="lazy" />
+              </div>
+              <div className="collection-visual-card__body">
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="designer-roster-head reveal delay-2">
+          <span className="eyebrow on-dark">Full collection</span>
+          <p>Explore the rest of the wall: independent optical houses, performance eyewear, sunwear, smart frames, and everyday staples.</p>
+        </div>
+
+        <div className="designer-grid reveal delay-2">
           {brands.map((b) => (
             <div key={b.id} className="designer-chip">
               <span className="nm">{b.name}</span>

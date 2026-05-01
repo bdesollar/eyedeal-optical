@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 const brands = [
   'Scott Harris',
@@ -77,17 +77,16 @@ export default function HeroSection() {
               prescriptions are finished and fitted right here, with the rest handled through our trusted lab partners.
             </p>
             <div className="hero-ctas reveal delay-3">
-              <a
-                href={SITE_LINKS.studioTelHref}
+              <CallOrContactLink
                 className="btn btn-primary"
                 title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
               >
                 Call us
                 <ArrowRight />
-              </a>
-              <Link to="/book" className="btn btn-ghost">
+              </CallOrContactLink>
+              <a href="#contact" className="btn btn-ghost">
                 Hours &amp; visit info
-              </Link>
+              </a>
             </div>
             <p className="hero-collection-link reveal delay-3">
               <a href="#designers">Browse the collection</a>

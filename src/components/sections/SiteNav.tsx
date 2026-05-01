@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import BrandLogoLink from '../BrandLogoLink'
 import { SITE_LINKS } from '../../lib/siteLinks'
+import CallOrContactLink from '../CallOrContactLink'
 
 const ArrowRight = () => (
   <svg className="arr" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
@@ -125,11 +126,10 @@ export default function SiteNav() {
 
           <div className="nav-right">
             <div className="nav-cta-group">
-              <a
-                href={SITE_LINKS.studioTelHref}
+              <CallOrContactLink
                 className="btn btn-primary nav-cta-btn"
                 title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
-                aria-label={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
+                ariaLabel={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
                 onClick={close}
               >
                 <span className="nav-cta-text">Call us</span>
@@ -137,13 +137,17 @@ export default function SiteNav() {
                   Call
                 </span>
                 <ArrowRight />
-              </a>
-              <Link to="/book" className="btn btn-ghost nav-cta-secondary nav-cta-btn" onClick={close}>
+              </CallOrContactLink>
+              <a
+                href="#contact"
+                className="btn btn-ghost nav-cta-secondary nav-cta-btn"
+                onClick={(e) => onNavClick(e, '#contact')}
+              >
                 <span className="nav-cta-text">Hours &amp; visit info</span>
                 <span className="nav-cta-text-short" aria-hidden>
                   Info
                 </span>
-              </Link>
+              </a>
             </div>
             <button
               ref={burgerRef}
@@ -203,19 +207,22 @@ export default function SiteNav() {
                 ))}
               </ul>
               <div className="nav-panel-cta">
-                <a
-                  href={SITE_LINKS.studioTelHref}
+                <CallOrContactLink
                   className="btn btn-primary nav-panel-cta-btn"
                   title={`Call ${SITE_LINKS.studioPhoneDisplay}`}
-                  aria-label={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
+                  ariaLabel={`Call Eyedeal Optical at ${SITE_LINKS.studioPhoneDisplay}`}
                   onClick={close}
                 >
                   Call us
                   <ArrowRight />
-                </a>
-                <Link to="/book" className="btn btn-ghost nav-panel-cta-btn nav-panel-cta-secondary" onClick={close}>
+                </CallOrContactLink>
+                <a
+                  href="#contact"
+                  className="btn btn-ghost nav-panel-cta-btn nav-panel-cta-secondary"
+                  onClick={(e) => onNavClick(e, '#contact')}
+                >
                   Hours &amp; visit info
-                </Link>
+                </a>
                 <a href="#contact" className="nav-panel-secondary" onClick={(e) => onNavClick(e, '#contact')}>
                   Or send a message
                 </a>

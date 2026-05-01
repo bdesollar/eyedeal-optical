@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { isCurrentUserAdmin } from '../lib/adminAuth'
 import { siteChatLabel } from '../lib/siteChatLabels'
-import AdminAppointmentsView from '../components/appointments/admin/AdminAppointmentsView'
-import type { Appointment } from '../types'
 
 type ContactRow = {
   id: string
@@ -39,12 +37,11 @@ export default function AdminDashboard() {
   const navigate = useNavigate()
   const [ready, setReady] = useState(false)
   const [allowed, setAllowed] = useState(false)
-  const [appointments, setAppointments] = useState<Appointment[]>([])
   const [contacts, setContacts] = useState<ContactRow[]>([])
   const [visits, setVisits] = useState<VisitRow[]>([])
   const [siteChat, setSiteChat] = useState<SiteChatRow[]>([])
   const [loadError, setLoadError] = useState<string | null>(null)
-  const [tab, setTab] = useState<'appointments' | 'contact' | 'siteChat' | 'visits'>('appointments')
+  const [tab, setTab] = useState<'contact' | 'siteChat' | 'visits'>('contact')
   const [chatSort, setChatSort] = useState<'newest' | 'oldest'>('newest')
 
   useEffect(() => {
@@ -68,22 +65,20 @@ export default function AdminDashboard() {
       setAllowed(true)
       setReady(true)
 
-      const [apRes, ctRes, vRes, chRes] = await Promise.all([
-        supabase.from('appointments').select('*').order('created_at', { ascending: false }).limit(200),
+      const [ctRes, vRes, chRes] = await Promise.all([
         supabase.from('contact_submissions').select('*').order('created_at', { ascending: false }).limit(200),
         supabase.from('page_visits').select('*').order('created_at', { ascending: false }).limit(500),
         supabase.from('site_chat_log').select('*').order('created_at', { ascending: false }).limit(500),
       ])
       if (cancelled) return
-      if (apRes.error || ctRes.error || vRes.error || chRes.error) {
+      if (ctRes.error || vRes.error || chRes.error) {
         setLoadError(
-          [apRes.error?.message, ctRes.error?.message, vRes.error?.message, chRes.error?.message]
+          [ctRes.error?.message, vRes.error?.message, chRes.error?.message]
             .filter(Boolean)
             .join(' · '),
         )
         return
       }
-      setAppointments((apRes.data ?? []) as Appointment[])
       setContacts((ctRes.data ?? []) as ContactRow[])
       setVisits((vRes.data ?? []) as VisitRow[])
       setSiteChat((chRes.data ?? []) as SiteChatRow[])
@@ -92,15 +87,6 @@ export default function AdminDashboard() {
       cancelled = true
     }
   }, [navigate])
-
-  const refetchAppointments = useCallback(async () => {
-    const { data, error } = await supabase.from('appointments').select('*').order('created_at', { ascending: false }).limit(300)
-    if (error) {
-      setLoadError(error.message)
-      return
-    }
-    setAppointments((data ?? []) as Appointment[])
-  }, [])
 
   const siteChatSorted = useMemo(() => {
     const rows = [...siteChat]
@@ -145,9 +131,6 @@ export default function AdminDashboard() {
         {loadError && <p className="admin-banner">{loadError}</p>}
 
         <nav className="admin-tabs" aria-label="Data sections">
-          <button type="button" className={tab === 'appointments' ? 'active' : ''} onClick={() => setTab('appointments')}>
-            Appointments ({appointments.length})
-          </button>
           <button type="button" className={tab === 'contact' ? 'active' : ''} onClick={() => setTab('contact')}>
             Contact forms ({contacts.length})
           </button>
@@ -158,8 +141,6 @@ export default function AdminDashboard() {
             Visits ({visits.length})
           </button>
         </nav>
-
-        {tab === 'appointments' && <AdminAppointmentsView appointments={appointments} onRefresh={refetchAppointments} />}
 
         {tab === 'siteChat' && (
           <div>

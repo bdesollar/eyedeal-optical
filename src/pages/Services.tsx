@@ -1,4 +1,4 @@
-import { SITE_LINKS } from '../lib/siteLinks'
+import CallOrContactLink from '../components/CallOrContactLink'
 
 const services = [
   {
@@ -64,12 +64,11 @@ export default function Services() {
               <div className="lg:text-right flex-shrink-0">
                 <p className="text-sm text-gray-400 mb-1">{s.duration}</p>
                 <p className="text-blue-700 font-bold text-lg mb-4">{s.price}</p>
-                <a
-                  href={SITE_LINKS.studioTelHref}
+                <CallOrContactLink
                   className="bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg hover:bg-blue-800 transition-colors inline-block"
                 >
                   Call to schedule
-                </a>
+                </CallOrContactLink>
               </div>
             </div>
           </div>
