@@ -5,8 +5,8 @@ const ArrowRight = () => (
 )
 
 const brands: { id: string; name: React.ReactNode; tag: string; href?: string }[] = [
-  { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American', href: 'https://scottharrisglasses.com/' },
-  { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic', href: 'https://www.cinzia.com' },
+  { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American', href: 'https://europaeye.com/brands/scott-harris' },
+  { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic', href: 'https://europaeye.com/brands/cinzia' },
   { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun', href: 'https://stateopticalco.com' },
   { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable', href: 'https://michaelryen.com' },
   { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
@@ -69,8 +69,20 @@ export default function DesignersSection() {
               We carry Ray-Ban Meta frames — iconic Ray-Ban style with built-in technology. Stop in to see what&apos;s in stock and how they can fit your prescription and lifestyle.
             </p>
           </div>
-          <figure className="designer-featured-media">
-            <img src={rayBanMetaImage.src} alt={rayBanMetaImage.alt} loading="lazy" />
+          <figure className="designer-featured-media designer-featured-media--fill">
+            <video
+              className="designer-featured-video"
+              src="https://media.ray-ban.com/docs/ray-ban-meta/smart-glasses-video.mp4"
+              poster={rayBanMetaImage.src}
+              title={rayBanMetaImage.alt}
+              autoPlay
+              muted
+              loop
+              controls
+              playsInline
+              preload="auto"
+              aria-label={rayBanMetaImage.alt}
+            />
           </figure>
         </div>
 

@@ -3,7 +3,7 @@ const articles = [
     meta: 'Vision Care · 4 min read',
     title: 'How often should you really get an eye exam?',
     desc: "The answer depends less on your age than on your habits — and we'll walk you through the signs that mean it's time.",
-    href: 'https://www.warbyparker.com/learn/how-often-should-you-get-an-eye-exam',
+    href: 'https://www.aao.org/eye-health/tips-prevention/eye-exams-101',
     icon: (
       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="1.2">
         <path d="M5 30 Q30 8 55 30 Q30 52 5 30Z" />
