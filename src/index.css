@@ -960,10 +960,19 @@ a.designer-row{color:inherit;text-decoration:none}
   gap:12px 28px;
 }
 @media (max-width:900px){
+  .designers::before,.designers::after{display:none}
   .designer-grid{grid-template-columns:1fr}
   .designer-featured{grid-template-columns:1fr}
   .designer-featured-copy{padding:30px 26px}
   .designer-featured-media{min-height:250px;order:-1}
+  .designer-featured-media--fill{
+    aspect-ratio:16/9;
+    min-height:0;
+  }
+  .designer-featured-media--fill .designer-featured-video{
+    object-fit:contain;
+    object-position:center;
+  }
   .collection-visual-grid{grid-template-columns:1fr;gap:14px}
   .collection-visual-card,
   .collection-visual-card:first-child{min-height:300px}
@@ -1218,15 +1227,6 @@ a.designer-row{color:inherit;text-decoration:none}
   position:relative;
   overflow:hidden;
 }
-.contact::before{
-  content:"";
-  position:absolute;
-  inset:44px auto auto 50%;
-  width:1px;
-  height:calc(100% - 88px);
-  background:linear-gradient(180deg,transparent,rgba(15,26,46,.12),transparent);
-  pointer-events:none;
-}
 .contact-grid{
   display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(390px,.72fr);
@@ -1272,22 +1272,26 @@ a.designer-row{color:inherit;text-decoration:none}
 .contact-block{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px;
+  gap:18px 24px;
   margin-bottom:34px;
   max-width:760px;
 }
 .contact-block-row{display:contents}
 .contact-email-link{
-  display:inline-block;
-  max-width:100%;
-  font-size:clamp(14px,3.2vw,21px);
-  line-height:1.25;
-  word-break:break-word;
+  display:inline;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:clamp(13px,2.8vw,17px);
+  line-height:1.4;
+  letter-spacing:-.01em;
+  overflow-wrap:anywhere;
 }
 .cinfo{
   min-width:0;
   padding:0 0 18px;
   border-bottom:1px solid rgba(15,26,46,.11);
+}
+.cinfo .val .contact-email-link{
+  font-family:'Inter',system-ui,sans-serif;
 }
 .cinfo .lbl{
   font-size:10px;letter-spacing:.22em;text-transform:uppercase;
@@ -1300,15 +1304,16 @@ a.designer-row{color:inherit;text-decoration:none}
 .cinfo .val span{line-height:1.45}
 .cinfo .val a:hover{color:var(--brass-deep)}
 .contact-address-link{
-  display:inline-block;
+  display:inline;
   text-decoration:none;
   color:inherit;
-  border-bottom:1px solid rgba(201,169,97,.45);
-  transition:color .2s ease,border-color .2s ease;
+  transition:color .2s ease;
 }
 .contact-address-link:hover{
   color:var(--brass-deep);
-  border-bottom-color:var(--brass);
+  text-decoration:underline;
+  text-decoration-color:rgba(201,169,97,.55);
+  text-underline-offset:3px;
 }
 
 .contact-logistics{
@@ -1451,23 +1456,33 @@ a.designer-row{color:inherit;text-decoration:none}
 }
 .foot-col a,.foot-col p{
   display:block;font-size:14px;color:rgba(245,237,224,.7);
-  padding:5px 0;transition:color .3s ease;
+  padding:4px 0;transition:color .3s ease;
 }
-.foot-contact-inline{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:baseline;
-  gap:8px 16px;
-  padding:5px 0;
+.foot-phone-link,
+.foot-email-link{
+  display:block;
+  padding:4px 0;
+  font-size:14px;
+  line-height:1.45;
+  color:rgba(245,237,224,.7);
 }
-.foot-contact-inline a{
-  display:inline;
-  padding:0;
+.foot-email-link{
+  overflow-wrap:anywhere;
   font-size:clamp(12px,3.2vw,14px);
-  line-height:1.35;
 }
-.foot-email-link{word-break:break-all}
-.foot-hours-grid{display:flex;flex-direction:column;gap:4px}
+.foot-visit-link{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  color:var(--brass);
+}
+.foot-visit-link:hover{color:var(--cream)}
+.foot-hours-grid{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  max-width:280px;
+}
 .foot-hours-row{
   display:grid;
   grid-template-columns:minmax(0,1fr) max-content;
@@ -2456,12 +2471,18 @@ a.designer-row{color:inherit;text-decoration:none}
   .lens-grid{gap:34px}
   .lens-visual{
     width:100%;
-    max-width:320px;
-    max-height:min(72vw,300px);
+    max-width:min(94vw,400px);
+    max-height:none;
     margin:0 auto;
-    overflow:hidden;
+    overflow:visible;
+    background:transparent;
   }
-  .lens-visual .label{display:none}
+  .lens-visual::before{box-shadow:none}
+  .lens-visual .label{font-size:10px;letter-spacing:.13em}
+  .lens-visual .label.l1{top:14%;right:2%;left:auto;text-align:right}
+  .lens-visual .label.l2{bottom:28%;left:2%;right:auto}
+  .lens-visual .label.l3{top:48%;right:2%;left:auto}
+  .lens-visual .label.l4{bottom:6%;right:20%;left:auto}
   .lens-content > p,.lens-panel p{max-width:100%;margin-bottom:20px}
   .lens-tabs{
     display:grid;
@@ -2512,9 +2533,23 @@ a.designer-row{color:inherit;text-decoration:none}
   }
   .field-row{grid-template-columns:1fr;gap:16px}
   .contact-block{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:24px 26px;
+    grid-template-columns:1fr 1fr;
+    gap:0 20px;
   }
+  .contact-block-row{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    grid-column:1 / -1;
+    border-bottom:1px solid rgba(15,26,46,.11);
+    padding-bottom:18px;
+    margin-bottom:18px;
+  }
+  .contact-block-row .cinfo{
+    border-bottom:none;
+    padding-bottom:0;
+  }
+  .contact-block > .cinfo:nth-child(2){grid-column:1 / -1}
   .contact-logistics{grid-template-columns:1fr}
   .contact-map-frame{height:min(52vw,220px)}
   .contact-map-caption{
@@ -2534,10 +2569,15 @@ a.designer-row{color:inherit;text-decoration:none}
   .hours .hr{gap:18px}
   .cform{padding:32px 22px 36px}
   .cform h3{font-size:28px}
-  .foot-top{grid-template-columns:1fr 1fr;gap:34px 42px;margin-bottom:44px}
-  .foot-brand{grid-column:1 / -1}
-  .foot-col--hours{grid-column:1 / -1}
-  .foot-col a,.foot-col p{overflow-wrap:anywhere;padding-right:4px}
+  .foot-top{
+    grid-template-columns:1fr;
+    gap:30px;
+    margin-bottom:40px;
+  }
+  .foot-brand{grid-column:auto}
+  .foot-col--hours{grid-column:auto}
+  .foot-hours-grid{max-width:none}
+  .foot-col a,.foot-col p{overflow-wrap:anywhere}
   .msg-bubble-root{right:14px;bottom:max(18px,env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:720px){
@@ -2603,10 +2643,14 @@ a.designer-row{color:inherit;text-decoration:none}
   .designer-row .name{font-size:clamp(30px,10vw,42px)}
   .lens-visual{
     width:100%;
-    max-width:300px;
-    max-height:min(68vw,280px);
+    max-width:min(96vw,420px);
     margin:0 auto;
   }
+  .lens-visual .label{font-size:9px;letter-spacing:.11em}
+  .lens-visual .label.l1{top:12%;right:1%}
+  .lens-visual .label.l2{bottom:26%;left:1%}
+  .lens-visual .label.l3{top:46%;right:1%}
+  .lens-visual .label.l4{bottom:5%;right:18%}
   .lens-tabs{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -2638,34 +2682,71 @@ a.designer-row{color:inherit;text-decoration:none}
     border-color:var(--navy);
   }
   .health-scroll{
-    margin:0 -22px;
-    padding:0 22px 8px;
+    --health-pad:22px;
+    --health-peek:28px;
+    margin:0 calc(-1 * var(--health-pad));
+    padding:4px var(--health-pad) 12px;
     overflow-x:auto;
     scroll-snap-type:x mandatory;
+    scroll-padding-inline:var(--health-pad);
     -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
-    mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+    scrollbar-width:none;
   }
+  .health-scroll::-webkit-scrollbar{display:none}
   .health-grid{
     display:flex;
-    gap:14px;
+    gap:16px;
+    width:max-content;
+    padding-inline-end:var(--health-pad);
   }
   .health-card{
-    flex:0 0 min(82vw,300px);
+    flex:0 0 calc(100vw - (2 * var(--health-pad)) - var(--health-peek));
+    max-width:300px;
     scroll-snap-align:start;
+    scroll-snap-stop:always;
   }
   .health-card .top{height:140px}
   .health-card .body{padding:22px 20px}
   .insurance h4{text-align:left}
   .insurance-logos{justify-content:flex-start}
   .ins-pill{padding:10px 12px}
-  .contact-block{grid-template-columns:1fr;gap:20px}
-  .contact-block-row{
-    display:grid;
+  .contact-block{
     grid-template-columns:1fr 1fr;
-    gap:16px;
-    grid-column:1 / -1;
+    gap:0 20px;
   }
+  .contact-block-row{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    grid-column:1 / -1;
+    border-bottom:1px solid rgba(15,26,46,.11);
+    padding-bottom:18px;
+    margin-bottom:18px;
+  }
+  .contact-block-row .cinfo{
+    border-bottom:none;
+    padding-bottom:0;
+  }
+  .contact-block > .cinfo{
+    border-bottom:1px solid rgba(15,26,46,.11);
+    padding-bottom:18px;
+    margin-bottom:18px;
+  }
+  .contact-block > .cinfo:nth-child(2){
+    grid-column:1 / -1;
+    margin-bottom:18px;
+  }
+  .contact-block > .cinfo:nth-child(3),
+  .contact-block > .cinfo:nth-child(4){
+    border-bottom:none;
+    padding-bottom:0;
+    margin-bottom:0;
+  }
+  .contact-block > .cinfo:nth-child(3){
+    padding-right:12px;
+  }
+  .cinfo .val{font-size:19px}
+  .contact-email-link{font-size:clamp(12px,3.4vw,14px)}
   .contact-logistics{grid-template-columns:1fr;max-width:100%}
   .contact-map-frame{height:min(52vw,200px)}
   .hours .day-long{display:none}
@@ -2692,9 +2773,15 @@ a.designer-row{color:inherit;text-decoration:none}
     overflow:hidden;
     text-overflow:ellipsis;
   }
-  .foot-top{grid-template-columns:1fr 1fr;gap:28px 24px}
-  .foot-brand{grid-column:1 / -1}
-  .foot-col--hours{grid-column:1 / -1}
+  .foot-top{
+    grid-template-columns:1fr;
+    gap:28px;
+    margin-bottom:36px;
+  }
+  .foot-brand{grid-column:auto}
+  .foot-col--hours{grid-column:auto}
+  .foot-hours-grid{max-width:none}
+  .foot-col h6{margin-bottom:12px}
   .foot-bot{flex-direction:column;align-items:flex-start;gap:12px}
   .admin-header-inner{flex-direction:row;align-items:center;padding:0 16px}
   .admin-header-actions{flex:1;justify-content:flex-end}
@@ -2788,13 +2875,15 @@ a.designer-row{color:inherit;text-decoration:none}
   .svc h3,.health-card h3{font-size:23px}
   .lens-visual{
     width:100%;
-    max-width:280px;
-    max-height:min(64vw,260px);
+    max-width:min(98vw,440px);
     margin:0 auto;
   }
+  .lens-visual .label{font-size:8.5px;letter-spacing:.1em}
+  .lens-visual .label.l4{bottom:4%;right:16%}
   .lens-panel h3{font-size:22px;line-height:1.18}
   .health-card .top{height:140px}
   .cform h3{font-size:24px}
+  .health-scroll{--health-pad:18px;--health-peek:24px}
   .cform .field-row{grid-template-columns:1fr}
   .insurance-logos{
     grid-template-columns:repeat(2,minmax(0,1fr));

@@ -44,11 +44,9 @@ export default function SiteFooter() {
           <div className="foot-col">
             <h6>Contact</h6>
             <p>2644 Pennsylvania Ave.<br />Dubuque, IA 52001</p>
-            <div className="foot-contact-inline">
-              <CallOrContactLink>563.557.0995</CallOrContactLink>
-              <a href="mailto:eyedealoptical1997@yahoo.com" className="foot-email-link">eyedealoptical1997@yahoo.com</a>
-            </div>
-            <Link to="/#contact" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
+            <CallOrContactLink className="foot-phone-link">563.557.0995</CallOrContactLink>
+            <a href="mailto:eyedealoptical1997@yahoo.com" className="foot-email-link">eyedealoptical1997<wbr />@yahoo.com</a>
+            <Link to="/#contact" className="foot-visit-link">
               Hours &amp; how to visit
             </Link>
           </div>

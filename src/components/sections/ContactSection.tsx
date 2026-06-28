@@ -101,7 +101,7 @@ export default function ContactSection() {
                 <div className="cinfo">
                   <div className="lbl">Email</div>
                   <div className="val">
-                    <a href="mailto:eyedealoptical1997@yahoo.com" className="contact-email-link">eyedealoptical1997@yahoo.com</a>
+                    <a href="mailto:eyedealoptical1997@yahoo.com" className="contact-email-link">eyedealoptical1997<wbr />@yahoo.com</a>
                   </div>
                 </div>
               </div>

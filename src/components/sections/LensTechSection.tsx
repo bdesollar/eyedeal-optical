@@ -51,7 +51,6 @@ export default function LensTechSection() {
               <circle cx="250" cy="250" r="200" stroke="#C9A961" strokeWidth=".4" opacity=".4" />
               <circle cx="250" cy="250" r="160" stroke="#0F1A2E" strokeWidth=".6" opacity=".5" />
               <ellipse cx="250" cy="250" rx="160" ry="120" stroke="#0F1A2E" strokeWidth="1.5" />
-              <ellipse cx="250" cy="250" rx="160" ry="120" fill="url(#lensGrad)" opacity=".4" />
               <path d="M50 150 L250 250" stroke="#C9A961" strokeWidth=".8" />
               <path d="M50 200 L250 250" stroke="#C9A961" strokeWidth=".8" />
               <path d="M50 250 L250 250" stroke="#C9A961" strokeWidth="1" />
@@ -64,12 +63,6 @@ export default function LensTechSection() {
               <path d="M250 250 L460 270" stroke="#0F1A2E" strokeWidth="1" opacity=".5" />
               <path d="M150 165 Q250 145 350 165" stroke="#C9A961" strokeWidth=".8" strokeDasharray="3 3" />
               <path d="M150 335 Q250 355 350 335" stroke="#C9A961" strokeWidth=".8" strokeDasharray="3 3" />
-              <defs>
-                <radialGradient id="lensGrad" cx=".4" cy=".4">
-                  <stop offset="0%" stopColor="#C9A961" stopOpacity=".3" />
-                  <stop offset="100%" stopColor="#0F1A2E" stopOpacity=".05" />
-                </radialGradient>
-              </defs>
               <line x1="250" y1="115" x2="250" y2="100" stroke="#0F1A2E" strokeWidth=".6" />
               <line x1="250" y1="385" x2="250" y2="400" stroke="#0F1A2E" strokeWidth=".6" />
               <line x1="85" y1="250" x2="70" y2="250" stroke="#0F1A2E" strokeWidth=".6" />
