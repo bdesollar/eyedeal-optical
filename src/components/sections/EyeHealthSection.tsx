@@ -44,28 +44,30 @@ export default function EyeHealthSection() {
       <div className="wrap">
         <div className="section-head reveal">
           <span className="eyebrow">The Studio Journal</span>
-          <h2>Eye health, <em>explained</em>.</h2>
+          <h2>Eye health, explained.</h2>
           <p>A small library of plain-language guides — written so you leave the chair feeling like an informed consumer.</p>
         </div>
-        <div className="health-grid">
-          {articles.map((a, i) => (
-            <a
-              key={a.title}
-              href={a.href}
-              target="_blank"
-              rel="noreferrer"
-              className={`health-card reveal${i > 0 ? ` delay-${i}` : ''}`}
-              aria-label={`Read article: ${a.title}`}
-            >
-              <div className="top">{a.icon}</div>
-              <div className="body">
-                <div className="meta">{a.meta}</div>
-                <h3>{a.title}</h3>
-                <p>{a.desc}</p>
-                <span className="health-card-action">Open article →</span>
-              </div>
-            </a>
-          ))}
+        <div className="health-scroll">
+          <div className="health-grid">
+            {articles.map((a, i) => (
+              <a
+                key={a.title}
+                href={a.href}
+                target="_blank"
+                rel="noreferrer"
+                className={`health-card reveal${i > 0 ? ` delay-${i}` : ''}`}
+                aria-label={`Read article: ${a.title}`}
+              >
+                <div className="top">{a.icon}</div>
+                <div className="body">
+                  <div className="meta">{a.meta}</div>
+                  <h3>{a.title}</h3>
+                  <p>{a.desc}</p>
+                  <span className="health-card-action">Open article →</span>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

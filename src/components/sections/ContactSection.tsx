@@ -66,7 +66,7 @@ export default function ContactSection() {
           {/* Info */}
           <div className="contact-info reveal">
             <span className="eyebrow">Visit the Studio</span>
-            <h2>Visit our local Dubuque <em>studio</em>.</h2>
+            <h2>Visit our local Dubuque studio.</h2>
             <p className="contact-lede">
               Stop by during studio hours, call ahead, or send a note. New patients always welcome.
             </p>
@@ -91,16 +91,18 @@ export default function ContactSection() {
             ) : null}
 
             <div className="contact-block">
-              <div className="cinfo">
-                <div className="lbl">Telephone</div>
-                <div className="val">
-                  <CallOrContactLink>1-563-557-0995</CallOrContactLink>
+              <div className="contact-block-row">
+                <div className="cinfo">
+                  <div className="lbl">Telephone</div>
+                  <div className="val">
+                    <CallOrContactLink>1-563-557-0995</CallOrContactLink>
+                  </div>
                 </div>
-              </div>
-              <div className="cinfo">
-                <div className="lbl">Email</div>
-                <div className="val">
-                  <a href="mailto:eyedealoptical1997@yahoo.com">eyedealoptical1997<br />@yahoo.com</a>
+                <div className="cinfo">
+                  <div className="lbl">Email</div>
+                  <div className="val">
+                    <a href="mailto:eyedealoptical1997@yahoo.com" className="contact-email-link">eyedealoptical1997@yahoo.com</a>
+                  </div>
                 </div>
               </div>
               <div className="cinfo">
@@ -148,7 +150,7 @@ export default function ContactSection() {
 
               <div className="hours">
                 <h5>Studio Hours</h5>
-                <div className="hr"><span className="day">Monday – Friday</span><span className="tm">9:00 AM — 5:00 PM</span></div>
+                <div className="hr"><span className="day"><span className="day-long">Monday – Friday</span><span className="day-short">Mon–Fri</span></span><span className="tm">9:00 AM — 5:00 PM</span></div>
                 <div className="hr"><span className="day">Saturday</span><span className="tm">9:00 AM — 12:00 PM</span></div>
                 <div className="hr closed"><span className="day">Sunday</span><span className="tm">Closed</span></div>
               </div>
@@ -158,7 +160,7 @@ export default function ContactSection() {
           {/* Form */}
           <form className="cform reveal delay-1" onSubmit={handleSubmit}>
             <span className="eyebrow on-dark">Send a message</span>
-            <h3>Tell us how we can <em>help</em>.</h3>
+            <h3>Tell us how we can help.</h3>
             <p className="cform-intro">Questions about exams, frame fittings, adjustments, contacts, or insurance are welcome.</p>
 
             <div className="field-row">

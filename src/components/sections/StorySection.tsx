@@ -9,7 +9,7 @@ export default function StorySection() {
             <span className="corner br" />
             <img src="/bob-pierce.png" alt="Bob Pierce, owner of Eyedeal Optical" />
             <div className="badge">
-              <div className="l1">Bob <em>Pierce</em></div>
+              <div className="l1">Bob Pierce</div>
               <div className="l2">Owner · Optician</div>
             </div>
           </div>
@@ -19,7 +19,7 @@ export default function StorySection() {
             <span className="eyebrow">Our Story</span>
             <h2>
               Locally owned &amp; <br />
-              <em>crafted</em> in Dubuque
+              crafted in Dubuque
             </h2>
             <p>
               Eyedeal Optical is locally owned and operated by Bob Pierce. After beginning his career with a

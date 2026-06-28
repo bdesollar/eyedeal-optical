@@ -67,7 +67,7 @@ export default function HeroSection() {
               <span className="eyebrow">Boutique Optical Studio · Est. 1997</span>
             </div>
             <h1 className="reveal delay-1">
-              Fitting <em>friends</em><br />
+              Fitting friends<br />
               and neighbors<br />
               with <span className="scriptish">exceptional</span><br />
               eyewear.
@@ -98,7 +98,7 @@ export default function HeroSection() {
               </div>
               <div className="item">
                 <div className="num">
-                  On-<em>site</em>
+                  On-site
                 </div>
                 <div className="lbl">Lab &amp; finishing</div>
               </div>

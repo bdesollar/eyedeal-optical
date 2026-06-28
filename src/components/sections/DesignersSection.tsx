@@ -6,19 +6,19 @@ const ArrowRight = () => (
 
 const brands: { id: string; name: React.ReactNode; tag: string; href?: string }[] = [
   { id: 'scott-harris', name: <>Scott <em>Harris</em></>, tag: 'Contemporary American', href: 'https://europaeye.com/brands/scott-harris' },
-  { id: 'cinzia', name: <>Cin<em>zia</em></>, tag: 'Bold · artistic', href: 'https://europaeye.com/brands/cinzia' },
-  { id: 'state', name: <>S<em>tate</em></>, tag: 'Optical + sun', href: 'https://stateopticalco.com' },
+  { id: 'cinzia', name: 'Cinzia', tag: 'Bold · artistic', href: 'https://europaeye.com/brands/cinzia' },
+  { id: 'state', name: 'State', tag: 'Optical + sun', href: 'https://stateopticalco.com' },
   { id: 'michael-ryen', name: <>Michael <em>Ryen</em></>, tag: 'Refined · wearable', href: 'https://michaelryen.com' },
-  { id: 'dolabany', name: <>Dola<em>bany</em></>, tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
+  { id: 'dolabany', name: 'Dolabany', tag: 'Heritage quality', href: 'https://dolabanyeyewear.com' },
   { id: 'david-spencer', name: <>David <em>Spencer</em></>, tag: 'Classic lines', href: 'https://davidspencereyewear.com/' },
-  { id: 'oakley', name: <>Oak<em>ley</em></>, tag: 'Performance · Prizm' },
-  { id: 'ray-ban', name: <>Ray-<em>Ban</em></>, tag: 'Icons · wayfarer & aviator' },
+  { id: 'oakley', name: 'Oakley', tag: 'Performance · Prizm' },
+  { id: 'ray-ban', name: 'Ray-Ban', tag: 'Icons · wayfarer & aviator' },
   { id: 'ray-ban-meta', name: <>Ray-Ban <em>Meta</em></>, tag: 'Smart eyewear' },
   { id: 'maui-jim', name: <>Maui <em>Jim</em></>, tag: 'PolarizedPlus2' },
-  { id: 'minamoto', name: <>Mina<em>moto</em></>, tag: 'Japanese craft', href: 'https://minamoto-eyewear.com/en/' },
-  { id: 'fysh', name: <>F<em>ysh</em></>, tag: 'Color · detail', href: 'https://fyshuk.com' },
-  { id: 'kliik', name: <>K<em>liik</em></>, tag: 'Petite fits · minimal modern', href: 'https://www.kliik.com/' },
-  { id: 'revolution', name: <>Revol<em>ution</em></>, tag: 'Everyday style' },
+  { id: 'minamoto', name: 'Minamoto', tag: 'Japanese craft', href: 'https://minamoto-eyewear.com/en/' },
+  { id: 'fysh', name: 'Fysh', tag: 'Color · detail', href: 'https://fyshuk.com' },
+  { id: 'kliik', name: 'Kliik', tag: 'Petite fits · minimal modern', href: 'https://www.kliik.com/' },
+  { id: 'revolution', name: 'Revolution', tag: 'Everyday style' },
 ]
 
 const rayBanMetaImage = {
@@ -54,7 +54,7 @@ export default function DesignersSection() {
           <h2>
             Frames hand-picked,
             <br />
-            house by <em>house</em>.
+            house by house.
           </h2>
           <p>Bob personally curates each line on the wall — chosen for craftsmanship, materials, and how they&apos;ll wear for years to come.</p>
         </div>
@@ -96,7 +96,7 @@ export default function DesignersSection() {
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
-                {item.inStoreOnly ? <small className="in-store-badge">In store only</small> : null}
+                {item.inStoreOnly ? <small className="in-store-badge">In-store only</small> : null}
               </div>
             </article>
           ))}
@@ -125,7 +125,7 @@ export default function DesignersSection() {
               <div key={b.id} className="designer-chip designer-chip--static" aria-label={`${b.id.replaceAll('-', ' ')} brand`}>
                 <span className="nm">{b.name}</span>
                 <span className="tg">{b.tag}</span>
-                <span className="in-store-badge">In store only</span>
+                <span className="in-store-badge">In-store only</span>
               </div>
             ),
           )}

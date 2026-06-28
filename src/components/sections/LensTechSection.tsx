@@ -95,7 +95,7 @@ export default function LensTechSection() {
             <h2>
               German-engineered
               <br />
-              lenses, cut <em>here</em>.
+              lenses, cut here.
             </h2>
             <p>
               Through our partnership with <strong>GSRx</strong> — an independent US lab specializing in German-designed optics — we pair

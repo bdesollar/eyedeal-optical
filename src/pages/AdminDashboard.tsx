@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { isCurrentUserAdmin } from '../lib/adminAuth'
+import { inviteAdminUser } from '../lib/inviteAdminUser'
 import { siteChatLabel } from '../lib/siteChatLabels'
 
 type ContactRow = {
@@ -103,6 +104,10 @@ export default function AdminDashboard() {
   const [loadError, setLoadError] = useState<string | null>(null)
   const [tab, setTab] = useState<AdminTab>('overview')
   const [chatSort, setChatSort] = useState<'newest' | 'oldest'>('newest')
+  const [inviteEmail, setInviteEmail] = useState('')
+  const [inviteLoading, setInviteLoading] = useState(false)
+  const [inviteMessage, setInviteMessage] = useState<string | null>(null)
+  const [inviteError, setInviteError] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -182,6 +187,24 @@ export default function AdminDashboard() {
     navigate('/admin/login', { replace: true })
   }
 
+  async function handleInviteAdmin(e: React.FormEvent) {
+    e.preventDefault()
+    setInviteError(null)
+    setInviteMessage(null)
+    setInviteLoading(true)
+    const result = await inviteAdminUser(inviteEmail)
+    setInviteLoading(false)
+    if (!result.ok) {
+      setInviteError(result.error)
+      return
+    }
+    setInviteEmail('')
+    const parts = [`Invite sent to ${result.invitedEmail}.`]
+    if (result.ownerNotified) parts.push('Owner copy emailed.')
+    if (result.ownerNotifyWarning) parts.push(result.ownerNotifyWarning)
+    setInviteMessage(parts.join(' '))
+  }
+
   if (!ready || !allowed) {
     return (
       <div className="admin-shell">
@@ -225,6 +248,32 @@ export default function AdminDashboard() {
             <span>{knownVisitors} identified by contact form</span>
             <span>{chatVisitors} used chat</span>
           </div>
+        </section>
+
+        <section className="admin-panel" aria-label="Invite admin users">
+          <SectionTitle
+            title="Team access"
+            text="Send an email invite. The new user sets a password from the link, then can sign in here. A notification is sent to eyedealoptical1997@yahoo.com when Resend is configured — see supabase/ADMIN_SETUP.md."
+          />
+          <form className="admin-form admin-form--narrow" onSubmit={(e) => void handleInviteAdmin(e)}>
+            <label className="admin-label">
+              Invitee email
+              <input
+                className="admin-input"
+                type="email"
+                autoComplete="off"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+                placeholder="colleague@example.com"
+                required
+              />
+            </label>
+            {inviteError ? <p className="admin-error">{inviteError}</p> : null}
+            {inviteMessage ? <p className="admin-muted">{inviteMessage}</p> : null}
+            <button className="admin-btn" type="submit" disabled={inviteLoading}>
+              {inviteLoading ? 'Sending…' : 'Send admin invite'}
+            </button>
+          </form>
         </section>
 
         <section className="admin-overview admin-overview--rich" aria-label="Key metrics">

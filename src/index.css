@@ -1016,15 +1016,17 @@ a.designer-row{color:inherit;text-decoration:none}
 .in-store-badge{
   display:inline-flex;
   align-items:center;
-  padding:2px 8px;
+  padding:3px 7px;
   border-radius:999px;
   border:1px solid rgba(201,169,97,.42);
   background:rgba(201,169,97,.1);
   color:rgba(245,237,224,.82);
-  font-size:10px;
-  letter-spacing:.14em;
+  font-size:9px;
+  letter-spacing:.1em;
   text-transform:uppercase;
-  line-height:1.6;
+  line-height:1.4;
+  white-space:nowrap;
+  flex-shrink:0;
 }
 .collection-visual-card .in-store-badge{
   margin-top:12px;
@@ -1054,6 +1056,7 @@ a.designer-row{color:inherit;text-decoration:none}
 /* ============ LENS TECH ============ */
 .lens{padding:140px 0;background:var(--paper);position:relative;overflow:hidden}
 .lens-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.lens-grid > *{min-width:0}
 .lens-visual{
   position:relative;aspect-ratio:1;
   display:flex;align-items:center;justify-content:center;
@@ -1127,6 +1130,7 @@ a.designer-row{color:inherit;text-decoration:none}
 /* ============ EYE HEALTH ============ */
 .health{padding:140px 0;background:var(--cream)}
 .health-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px}
+.health-scroll{position:relative}
 .health-card{
   background:var(--paper);padding:0;
   border-radius:6px;overflow:hidden;
@@ -1229,6 +1233,7 @@ a.designer-row{color:inherit;text-decoration:none}
   gap:clamp(56px,7vw,96px);
   align-items:start;
 }
+.contact-grid > *{min-width:0}
 .contact-info h2{
   font-family:'Cormorant Garamond',serif;font-weight:400;
   font-size:clamp(42px,5.1vw,74px);line-height:.98;letter-spacing:-.018em;
@@ -1270,6 +1275,14 @@ a.designer-row{color:inherit;text-decoration:none}
   gap:18px;
   margin-bottom:34px;
   max-width:760px;
+}
+.contact-block-row{display:contents}
+.contact-email-link{
+  display:inline-block;
+  max-width:100%;
+  font-size:clamp(14px,3.2vw,21px);
+  line-height:1.25;
+  word-break:break-word;
 }
 .cinfo{
   min-width:0;
@@ -1361,7 +1374,8 @@ a.designer-row{color:inherit;text-decoration:none}
   font-size:14px;
 }
 .hours .hr:last-child{border-bottom:none}
-.hours .hr .day{color:var(--navy);font-weight:500;line-height:1.35}
+.hours .hr .day{color:var(--navy);font-weight:500;line-height:1.35;white-space:nowrap}
+.hours .day-short{display:none}
 .hours .hr .tm{
   color:var(--muted);
   text-align:right;
@@ -1439,6 +1453,33 @@ a.designer-row{color:inherit;text-decoration:none}
   display:block;font-size:14px;color:rgba(245,237,224,.7);
   padding:5px 0;transition:color .3s ease;
 }
+.foot-contact-inline{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:8px 16px;
+  padding:5px 0;
+}
+.foot-contact-inline a{
+  display:inline;
+  padding:0;
+  font-size:clamp(12px,3.2vw,14px);
+  line-height:1.35;
+}
+.foot-email-link{word-break:break-all}
+.foot-hours-grid{display:flex;flex-direction:column;gap:4px}
+.foot-hours-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) max-content;
+  align-items:baseline;
+  gap:12px;
+  font-size:14px;
+  color:rgba(245,237,224,.7);
+  padding:4px 0;
+}
+.foot-hours-day{white-space:nowrap;color:rgba(245,237,224,.7)}
+.foot-hours-tm{text-align:right;white-space:nowrap}
+.foot-hours-tm--closed{color:var(--brass);font-style:italic}
 .foot-col a:hover{color:var(--brass)}
 .socials{display:flex;gap:12px;margin-top:14px}
 .socials a{
@@ -1493,6 +1534,15 @@ a.designer-row{color:inherit;text-decoration:none}
 .admin-btn:disabled{opacity:.55;cursor:not-allowed}
 .admin-back{display:inline-block;margin-top:22px;font-size:13px;color:var(--muted)}
 .admin-back:hover{color:var(--navy)}
+.admin-text-link{
+  margin-top:12px;background:none;border:none;cursor:pointer;padding:0;font:inherit;
+  text-decoration:underline;color:var(--muted);font-size:13px;text-align:left;
+}
+.admin-text-link:hover{color:var(--navy)}
+.admin-form--narrow{max-width:420px;margin-top:12px}
+.admin-inline-success-nav{
+  display:inline-block;margin-top:16px;text-align:center;text-decoration:none;
+}
 
 .admin-app{min-height:100vh;background:var(--paper);display:flex;flex-direction:column}
 .admin-header{background:var(--navy);color:var(--cream);padding:16px 0;border-bottom:1px solid var(--line-cream)}
@@ -2405,32 +2455,76 @@ a.designer-row{color:inherit;text-decoration:none}
   .designers-cta{text-align:left;margin-top:40px}
   .lens-grid{gap:34px}
   .lens-visual{
-    width:min(100%,540px);
+    width:100%;
+    max-width:320px;
+    max-height:min(72vw,300px);
     margin:0 auto;
     overflow:hidden;
   }
-  .lens-visual .label{font-size:10px;letter-spacing:.14em}
-  .lens-visual .label.l1{right:5%;top:16%}
-  .lens-visual .label.l2{left:3%;bottom:32%}
-  .lens-visual .label.l3{right:3%;top:50%}
-  .lens-visual .label.l4{right:26%;bottom:9%}
-  .lens-content > p,.lens-panel p{margin-bottom:20px}
+  .lens-visual .label{display:none}
+  .lens-content > p,.lens-panel p{max-width:100%;margin-bottom:20px}
   .lens-tabs{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
     max-width:100%;
-    overflow-x:auto;
-    overscroll-behavior-x:contain;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
+    margin:0 0 24px;
+    padding:0;
+    overflow:visible;
+    border-bottom:none;
   }
-  .lens-tabs::-webkit-scrollbar{height:4px}
-  .lens-tab{flex:0 0 auto;white-space:nowrap}
+  .lens-tab{
+    flex:unset;
+    white-space:nowrap;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:999px;
+    margin:0;
+    padding:11px 10px;
+    background:var(--paper);
+    font-size:10.5px;
+    letter-spacing:.1em;
+    border-bottom:1px solid var(--line);
+  }
+  .lens-tab:last-child:nth-child(odd){
+    grid-column:1 / -1;
+    justify-self:center;
+    max-width:calc(50% - 4px);
+  }
+  .lens-tab.active{
+    background:var(--navy);
+    color:var(--cream);
+    border-color:var(--navy);
+  }
   .insurance .row{grid-template-columns:1fr;gap:32px}
+  .insurance-logos{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+  }
+  .ins-pill{
+    flex:unset;
+    padding:10px 12px;
+    font-size:11px;
+    text-align:center;
+    white-space:nowrap;
+    line-height:1.2;
+  }
   .field-row{grid-template-columns:1fr;gap:16px}
   .contact-block{
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:24px 26px;
   }
-  .contact-map-frame{height:220px}
+  .contact-logistics{grid-template-columns:1fr}
+  .contact-map-frame{height:min(52vw,220px)}
+  .contact-map-caption{
+    white-space:normal;
+    text-align:center;
+    font-size:10px;
+    letter-spacing:.06em;
+    line-height:1.35;
+    padding:10px 12px;
+  }
   .cinfo{min-width:0}
   .cinfo .val,.cinfo .val a{
     overflow-wrap:anywhere;
@@ -2441,7 +2535,9 @@ a.designer-row{color:inherit;text-decoration:none}
   .cform{padding:32px 22px 36px}
   .cform h3{font-size:28px}
   .foot-top{grid-template-columns:1fr 1fr;gap:34px 42px;margin-bottom:44px}
-  .foot-col a,.foot-col p{overflow-wrap:anywhere}
+  .foot-brand{grid-column:1 / -1}
+  .foot-col--hours{grid-column:1 / -1}
+  .foot-col a,.foot-col p{overflow-wrap:anywhere;padding-right:4px}
   .msg-bubble-root{right:14px;bottom:max(18px,env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:720px){
@@ -2506,48 +2602,99 @@ a.designer-row{color:inherit;text-decoration:none}
   .svc{padding:28px 22px}
   .designer-row .name{font-size:clamp(30px,10vw,42px)}
   .lens-visual{
-    width:calc(100% + 28px);
-    margin-left:-14px;
-    margin-right:-14px;
+    width:100%;
+    max-width:300px;
+    max-height:min(68vw,280px);
+    margin:0 auto;
   }
-  .lens-visual .label{font-size:9px;letter-spacing:.12em}
   .lens-tabs{
-    display:flex;
-    flex-wrap:nowrap;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:8px;
-    margin:0 -22px 22px;
-    padding:0 22px 8px;
+    margin:0 0 20px;
+    padding:0;
+    overflow:visible;
     border-bottom:none;
   }
   .lens-tab{
     border:1px solid var(--line);
     border-radius:999px;
     margin:0;
-    padding:11px 15px;
+    padding:10px 8px;
     background:var(--paper);
-    font-size:10.5px;
-    letter-spacing:.12em;
+    font-size:10px;
+    letter-spacing:.1em;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .lens-tab:last-child:nth-child(odd){
+    grid-column:1 / -1;
+    justify-self:center;
+    max-width:calc(50% - 4px);
   }
   .lens-tab.active{
     background:var(--navy);
     color:var(--cream);
     border-color:var(--navy);
   }
-  .health-card .top{height:180px}
+  .health-scroll{
+    margin:0 -22px;
+    padding:0 22px 8px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+  }
+  .health-grid{
+    display:flex;
+    gap:14px;
+  }
+  .health-card{
+    flex:0 0 min(82vw,300px);
+    scroll-snap-align:start;
+  }
+  .health-card .top{height:140px}
+  .health-card .body{padding:22px 20px}
   .insurance h4{text-align:left}
   .insurance-logos{justify-content:flex-start}
-  .ins-pill{padding:10px 15px}
+  .ins-pill{padding:10px 12px}
   .contact-block{grid-template-columns:1fr;gap:20px}
-  .contact-map-frame{height:200px}
+  .contact-block-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    grid-column:1 / -1;
+  }
+  .contact-logistics{grid-template-columns:1fr;max-width:100%}
+  .contact-map-frame{height:min(52vw,200px)}
+  .hours .day-long{display:none}
+  .hours .day-short{display:inline}
+  .hours .hr .tm{font-size:13px}
   .hours{padding:22px 20px}
   .hours .hr{
     align-items:flex-start;
     font-size:14px;
+    column-gap:12px;
   }
   .hours .hr .tm{text-align:right}
   .cform{border-radius:8px;padding:32px 22px}
-  .foot-top{grid-template-columns:1fr;gap:36px}
   .foot-brand p{max-width:36ch}
+  .designer-chip{
+    flex-wrap:nowrap;
+    gap:10px;
+    padding:14px 0;
+  }
+  .designer-chip .nm{
+    flex:1 1 auto;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .foot-top{grid-template-columns:1fr 1fr;gap:28px 24px}
+  .foot-brand{grid-column:1 / -1}
+  .foot-col--hours{grid-column:1 / -1}
   .foot-bot{flex-direction:column;align-items:flex-start;gap:12px}
   .admin-header-inner{flex-direction:row;align-items:center;padding:0 16px}
   .admin-header-actions{flex:1;justify-content:flex-end}
@@ -2639,16 +2786,29 @@ a.designer-row{color:inherit;text-decoration:none}
   .story-quote p{font-size:19px}
   .story-photo .badge{left:16px;bottom:16px;padding:12px 14px}
   .svc h3,.health-card h3{font-size:23px}
-  .lens-visual{width:calc(100% + 48px);margin-left:-24px;margin-right:-24px}
-  .lens-visual .label.l1,.lens-visual .label.l2,.lens-visual .label.l3{display:none}
-  .lens-visual .label.l4{right:25%;bottom:8%;font-size:8.5px}
+  .lens-visual{
+    width:100%;
+    max-width:280px;
+    max-height:min(64vw,260px);
+    margin:0 auto;
+  }
   .lens-panel h3{font-size:22px;line-height:1.18}
-  .health-card .top{height:160px}
+  .health-card .top{height:140px}
   .cform h3{font-size:24px}
   .cform .field-row{grid-template-columns:1fr}
-  .ins-pill{padding:9px 14px;font-size:12px;flex:1;min-width:0;text-align:center}
-  .insurance-logos{justify-content:center}
-  .insurance h4{text-align:center}
+  .insurance-logos{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    justify-content:flex-start;
+  }
+  .ins-pill{
+    padding:9px 12px;
+    font-size:11px;
+    flex:unset;
+    min-width:0;
+    text-align:center;
+  }
+  .ins-pill:last-child{grid-column:1 / -1}
+  .insurance h4{text-align:left}
   .contact-info > p{margin-bottom:32px}
   .cinfo .val{font-size:19px}
   .hours h5{margin-bottom:14px}
@@ -2658,6 +2818,7 @@ a.designer-row{color:inherit;text-decoration:none}
     font-size:13px;
   }
   .hours .hr .tm{text-align:right}
+  .designer-chip .tg{display:none}
   .foot-brand .logo-text{font-size:25px;max-width:none}
   .foot-bot{font-size:11px}
   .admin-foot-link{border-left:0;padding-left:0}

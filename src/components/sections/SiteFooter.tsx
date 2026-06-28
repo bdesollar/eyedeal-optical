@@ -44,18 +44,31 @@ export default function SiteFooter() {
           <div className="foot-col">
             <h6>Contact</h6>
             <p>2644 Pennsylvania Ave.<br />Dubuque, IA 52001</p>
-            <CallOrContactLink>563.557.0995</CallOrContactLink>
-            <a href="mailto:eyedealoptical1997@yahoo.com">eyedealoptical1997@yahoo.com</a>
+            <div className="foot-contact-inline">
+              <CallOrContactLink>563.557.0995</CallOrContactLink>
+              <a href="mailto:eyedealoptical1997@yahoo.com" className="foot-email-link">eyedealoptical1997@yahoo.com</a>
+            </div>
             <Link to="/#contact" style={{ display: 'block', marginTop: 10, fontSize: 13, color: 'var(--brass)' }}>
               Hours &amp; how to visit
             </Link>
           </div>
 
-          <div className="foot-col">
+          <div className="foot-col foot-col--hours">
             <h6>Hours</h6>
-            <p>Mon–Fri &nbsp; 9:00 — 5:00</p>
-            <p>Saturday &nbsp; 9:00 — 12:00</p>
-            <p>Sunday &nbsp; Closed</p>
+            <div className="foot-hours-grid">
+              <div className="foot-hours-row">
+                <span className="foot-hours-day"><span className="day-long">Mon–Fri</span></span>
+                <span className="foot-hours-tm">9:00 — 5:00</span>
+              </div>
+              <div className="foot-hours-row">
+                <span className="foot-hours-day">Saturday</span>
+                <span className="foot-hours-tm">9:00 — 12:00</span>
+              </div>
+              <div className="foot-hours-row">
+                <span className="foot-hours-day">Sunday</span>
+                <span className="foot-hours-tm foot-hours-tm--closed">Closed</span>
+              </div>
+            </div>
           </div>
         </div>
 

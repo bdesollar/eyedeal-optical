@@ -136,7 +136,7 @@ export default function ServicesSection() {
           <h2>
             Comprehensive vision care,
             <br />
-            crafted with <em>care</em>.
+            crafted with care.
           </h2>
           <p>From the eye exam to the final frame adjustment, every step is handled in-house by people who know your name.</p>
         </div>
