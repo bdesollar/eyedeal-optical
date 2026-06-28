@@ -67,10 +67,8 @@ export default function HeroSection() {
               <span className="eyebrow">Boutique Optical Studio · Est. 1997</span>
             </div>
             <h1 className="reveal delay-1">
-              Fitting friends<br />
-              and neighbors<br />
-              with <span className="scriptish">exceptional</span><br />
-              eyewear.
+              Fitting friends and neighbors with{' '}
+              <span className="scriptish">exceptional</span> eyewear.
             </h1>
             <p className="hero-sub reveal delay-2">
               A locally owned, hand-curated eyewear studio in the heart of Dubuque. Many

@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
 import TopStrip from '../components/sections/TopStrip'
@@ -15,12 +15,22 @@ import SiteFooter from '../components/sections/SiteFooter'
 
 export default function Home() {
   const location = useLocation()
+  const hasHandledInitialScroll = useRef(false)
   useReveal()
 
   useLayoutEffect(() => {
     if (location.pathname !== '/') return
+
     const h = location.hash
-    if (!h || h.length < 2) return
+    if (!h || h.length < 2) {
+      if (!hasHandledInitialScroll.current) {
+        window.scrollTo(0, 0)
+        hasHandledInitialScroll.current = true
+      }
+      return
+    }
+
+    hasHandledInitialScroll.current = true
     const id = h.slice(1)
     if (!/^[A-Za-z][\w:-]*$/.test(id)) return
     const el = document.getElementById(id)
