@@ -1374,21 +1374,26 @@ a.designer-row{color:inherit;text-decoration:none}
 .hours h5{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-deep);margin-bottom:16px}
 .hours .hr{
   display:grid;
-  grid-template-columns:minmax(0,1fr) max-content;
-  align-items:center;
-  column-gap:18px;
+  grid-template-columns:minmax(0,auto) minmax(0,1fr);
+  align-items:baseline;
+  column-gap:16px;
   padding:11px 0;
   border-bottom:1px dashed var(--line);
   font-size:14px;
 }
 .hours .hr:last-child{border-bottom:none}
-.hours .hr .day{color:var(--navy);font-weight:500;line-height:1.35;white-space:nowrap}
-.hours .day-short{display:none}
+.hours .hr .day{
+  color:var(--navy);
+  font-weight:500;
+  line-height:1.35;
+  white-space:nowrap;
+}
 .hours .hr .tm{
   color:var(--muted);
   text-align:right;
   white-space:nowrap;
   font-variant-numeric:tabular-nums;
+  min-width:0;
 }
 .hours .hr.closed .tm{color:#A8893F;font-style:italic}
 
@@ -2785,8 +2790,6 @@ a.designer-row{color:inherit;text-decoration:none}
   .contact-email-link{font-size:clamp(12px,3.4vw,14px)}
   .contact-logistics{grid-template-columns:1fr;max-width:100%}
   .contact-map-frame{height:min(52vw,200px)}
-  .hours .day-long{display:none}
-  .hours .day-short{display:inline}
   .hours .hr .tm{font-size:13px}
   .hours{padding:22px 20px}
   .hours .hr{

@@ -150,7 +150,7 @@ export default function ContactSection() {
 
               <div className="hours">
                 <h5>Studio Hours</h5>
-                <div className="hr"><span className="day"><span className="day-long">Monday – Friday</span><span className="day-short">Mon–Fri</span></span><span className="tm">9:00 AM — 5:00 PM</span></div>
+                <div className="hr"><span className="day">Mon–Fri</span><span className="tm">9:00 AM — 5:00 PM</span></div>
                 <div className="hr"><span className="day">Saturday</span><span className="tm">9:00 AM — 12:00 PM</span></div>
                 <div className="hr closed"><span className="day">Sunday</span><span className="tm">Closed</span></div>
               </div>
